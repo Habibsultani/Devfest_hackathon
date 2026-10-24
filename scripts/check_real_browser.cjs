@@ -16,6 +16,10 @@ async function main() {
   page.setDefaultTimeout(60000);
   const errors = [];
   page.on("pageerror", error => errors.push(error.message));
+  async function settled() {
+    await page.locator('[data-testid="stApp"][data-test-script-state="notRunning"]')
+      .waitFor({ timeout: 300000 });
+  }
   async function select(label, value) {
     await page.locator('[data-testid="stSelectbox"]').filter({ hasText: label })
       .getByRole("combobox").click();
@@ -24,6 +28,7 @@ async function main() {
   try {
     await page.goto(process.env.MEDINSPECT_BASE_URL, { waitUntil: "networkidle" });
     await page.getByRole("heading", { name: "Inspection workspace", exact: true }).waitFor();
+    await settled();
     await page.getByLabel("Batch ID", { exact: true }).fill("REAL-INTEGRATION");
     for (let index = 0; index < cases.length; index++) {
       const sample = cases[index];
@@ -33,7 +38,9 @@ async function main() {
       const analyze = page.getByRole("button", { name: /Analyze instrument$/ });
       await analyze.waitFor();
       await analyze.click();
+      await page.getByText("Running instrument analysis…", { exact: true }).waitFor();
       await page.getByRole("heading", { name: "Analysis result", exact: true }).waitFor({ timeout: 300000 });
+      await settled();
       const metrics = page.locator('[data-testid="stMetricValue"]');
       const values = await metrics.allTextContents();
       if (!values.some(value => Math.abs(Number(value) - sample.anomaly_score) < 0.000002))
@@ -48,17 +55,28 @@ async function main() {
         await page.getByText("Image ready for inspection", { exact: true }).waitFor();
         await page.getByRole("heading", { name: "Analysis result", exact: true })
           .waitFor({ state: "hidden" });
+        await settled();
         await select("Instrument class", sample.instrument_class);
         await analyze.click();
+        await page.getByText("Running instrument analysis…", { exact: true }).waitFor();
         await page.getByRole("heading", { name: "Analysis result", exact: true }).waitFor({ timeout: 300000 });
+        await settled();
       }
       await select("Operator decision", sample.operator_decision);
       await page.getByLabel("Operator note", { exact: true }).fill(sample.operator_note);
       await page.getByRole("button", { name: /Save inspection$/ }).click();
       await page.getByText("Inspection saved in this session. Download it from Session report.", { exact: true }).waitFor();
+      await settled();
       await page.screenshot({ path: `artifacts/integration/real-${index + 1}.png`, fullPage: true });
       console.log(`Browser analysis/review saved: ${sample.source_path}`);
-      if (index < cases.length - 1) await page.getByRole("button", { name: /Start new inspection$/ }).click();
+      if (index < cases.length - 1) {
+        await page.getByRole("button", { name: /Start new inspection$/ }).click();
+        await page.getByRole("button", { name: /Start new inspection$/ }).waitFor({ state: "hidden" });
+        await settled();
+        await page.waitForFunction(() =>
+          document.querySelector('input[aria-label="Instrument ID"]')?.value === ""
+        );
+      }
     }
     await page.getByRole("tab", { name: "Session report", exact: true }).click();
     const downloadEvent = page.waitForEvent("download");

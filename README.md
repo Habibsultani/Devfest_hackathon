@@ -106,6 +106,7 @@ is substituted. Read [the integration contract](docs/inference_contract.md).
 ## Evidence
 
 - [Current Dinomaly results](reports/dinomaly_metrics.json) contains per-instrument and equal-weight macro metrics.
+- [Real app acceptance](reports/integration_smoke.json) records direct-model, browser and CSV parity checks.
 - [Person 2 handoff](docs/PERSON2_HANDOFF.md) lists integration changes and exact setup commands.
 - [Research sources](docs/research_sources.md) credits reused code and records deviations from the paper.
 - [Model protocol](reports/dinomaly_protocol.json) records selection and calibration rules.

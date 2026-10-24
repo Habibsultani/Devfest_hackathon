@@ -63,7 +63,8 @@ def start_new_inspection() -> None:
     """Reset the working image and ID, keeping the batch, class, and saved records."""
     st.session_state.pop("active_inspection", None)
     st.session_state.pop("inspection_context", None)
-    st.session_state.pop("instrument_id", None)
+    # Assign the widget state so the browser receives an explicit empty value.
+    st.session_state.instrument_id = ""
     st.session_state.upload_revision = st.session_state.get("upload_revision", 0) + 1
 
 

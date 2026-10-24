@@ -20,6 +20,13 @@ includes the instrument19 corrosion miss, whose score lies between the two class
 thresholds and previously exposed incorrect default-class routing.
 Public deployment, updated final slides and demo recording remain team tasks.
 
+The combined local suite passed 111 tests with one Windows symlink skip. Real
+browser acceptance passed five native-size original images and verified exported
+scores, thresholds, class/version/checksums, flags and operator decisions against
+direct inference. The reset callback explicitly clears the instrument-ID widget
+so browser state cannot carry it into the next inspection. Numerical evidence is
+in `reports/integration_smoke.json`.
+
 Person 1 changed the experiment to instrument12 and instrument19. Each has 12
 normal training images, four normal plus four defect validation images, and four
 normal plus four defect test images. Both instrument types therefore have equal
