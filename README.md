@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="assets/readme/hero.svg" alt="MedInspect AI — AI-assisted surgical-instrument inspection by Team Kabura" width="100%">
+  <img src="assets/readme/hero.svg" alt="MedInspect AI — AI-assisted surgical-instrument inspection by Team Kaboora" width="100%">
 </p>
 
 <p align="center">
@@ -375,6 +375,6 @@ components, not automatically to all original project code. See
 ---
 
 <p align="center">
-  <strong>Kabura · MedInspect AI · DevFest Samsun 2026</strong><br>
+  <strong>Kaboora · MedInspect AI · DevFest Samsun 2026</strong><br>
   <a href="https://medinspect-ai-devfest.streamlit.app/">Explore the working prototype ↗</a>
 </p>
