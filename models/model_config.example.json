@@ -1,0 +1,15 @@
+{
+  "schema_version": 1,
+  "model_version": "REPLACE_WITH_PERSON_ONES_MODEL_VERSION",
+  "instrument_class": "REPLACE_WITH_EVALUATED_INSTRUMENT_CLASS",
+  "threshold": null,
+  "artifact": {
+    "path": "models/REPLACE_WITH_TRAINED_ARTIFACT.ckpt",
+    "sha256": "REPLACE_WITH_ACTUAL_SHA256_DIGEST",
+    "url": null
+  },
+  "heatmap_scale": {
+    "min": null,
+    "max": null
+  }
+}

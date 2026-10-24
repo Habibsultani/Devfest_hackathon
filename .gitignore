@@ -1,0 +1,38 @@
+# Python environments and caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+*.egg-info/
+
+# Local secrets and editor state
+.env
+.env.*
+!.env.example
+.streamlit/secrets.toml
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Person One's data and model artifacts
+data/
+*.ckpt
+*.pt
+*.pth
+*.onnx
+*.bin
+*.safetensors
+models/model_config.json
+models/*.part
+
+# Local inspection exports, build products, and QA artifacts
+inspection-*.csv
+artifacts/
+dist/
+build/
+*.log
