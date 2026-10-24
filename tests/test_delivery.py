@@ -18,6 +18,7 @@ def test_source_archive_excludes_secrets_data_and_models_and_verifies_hashes(tmp
         "data/raw/image.png": b"private",
         "models/checkpoint.ckpt": b"private",
         ".git/config": b"private",
+        "docs/~$open-presentation.pptx": b"temporary Office metadata",
         ".venv-gpu/Lib/model.py": b"environment",
         ".venv-review/Lib/module.py": b"environment",
         "inspection-private.csv": b"private",

@@ -1,9 +1,0 @@
-source_path,group_id,label,defect_type,anomaly_score,threshold,requires_review,latency_seconds,model_version
-instrument19/test/blood/0022_IMG_1042.png,dd52fc621b4e7228,1,blood,18.485103607177734,22.20443153381348,False,0.07920620002551004,medinspect-instrument19-balanced-v2
-instrument19/test/blood/0025_IMG_1044.png,dd52fc621b4e7228,1,blood,20.818105697631836,22.20443153381348,False,0.07927490002475679,medinspect-instrument19-balanced-v2
-instrument19/test/blood/0026_IMG_1044.png,dd52fc621b4e7228,1,blood,20.843727111816406,22.20443153381348,False,0.07596200000261888,medinspect-instrument19-balanced-v2
-instrument19/test/corrosion/0027_IMG_1044.png,dd52fc621b4e7228,1,corrosion,20.843719482421875,22.20443153381348,False,0.07918419997440651,medinspect-instrument19-balanced-v2
-instrument19/test/good/IMG_1041.jpg,f78bfa392c12dbf4,0,good,20.449295043945312,22.20443153381348,False,0.08522040001116693,medinspect-instrument19-balanced-v2
-instrument19/train/good/IMG_4732.png,34bc1a194f8092f7,0,good,12.047921180725098,22.20443153381348,False,0.07877570000709966,medinspect-instrument19-balanced-v2
-instrument19/train/good/IMG_4733.png,accc372abce0b2f6,0,good,19.06640625,22.20443153381348,False,0.07413359999191016,medinspect-instrument19-balanced-v2
-instrument19/train/good/IMG_4750.png,a8a80771681a57c2,0,good,16.004047393798828,22.20443153381348,False,0.0648073999909684,medinspect-instrument19-balanced-v2

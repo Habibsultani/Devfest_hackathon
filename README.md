@@ -8,12 +8,13 @@ The model uses equal training counts and balanced normal/defect evaluation cohor
 The active model is **Dinomaly + MobileSAM + high-resolution patches + rank-8
 LoRA**, reusing the published approach and official implementation components.
 It achieved **14/16 correct, macro F1 0.875**, with one false alarm and one missed
-defect on the small balanced development comparison. Earlier failed PatchCore
-experiments are retained rather than replaced with claimed success.
+defect on the small balanced development comparison. Historical PatchCore results
+are retained as compact summaries, with detailed outputs available in Git history.
 
 This research prototype screens visible anomalies. It does not certify device
 quality, safety or sterility. Application and inference branches are integrated;
-public hosting and final submission materials remain team tasks.
+the public application is available at **https://medinspect-ai-devfest.streamlit.app/**.
+Final presentation, video and event-form preparation remain separate submission tasks.
 
 ## Setup
 
@@ -35,15 +36,17 @@ complete tested environment. Anomalib's imported video/CLIP dependencies and the
 Hub API version expected by timm are included.
 
 Install Git before setup: MobileSAM is pinned to an upstream Git revision.
-The private draft release requires `GITHUB_TOKEN` with repository access or your
+The draft model release requires `GITHUB_TOKEN` with repository access or your
 existing Git credentials. Tokens stay outside source/config files. The app can
 also retrieve missing artifacts on first analysis; both Dinomaly and MobileSAM
 are checked against their saved SHA-256 before loading. A corrupt local file is
 rejected rather than silently replaced. The class registry supplies both configs,
 their distinct thresholds and validation-derived fixed heatmap display scales.
 
-Windows/macOS/Linux launchers and Docker instructions are in
-[operations](docs/operations.md) and [deployment](docs/deployment.md).
+Windows: `powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1`.
+macOS/Linux: `bash scripts/start.sh`. Use `-Setup` / `--setup` to install the lock,
+`-CheckOnly` / `--check` for diagnostics, or `-Port 8503` / `--port 8503` for another port.
+See [deployment](docs/deployment.md) for cloud and Docker settings.
 Uploads accept JPEG/PNG up to 20 MB and 40 million pixels, preserving native size.
 Select the instrument class manually; changing class or input clears stale results.
 
@@ -84,7 +87,7 @@ python -m scripts.fetch_model --all --github-auth
 python -m scripts.inspect_image path\to\new_image.png --instrument instrument19
 ```
 
-Artifact downloads verify the configured SHA-256. For this private repository,
+Artifact downloads verify the configured SHA-256. For the draft model release,
 `--github-auth` uses `GITHUB_TOKEN` or existing Git credentials without storing a
 token in the project. If no hosted artifact is available, reproduce it locally.
 
@@ -107,14 +110,13 @@ is substituted. Read [the integration contract](docs/inference_contract.md).
 
 - [Current Dinomaly results](reports/dinomaly_metrics.json) contains per-instrument and equal-weight macro metrics.
 - [Real app acceptance](reports/integration_smoke.json) records direct-model, browser and CSV parity checks.
-- [Person 2 handoff](docs/PERSON2_HANDOFF.md) lists integration changes and exact setup commands.
 - [Research sources](docs/research_sources.md) credits reused code and records deviations from the paper.
 - [Model protocol](reports/dinomaly_protocol.json) records selection and calibration rules.
 - `reports/dinomaly/instrument12/` and `reports/dinomaly/instrument19/` contain current predictions, confusion/ROC plots and audits.
-- `reports/instrument12/`, `reports/instrument19/` and `reports/balanced_metrics.json` preserve the failed balanced PatchCore baseline and its stress tests.
+- [Balanced PatchCore results](reports/balanced_metrics.json) and [region experiment](reports/region_experiment.json) preserve the negative baseline comparison.
 - [Dataset notes](docs/dataset.md) describe provenance, masks, balance and restrictions.
 - [Evaluation notes](docs/evaluation.md) explain calibration and limitations.
-- `reports/baseline/` preserves the first unbalanced experiment.
+- [Historical pilot summary](reports/baseline_summary.json) preserves the earlier unbalanced experiment; full obsolete outputs remain in the recorded Git revision.
 
 | Current Dinomaly model | TP | FP | TN | FN | Image AUROC |
 | --- | ---: | ---: | ---: | ---: | ---: |
@@ -128,7 +130,8 @@ was 0.9941 and 0.9785. More independent data is needed for final validation.
 
 `python -m scripts.run_pipeline` reproduces the older PatchCore baseline;
 `python -m scripts.run_region_experiment` reproduces its color-mask experiment.
-Neither is the current default model. See the archived reports for negative results.
+Neither is the current default model. Their result summaries remain for comparison;
+redundant per-image pilot outputs and obsolete presentation files were removed.
 
 Tests cover balance quotas, leakage rejection, preprocessing/map alignment,
 calibration, input errors, artifact integrity, dynamic predictions and fresh-process
@@ -152,3 +155,21 @@ CC-BY-NC-ND-4.0. Method: [the dataset paper](https://arxiv.org/html/2509.21561v2
 [Anomalib](https://github.com/open-edge-platform/anomalib/tree/v2.2.0/src/anomalib/models/image/dinomaly)
 and [MobileSAM](https://github.com/ChaoningZhang/MobileSAM). Defects are simulated;
 dataset performance does not establish clinical effectiveness.
+
+## Review and source submission
+
+Run `python -m scripts.doctor --require-model`, `python -m pip check`,
+`python -m pytest -q`, `python -m ruff check .` and `python -m ruff format --check .`.
+The real browser check above is separate from unit tests and requires the original images.
+Download the CSV before closing the app: history belongs to the current session.
+
+Run `python -m scripts.package_source` to create a source ZIP and SHA-256 file in
+`dist/`. It includes a revision/file-hash manifest and excludes environments,
+secrets, datasets, model weights, inspection exports and temporary Office files.
+Use `--max-size-mb NUMBER` with the event's actual limit. Presentation and demo
+video are separate submission files; outdated application-stage decks are not
+part of the final source repository.
+
+Essential documents: [architecture](docs/architecture.md), [inference API](docs/inference_contract.md),
+[deployment](docs/deployment.md), [dataset](docs/dataset.md),
+[evaluation](docs/evaluation.md), and [research attribution](docs/research_sources.md).

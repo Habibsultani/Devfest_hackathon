@@ -1,9 +1,0 @@
-source_path,group_id,label,defect_type,anomaly_score,threshold,requires_review,latency_seconds,model_version
-instrument12/test/blood/0013_IMG_1020.png,116a76418e3a94c6,1,blood,20.076427459716797,23.042034149169925,False,0.14593410002999008,medinspect-instrument12-balanced-v3-region
-instrument12/test/blood/0014_IMG_1020.png,116a76418e3a94c6,1,blood,20.07498550415039,23.042034149169925,False,0.12898739997763187,medinspect-instrument12-balanced-v3-region
-instrument12/test/blood/0015_IMG_1018.png,d383de6728b89d1d,1,blood,24.19857406616211,23.042034149169925,True,0.1257628999883309,medinspect-instrument12-balanced-v3-region
-instrument12/test/blood/0016_IMG_1018.png,d383de6728b89d1d,1,blood,24.198564529418945,23.042034149169925,True,0.10335200000554323,medinspect-instrument12-balanced-v3-region
-instrument12/test/good/IMG_1017.jpg,715b5c079f4df485,0,good,21.748628616333008,23.042034149169925,False,0.07683660002658144,medinspect-instrument12-balanced-v3-region
-instrument12/train/good/IMG_7198.JPG,d3d9a85b45bfb932,0,good,21.22965431213379,23.042034149169925,False,0.12152859999332577,medinspect-instrument12-balanced-v3-region
-instrument12/train/good/IMG_7206.JPG,60643a887079a812,0,good,19.836071014404297,23.042034149169925,False,0.12787919997936115,medinspect-instrument12-balanced-v3-region
-instrument12/train/good/IMG_7211.JPG,f02f1dd2e3bc26ac,0,good,20.190166473388672,23.042034149169925,False,0.14573470002505928,medinspect-instrument12-balanced-v3-region

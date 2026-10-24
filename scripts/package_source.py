@@ -54,6 +54,8 @@ def eligible_source(name: str) -> bool:
         return False
     if path.name.startswith(".env") and path.name != ".env.example":
         return False
+    if path.name.startswith("~$"):
+        return False
     if path.match("inspection-*.csv") or path.as_posix() == "SOURCE_MANIFEST.json":
         return False
     return True
@@ -156,9 +158,7 @@ def main() -> int:
             ).strip()
         )
         suffix = "-working" if dirty else ""
-        output = (
-            args.output or ROOT / "dist" / f"MedInspect_AI_Person_Two_{revision[:8]}{suffix}.zip"
-        )
+        output = args.output or ROOT / "dist" / f"MedInspect_AI_Source_{revision[:8]}{suffix}.zip"
         result = build_archive(
             ROOT,
             output,
