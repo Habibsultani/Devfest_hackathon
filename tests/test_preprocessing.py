@@ -1,7 +1,7 @@
 import numpy as np
-from PIL import Image
 import pytest
 import torch
+from PIL import Image
 
 from src.preprocessing import align_anomaly_map, preprocess_image, validate_image
 
@@ -9,7 +9,12 @@ from src.preprocessing import align_anomaly_map, preprocess_image, validate_imag
 def test_letterbox_and_inverse_remove_padding():
     tensor, geometry = preprocess_image(Image.new("RGB", (80, 40), "black"), 64)
     assert tensor.shape == (3, 64, 64)
-    assert (geometry.left, geometry.top, geometry.resized_width, geometry.resized_height) == (0, 16, 64, 32)
+    assert (geometry.left, geometry.top, geometry.resized_width, geometry.resized_height) == (
+        0,
+        16,
+        64,
+        32,
+    )
     raw_map = torch.full((64, 64), 90.0)
     raw_map[16:48] = 3
     aligned = align_anomaly_map(raw_map, geometry)

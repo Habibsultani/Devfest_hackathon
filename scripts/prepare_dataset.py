@@ -1,18 +1,18 @@
 """Index Purdue folders, validate masks and assign entire source groups to splits."""
 
 import argparse
-from collections import Counter
 import csv
 import hashlib
 import json
 import os
-from pathlib import Path
 import random
 import re
+from collections import Counter
+from pathlib import Path
 
 import imagehash
 import numpy as np
-from PIL import Image, ImageOps
+from PIL import Image
 
 from src.dataset import file_sha256, load_manifest, write_json
 from src.preprocessing import validate_image
@@ -46,14 +46,22 @@ def group_images(records: list[dict], max_distance: int = 4) -> list[dict]:
             identical = first["pixel_sha256"] == second["pixel_sha256"]
             if same_source or identical or distance <= max_distance:
                 parents[find(i)] = find(j)
-                pairs.append({"first": first["source_path"], "second": second["source_path"],
-                              "phash_distance": distance, "same_source_id": same_source,
-                              "identical_pixels": identical})
+                pairs.append(
+                    {
+                        "first": first["source_path"],
+                        "second": second["source_path"],
+                        "phash_distance": distance,
+                        "same_source_id": same_source,
+                        "identical_pixels": identical,
+                    }
+                )
     members = {}
     for i, row in enumerate(records):
         members.setdefault(find(i), []).append(row)
     for group in members.values():
-        group_id = hashlib.sha256("\n".join(sorted(r["source_path"] for r in group)).encode()).hexdigest()[:16]
+        group_id = hashlib.sha256(
+            "\n".join(sorted(r["source_path"] for r in group)).encode()
+        ).hexdigest()[:16]
         for row in group:
             row["group_id"] = group_id
     return pairs
@@ -64,21 +72,36 @@ def assign_splits(records: list[dict], seed: int) -> dict:
     test_groups = {r["group_id"] for r in records if r["original_split"] == "test"}
     candidates = sorted({r["group_id"] for r in records} - test_groups)
     if len(candidates) < 3:
-        raise ValueError("Fewer than three independent training-source groups remain. Choose another class; do not weaken leakage checks.")
+        raise ValueError(
+            "Fewer than three independent training-source groups remain. Choose "
+            "another class; do not weaken leakage checks."
+        )
     random.Random(seed).shuffle(candidates)
     n_validation = max(1, round(len(candidates) * 0.2))
     n_test = max(1, round(len(candidates) * 0.2))
     validation = set(candidates[:n_validation])
-    test_groups.update(candidates[n_validation:n_validation + n_test])
+    test_groups.update(candidates[n_validation : n_validation + n_test])
     for row in records:
-        row["split"] = "test" if row["group_id"] in test_groups else "validation" if row["group_id"] in validation else "train"
+        row["split"] = (
+            "test"
+            if row["group_id"] in test_groups
+            else "validation"
+            if row["group_id"] in validation
+            else "train"
+        )
         if row["split"] == "train" and row["label"]:
             raise ValueError("An abnormal image was assigned to training.")
-    return {split: dict(Counter("defect" if r["label"] else "good" for r in records if r["split"] == split))
-            for split in ("train", "validation", "test")}
+    return {
+        split: dict(
+            Counter("defect" if r["label"] else "good" for r in records if r["split"] == split)
+        )
+        for split in ("train", "validation", "test")
+    }
 
 
-def prepare_dataset(raw: Path, output: Path, instrument: str, seed: int = 42, phash_distance: int = 4) -> dict:
+def prepare_dataset(
+    raw: Path, output: Path, instrument: str, seed: int = 42, phash_distance: int = 4
+) -> dict:
     raw, output = raw.resolve(), output.resolve()
     root = raw / instrument
     records = []
@@ -95,8 +118,12 @@ def prepare_dataset(raw: Path, output: Path, instrument: str, seed: int = 42, ph
                 raise ValueError("Purdue training folder must contain normal images only.")
             mask = None
             if label:
-                candidates = [p for p in (root / "ground_truth" / defect_type).glob("*")
-                              if p.stem in (image_path.stem, image_path.stem + "_mask") and p.suffix.lower() in EXTENSIONS]
+                candidates = [
+                    p
+                    for p in (root / "ground_truth" / defect_type).glob("*")
+                    if p.stem in (image_path.stem, image_path.stem + "_mask")
+                    and p.suffix.lower() in EXTENSIONS
+                ]
                 if len(candidates) != 1:
                     raise ValueError(f"Expected exactly one defect mask for {image_path}")
                 mask = candidates[0]
@@ -112,15 +139,32 @@ def prepare_dataset(raw: Path, output: Path, instrument: str, seed: int = 42, ph
                         raise ValueError(f"Mask/image dimensions differ: {mask}")
                     values = np.unique(np.asarray(mask_image.convert("L")))
                     if not np.any(values > 127) or 0 not in values:
-                        raise ValueError(f"Expected a nonempty foreground/background defect mask: {mask}")
-            records.append({"source_path": image_path.relative_to(raw).as_posix(),
-                            "image_path": os.path.relpath(image_path, output).replace(os.sep, "/"),
-                            "instrument_class": instrument, "label": label, "defect_type": defect_type,
-                            "mask_path": os.path.relpath(mask, output).replace(os.sep, "/") if mask else "",
-                            "original_split": original_split, "source_id": source_id(image_path.stem),
-                            "sha256": file_sha256(image_path), "mask_sha256": file_sha256(mask) if mask else "",
-                            "pixel_sha256": pixels, "phash": phash, "width": rgb.width, "height": rgb.height})
-    all_masks = {p for p in (root / "ground_truth").rglob("*") if p.is_file() and p.suffix.lower() in EXTENSIONS}
+                        raise ValueError(
+                            f"Expected a nonempty foreground/background defect mask: {mask}"
+                        )
+            records.append(
+                {
+                    "source_path": image_path.relative_to(raw).as_posix(),
+                    "image_path": os.path.relpath(image_path, output).replace(os.sep, "/"),
+                    "instrument_class": instrument,
+                    "label": label,
+                    "defect_type": defect_type,
+                    "mask_path": os.path.relpath(mask, output).replace(os.sep, "/") if mask else "",
+                    "original_split": original_split,
+                    "source_id": source_id(image_path.stem),
+                    "sha256": file_sha256(image_path),
+                    "mask_sha256": file_sha256(mask) if mask else "",
+                    "pixel_sha256": pixels,
+                    "phash": phash,
+                    "width": rgb.width,
+                    "height": rgb.height,
+                }
+            )
+    all_masks = {
+        p
+        for p in (root / "ground_truth").rglob("*")
+        if p.is_file() and p.suffix.lower() in EXTENSIONS
+    }
     if all_masks != used_masks:
         raise ValueError(f"Unpaired masks: {sorted(str(p) for p in all_masks - used_masks)}")
     if not records or not any(r["label"] for r in records):
@@ -135,18 +179,34 @@ def prepare_dataset(raw: Path, output: Path, instrument: str, seed: int = 42, ph
         writer.writerows(records)
     load_manifest(manifest)
     source_path = raw / f"{instrument}_source.json"
-    provenance = json.loads(source_path.read_text(encoding="utf-8")) if source_path.exists() else None
-    summary = {"instrument_class": instrument, "seed": seed, "phash_max_distance": phash_distance,
-               "counts": counts, "total_images": len(records), "total_masks": len(used_masks),
-               "independent_groups": len({r["group_id"] for r in records}),
-               "dimensions": dict(Counter(f"{r['width']}x{r['height']}" for r in records)),
-               "mask_binarization": "Convert to grayscale and use >127; source masks include soft edges.",
-               "manifest_sha256": file_sha256(manifest),
-               "dataset_revision": provenance["revision"] if provenance else "unverified local data",
-               "policy": "Original test groups stay test. Train-source groups split 60/20/20. Validation is normal-only.",
-               "limitations": "pHash and capture IDs are heuristics, not proof of independence between physical instruments."}
+    provenance = (
+        json.loads(source_path.read_text(encoding="utf-8")) if source_path.exists() else None
+    )
+    summary = {
+        "instrument_class": instrument,
+        "seed": seed,
+        "phash_max_distance": phash_distance,
+        "counts": counts,
+        "total_images": len(records),
+        "total_masks": len(used_masks),
+        "independent_groups": len({r["group_id"] for r in records}),
+        "dimensions": dict(Counter(f"{r['width']}x{r['height']}" for r in records)),
+        "mask_binarization": "Convert to grayscale and use >127; source masks include soft edges.",
+        "manifest_sha256": file_sha256(manifest),
+        "dataset_revision": provenance["revision"] if provenance else "unverified local data",
+        "policy": (
+            "Original test groups stay test. Train-source groups split 60/20/20. "
+            "Validation is normal-only."
+        ),
+        "limitations": (
+            "pHash and capture IDs are heuristics, not proof of independence "
+            "between physical instruments."
+        ),
+    }
     write_json(output / "summary.json", summary)
-    write_json(output / "duplicate_audit.json", {"linked_pairs": pairs, "cross_split_linked_pairs": 0})
+    write_json(
+        output / "duplicate_audit.json", {"linked_pairs": pairs, "cross_split_linked_pairs": 0}
+    )
     return summary
 
 
@@ -158,7 +218,12 @@ def main():
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--phash-distance", type=int, default=4)
     args = parser.parse_args()
-    print(json.dumps(prepare_dataset(args.raw, args.output, args.instrument, args.seed, args.phash_distance), indent=2))
+    print(
+        json.dumps(
+            prepare_dataset(args.raw, args.output, args.instrument, args.seed, args.phash_distance),
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

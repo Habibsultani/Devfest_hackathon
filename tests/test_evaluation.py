@@ -1,14 +1,20 @@
 import numpy as np
 import pytest
 
-from scripts.train_model import calibrate_threshold, balanced_threshold
+from scripts.train_model import balanced_threshold, calibrate_threshold
 from src.evaluation import image_metrics
 
 
 def test_metrics_include_missed_defects_and_false_alarms():
     result = image_metrics([0, 0, 1, 1], [0.1, 0.8, 0.4, 0.9], 0.5)
     assert [result[k] for k in ("TP", "FP", "TN", "FN")] == [1, 1, 1, 1]
-    assert result["recall"] == result["precision"] == result["f1"] == result["false_positive_rate"] == 0.5
+    assert (
+        result["recall"]
+        == result["precision"]
+        == result["f1"]
+        == result["false_positive_rate"]
+        == 0.5
+    )
     assert result["image_auroc"] == 0.75
 
 

@@ -1,7 +1,7 @@
 # Inference interface for Person 2
 
-Person 1 supplies preprocessing, saved models, thresholds and evaluation. Person 2
-supplies Streamlit, overlays, human review, CSV records and deployment. The
+The combined project includes preprocessing, saved models, thresholds, evaluation,
+Streamlit, overlays, human review and CSV export. The
 supported classes are instrument12 and instrument19. They share the unified
 Dinomaly artifact and use class-specific thresholds.
 
@@ -20,6 +20,14 @@ variable `MEDINSPECT_MODEL_CONFIG` selects a fixed artifact; a conflicting decla
 class is rejected. Loaded models are cached, with invalidation when config contents
 or artifact file stats change. Both supported models fit in the cache.
 
+The app reads `models/model_registry.json` through `src.model_config.load_model_configs`.
+Its gateway passes both `instrument_class=selected_class` and the selected
+`config_path` explicitly. It accepts the canonical flat AI metadata schema,
+resolves artifact paths relative to each config, and checks both the shared
+Dinomaly artifact and the separate MobileSAM checkpoint. Private GitHub assets
+use `GITHUB_TOKEN` or Git credentials; authorization is stripped on cross-host redirects.
+Missing or corrupt SAM weights are a model error as well as missing main weights.
+
 | Field | Meaning |
 | --- | --- |
 | anomaly_score | Python float, raw model-specific distance, not probability. |
@@ -33,6 +41,10 @@ Input is one PIL image, at least 8 pixels on each side and at most 40 million
 pixels total. Grayscale/palette inputs convert to RGB and transparency composites
 over white. Animated/multipage inputs are rejected. The app must enforce its
 upload-byte limit before decoding.
+
+The integrated app enforces 20 MB and 40 million pixels, preserves native size,
+and uses saved per-class validation display bounds. These affect display only;
+model weights, score aggregation and review thresholds are unchanged.
 
 The active backend applies EXIF orientation, RGB conversion and independent
 MobileSAM instrument segmentation. It preserves native image resolution while

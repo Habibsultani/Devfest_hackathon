@@ -17,7 +17,15 @@ def load_manifest(path: Path, verify_files: bool = True) -> list[dict]:
         rows = list(csv.DictReader(stream))
     if not rows:
         raise ValueError("Dataset manifest is empty.")
-    required = {"image_path", "mask_path", "label", "split", "group_id", "sha256", "instrument_class"}
+    required = {
+        "image_path",
+        "mask_path",
+        "label",
+        "split",
+        "group_id",
+        "sha256",
+        "instrument_class",
+    }
     groups, hashes = {}, {}
     for row in rows:
         if not required <= row.keys():
@@ -45,4 +53,6 @@ def load_manifest(path: Path, verify_files: bool = True) -> list[dict]:
 
 def write_json(path: Path, value) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
-    path.write_text(json.dumps(value, indent=2, allow_nan=False) + "\n", encoding="utf-8", newline="\n")
+    path.write_text(
+        json.dumps(value, indent=2, allow_nan=False) + "\n", encoding="utf-8", newline="\n"
+    )

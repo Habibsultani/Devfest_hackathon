@@ -1,14 +1,20 @@
 import json
-from pathlib import Path
 import subprocess
 import sys
+from pathlib import Path
 
 import numpy as np
-from PIL import Image
 import pytest
+from PIL import Image
 
 from src.dataset import load_manifest
-from src.inference import DEFAULT_CONFIG, Inspector, ModelLoadError, get_inspector, inspect_image, supported_classes
+from src.inference import (
+    DEFAULT_CONFIG,
+    ModelLoadError,
+    get_inspector,
+    inspect_image,
+    supported_classes,
+)
 
 
 def test_missing_model_has_explicit_error(tmp_path):
@@ -70,7 +76,17 @@ def test_reload_in_a_fresh_process_matches_saved_model(trained_model, tmp_path):
     with Image.open(probe["image_path"]) as image:
         expected = inspector.inspect(image)
     map_path = tmp_path / "reloaded.npy"
-    output = subprocess.check_output([sys.executable, "-m", "scripts.inspect_image", str(probe["image_path"]), "--map-output", str(map_path)], text=True)
+    output = subprocess.check_output(
+        [
+            sys.executable,
+            "-m",
+            "scripts.inspect_image",
+            str(probe["image_path"]),
+            "--map-output",
+            str(map_path),
+        ],
+        text=True,
+    )
     actual = json.loads(output)
     assert actual["anomaly_score"] == pytest.approx(expected["anomaly_score"], rel=1e-6)
     assert actual["anomaly_map_shape"] == list(expected["anomaly_map"].shape)

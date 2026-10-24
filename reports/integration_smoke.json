@@ -1,0 +1,108 @@
+{
+  "timestamp_utc": "2026-10-24T15:29:01.700252+00:00",
+  "result": "passed",
+  "scope": "Real CPU inference, native-size maps, browser upload, review, CSV parity",
+  "mocked_inference": false,
+  "class_switch_invalidates_result": true,
+  "packages": {
+    "torch": "2.8.0+cpu",
+    "anomalib": "2.2.0",
+    "streamlit": "1.50.0",
+    "numpy": "2.2.6",
+    "Pillow": "11.3.0",
+    "pandas": "2.3.3"
+  },
+  "cases": [
+    {
+      "instrument_id": "REAL-001",
+      "instrument_class": "instrument12",
+      "source_path": "instrument12/test/good/IMG_1017.jpg",
+      "image_sha256": "82d77f027bae0368fdf7149ed0f41a8a9c166c7c191eb5effff382fa6b7594fa",
+      "size": [
+        1561,
+        2842
+      ],
+      "anomaly_score": 0.6150143146514893,
+      "threshold": 0.686599850654602,
+      "requires_review": false,
+      "model_version": "medinspect-dinomaly-sam-lora-v4",
+      "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "config_sha256": "7acc837c2af3177987c88410cd19b5c58b7f03b099a5faf2f071bb66b5dbc893",
+      "operator_decision": "Accept",
+      "operator_note": "Real model integration check; human assessment remains required."
+    },
+    {
+      "instrument_id": "REAL-002",
+      "instrument_class": "instrument12",
+      "source_path": "instrument12/test/blood/0013_IMG_1020.png",
+      "image_sha256": "8a2eaa92bee851696fa0ad7d0b246d8fdbf7cc4facaa0ceb3ee6dbaf13e9e959",
+      "size": [
+        2963,
+        3036
+      ],
+      "anomaly_score": 0.7023817300796509,
+      "threshold": 0.686599850654602,
+      "requires_review": true,
+      "model_version": "medinspect-dinomaly-sam-lora-v4",
+      "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "config_sha256": "7acc837c2af3177987c88410cd19b5c58b7f03b099a5faf2f071bb66b5dbc893",
+      "operator_decision": "Flag for review",
+      "operator_note": "Real model integration check; human assessment remains required."
+    },
+    {
+      "instrument_id": "REAL-003",
+      "instrument_class": "instrument19",
+      "source_path": "instrument19/train/good/IMG_4732.png",
+      "image_sha256": "14859a3603e211b0d018e2a006dfcafff3a71c83a5e65ac9c54234fc827e0146",
+      "size": [
+        1308,
+        2564
+      ],
+      "anomaly_score": 0.6229926347732544,
+      "threshold": 0.702874481678009,
+      "requires_review": false,
+      "model_version": "medinspect-dinomaly-sam-lora-v4",
+      "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "config_sha256": "29c6d643a0e00704d12402b52a0ff1d2ab6a796325a2da53f39dd23f010b2802",
+      "operator_decision": "Accept",
+      "operator_note": "Real model integration check; human assessment remains required."
+    },
+    {
+      "instrument_id": "REAL-004",
+      "instrument_class": "instrument19",
+      "source_path": "instrument19/test/blood/0022_IMG_1042.png",
+      "image_sha256": "a3137ce6497a90e2b771c93be314364a929f407eebefbe8601a553041b24043b",
+      "size": [
+        1859,
+        1808
+      ],
+      "anomaly_score": 0.7219119071960449,
+      "threshold": 0.702874481678009,
+      "requires_review": true,
+      "model_version": "medinspect-dinomaly-sam-lora-v4",
+      "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "config_sha256": "29c6d643a0e00704d12402b52a0ff1d2ab6a796325a2da53f39dd23f010b2802",
+      "operator_decision": "Flag for review",
+      "operator_note": "Real model integration check; human assessment remains required."
+    },
+    {
+      "instrument_id": "REAL-005",
+      "instrument_class": "instrument19",
+      "source_path": "instrument19/test/corrosion/0027_IMG_1044.png",
+      "image_sha256": "8c5694afe6540851a070fe735b6c332d6cc2ed57515a51925154e55d620661db",
+      "size": [
+        2059,
+        1568
+      ],
+      "anomaly_score": 0.6883562207221985,
+      "threshold": 0.702874481678009,
+      "requires_review": false,
+      "model_version": "medinspect-dinomaly-sam-lora-v4",
+      "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "config_sha256": "29c6d643a0e00704d12402b52a0ff1d2ab6a796325a2da53f39dd23f010b2802",
+      "operator_decision": "Inconclusive",
+      "operator_note": "Real model integration check; human assessment remains required."
+    }
+  ],
+  "limitations": "Integration acceptance, not an independent accuracy evaluation. Includes the known instrument19 corrosion false negative. Existing segmentation cache may be warm."
+}

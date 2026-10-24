@@ -1,14 +1,14 @@
 """Download Purdue classes at a fixed revision, verifying source checksums."""
 
 import argparse
-from collections import Counter
-from concurrent.futures import ThreadPoolExecutor
 import hashlib
 import json
-from pathlib import Path
 import re
 import urllib.parse
 import urllib.request
+from collections import Counter
+from concurrent.futures import ThreadPoolExecutor
+from pathlib import Path
 
 REPO = "purdueviperlab/Surgical_Instruments_Unsupervised_Defect_Detection"
 REVISION = "e791b82e9616889e356b4cf7d40d6b56ba87b0c5"
@@ -50,7 +50,10 @@ def download_dataset(output: Path, instrument: str, revision: str = REVISION) ->
         temporary = target.with_suffix(target.suffix + ".part")
         for attempt in range(3):
             try:
-                with urllib.request.urlopen(url, timeout=120) as response, temporary.open("wb") as stream:
+                with (
+                    urllib.request.urlopen(url, timeout=120) as response,
+                    temporary.open("wb") as stream,
+                ):
                     while chunk := response.read(1024 * 1024):
                         stream.write(chunk)
                 digest = sha256(temporary)
@@ -67,9 +70,16 @@ def download_dataset(output: Path, instrument: str, revision: str = REVISION) ->
     card_url = f"https://huggingface.co/datasets/{REPO}/raw/{revision}/README.md"
     with urllib.request.urlopen(card_url, timeout=60) as response:
         (output / instrument / "DATASET_CARD.md").write_bytes(response.read())
-    provenance = {"repository": REPO, "revision": revision, "instrument_class": instrument,
-                  "license": "CC-BY-NC-ND-4.0", "files": records}
-    (output / f"{instrument}_source.json").write_text(json.dumps(provenance, indent=2) + "\n", encoding="utf-8")
+    provenance = {
+        "repository": REPO,
+        "revision": revision,
+        "instrument_class": instrument,
+        "license": "CC-BY-NC-ND-4.0",
+        "files": records,
+    }
+    (output / f"{instrument}_source.json").write_text(
+        json.dumps(provenance, indent=2) + "\n", encoding="utf-8"
+    )
     return provenance
 
 
@@ -78,19 +88,40 @@ def main():
     parser.add_argument("--output", type=Path, default=Path("data/raw"))
     parser.add_argument("--instrument", default="instrument1")
     parser.add_argument("--instruments", nargs="+", help="Download a specific list of classes.")
-    parser.add_argument("--all", action="store_true", help="Download all 20 classes, with bounded parallel downloads.")
+    parser.add_argument(
+        "--all",
+        action="store_true",
+        help="Download all 20 classes, with bounded parallel downloads.",
+    )
     parser.add_argument("--revision", default=REVISION)
     args = parser.parse_args()
-    instruments = [f"instrument{i}" for i in range(1, 21)] if args.all else args.instruments or [args.instrument]
+    instruments = (
+        [f"instrument{i}" for i in range(1, 21)]
+        if args.all
+        else args.instruments or [args.instrument]
+    )
+
     def fetch_class(instrument):
         result = download_dataset(args.output, instrument, args.revision)
-        print(f"Verified {len(result['files'])} files for {instrument} at {args.revision}.", flush=True)
-        return {"instrument_class": instrument, "files": len(result["files"]),
-                "bytes": sum(r["bytes"] for r in result["files"]),
-                "folder_counts": dict(Counter(str(Path(r['path']).parent).replace('\\', '/') for r in result['files']))}
+        print(
+            f"Verified {len(result['files'])} files for {instrument} at {args.revision}.",
+            flush=True,
+        )
+        return {
+            "instrument_class": instrument,
+            "files": len(result["files"]),
+            "bytes": sum(r["bytes"] for r in result["files"]),
+            "folder_counts": dict(
+                Counter(str(Path(r["path"]).parent).replace("\\", "/") for r in result["files"])
+            ),
+        }
+
     with ThreadPoolExecutor(max_workers=3) as pool:
         inventory = list(pool.map(fetch_class, instruments))
-    (args.output / "inventory.json").write_text(json.dumps({"revision": args.revision, "classes": inventory}, indent=2) + "\n", encoding="utf-8")
+    (args.output / "inventory.json").write_text(
+        json.dumps({"revision": args.revision, "classes": inventory}, indent=2) + "\n",
+        encoding="utf-8",
+    )
 
 
 if __name__ == "__main__":

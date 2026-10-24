@@ -1,19 +1,24 @@
 """Freeze equal per-instrument cohorts with balanced validation/test labels."""
 
 import argparse
-from collections import Counter, defaultdict
 import csv
 import json
 import os
-from pathlib import Path
 import random
+from collections import Counter, defaultdict
+from pathlib import Path
 
 from scripts.prepare_dataset import prepare_dataset
 from src.dataset import file_sha256, load_manifest, write_json
 
 
-def choose_balanced_rows(rows: list[dict], seed: int = 42, train_normal: int = 12,
-                         validation_per_label: int = 4, test_per_label: int = 4) -> tuple[list[dict], dict]:
+def choose_balanced_rows(
+    rows: list[dict],
+    seed: int = 42,
+    train_normal: int = 12,
+    validation_per_label: int = 4,
+    test_per_label: int = 4,
+) -> tuple[list[dict], dict]:
     """Allocate source groups first, then sample within their exclusive fold.
 
     Sampling never looks at a model score. Unselected relatives are excluded,
@@ -30,10 +35,15 @@ def choose_balanced_rows(rows: list[dict], seed: int = 42, train_normal: int = 1
     groups = defaultdict(list)
     for row in rows:
         groups[row["group_id"]].append(row)
-    anomaly_groups = sorted(g for g, records in groups.items() if any(int(r["label"]) for r in records))
+    anomaly_groups = sorted(
+        g for g, records in groups.items() if any(int(r["label"]) for r in records)
+    )
     pure_groups = sorted(set(groups) - set(anomaly_groups))
     if len(anomaly_groups) < 2:
-        raise ValueError("Need at least two defect source groups to separate validation and test without leakage.")
+        raise ValueError(
+            "Need at least two defect source groups to separate validation and "
+            "test without leakage."
+        )
     rng = random.Random(seed)
 
     def sample_groups(group_ids, label, count):
@@ -85,29 +95,53 @@ def choose_balanced_rows(rows: list[dict], seed: int = 42, train_normal: int = 1
             selected.extend(dict(row, split=split) for row in normals + defects)
         if not feasible:
             continue
-        training_groups = [g for g in pure_groups if g not in owners
-                           and all(r["original_split"] == "train" for r in groups[g])]
+        training_groups = [
+            g
+            for g in pure_groups
+            if g not in owners and all(r["original_split"] == "train" for r in groups[g])
+        ]
         training = sample_groups(training_groups, 0, train_normal)
         if len(training) != train_normal:
             continue
         selected.extend(dict(row, split="train") for row in training)
         selected.sort(key=lambda r: (r["split"], r["source_path"]))
         chosen_paths = {r["source_path"] for r in selected}
-        return selected, {"seed": seed, "first_feasible_allocation_attempt": attempt + 1,
-                          "train_normal": train_normal, "validation_per_label": validation_per_label,
-                          "test_per_label": test_per_label,
-                          "excluded_sources": [r["source_path"] for r in rows if r["source_path"] not in chosen_paths],
-                          "selection_rule": "Source groups assigned first; sample without scores. Equal per-instrument quotas. No oversampling or duplicated images."}
-    raise ValueError("Cannot satisfy balance quotas without group leakage. Reduce quotas or choose a class with more independent source captures.")
+        return selected, {
+            "seed": seed,
+            "first_feasible_allocation_attempt": attempt + 1,
+            "train_normal": train_normal,
+            "validation_per_label": validation_per_label,
+            "test_per_label": test_per_label,
+            "excluded_sources": [
+                r["source_path"] for r in rows if r["source_path"] not in chosen_paths
+            ],
+            "selection_rule": (
+                "Source groups assigned first; sample without scores. Equal "
+                "per-instrument quotas. No oversampling or duplicated images."
+            ),
+        }
+    raise ValueError(
+        "Cannot satisfy balance quotas without group leakage. Reduce quotas "
+        "or choose a class with more independent source captures."
+    )
 
 
-def prepare_balanced(raw: Path, output: Path, instrument: str, seed: int = 42,
-                     train_normal: int = 12, validation_per_label: int = 4, test_per_label: int = 4) -> dict:
+def prepare_balanced(
+    raw: Path,
+    output: Path,
+    instrument: str,
+    seed: int = 42,
+    train_normal: int = 12,
+    validation_per_label: int = 4,
+    test_per_label: int = 4,
+) -> dict:
     index = output / "_index"
     original_summary = prepare_dataset(raw, index, instrument, seed)
     with (index / "manifest.csv").open(encoding="utf-8", newline="") as stream:
         all_rows = list(csv.DictReader(stream))
-    selected, audit = choose_balanced_rows(all_rows, seed, train_normal, validation_per_label, test_per_label)
+    selected, audit = choose_balanced_rows(
+        all_rows, seed, train_normal, validation_per_label, test_per_label
+    )
     for row in selected:
         for field in ("image_path", "mask_path"):
             if row[field]:
@@ -120,17 +154,41 @@ def prepare_balanced(raw: Path, output: Path, instrument: str, seed: int = 42,
         writer.writeheader()
         writer.writerows(selected)
     verified = load_manifest(manifest)
-    counts = {split: dict(Counter("defect" if r["label"] else "good" for r in verified if r["split"] == split))
-              for split in ("train", "validation", "test")}
-    summary = dict(original_summary, counts=counts, total_images=len(selected),
-                   source_total_images=len(all_rows), excluded_images=len(all_rows) - len(selected),
-                   total_masks=sum(r["label"] for r in verified), manifest_sha256=file_sha256(manifest),
-                   policy="Balanced v2: equal normal training count across instruments; equal normal/defect validation and test counts; source groups disjoint.",
-                   evaluation_status="Fresh classes selected by source counts before training; test labels reserved for final evaluation.",
-                   independent_groups=len({r["group_id"] for r in selected}),
-                   group_counts={split: len({r["group_id"] for r in selected if r["split"] == split}) for split in counts},
-                   defect_group_counts={split: len({r["group_id"] for r in selected if r["split"] == split and int(r["label"])}) for split in ("validation", "test")},
-                   balance_limitation="Image counts are balanced. Defect variants share few source captures, so this is not balanced independent clinical evidence.")
+    counts = {
+        split: dict(
+            Counter("defect" if r["label"] else "good" for r in verified if r["split"] == split)
+        )
+        for split in ("train", "validation", "test")
+    }
+    summary = dict(
+        original_summary,
+        counts=counts,
+        total_images=len(selected),
+        source_total_images=len(all_rows),
+        excluded_images=len(all_rows) - len(selected),
+        total_masks=sum(r["label"] for r in verified),
+        manifest_sha256=file_sha256(manifest),
+        policy=(
+            "Balanced v2: equal normal training count across instruments; equal "
+            "normal/defect validation and test counts; source groups disjoint."
+        ),
+        evaluation_status=(
+            "Fresh classes selected by source counts before training; test "
+            "labels reserved for final evaluation."
+        ),
+        independent_groups=len({r["group_id"] for r in selected}),
+        group_counts={
+            split: len({r["group_id"] for r in selected if r["split"] == split}) for split in counts
+        },
+        defect_group_counts={
+            split: len({r["group_id"] for r in selected if r["split"] == split and int(r["label"])})
+            for split in ("validation", "test")
+        },
+        balance_limitation=(
+            "Image counts are balanced. Defect variants share few source "
+            "captures, so this is not balanced independent clinical evidence."
+        ),
+    )
     write_json(output / "summary.json", summary)
     write_json(output / "selection_audit.json", audit)
     with (index / "duplicate_audit.json").open(encoding="utf-8") as stream:
@@ -149,8 +207,20 @@ def main():
     parser.add_argument("--validation-per-label", type=int, default=4)
     parser.add_argument("--test-per-label", type=int, default=4)
     args = parser.parse_args()
-    print(json.dumps(prepare_balanced(args.raw, args.output, args.instrument, args.seed, args.train_normal,
-                                      args.validation_per_label, args.test_per_label), indent=2))
+    print(
+        json.dumps(
+            prepare_balanced(
+                args.raw,
+                args.output,
+                args.instrument,
+                args.seed,
+                args.train_normal,
+                args.validation_per_label,
+                args.test_per_label,
+            ),
+            indent=2,
+        )
+    )
 
 
 if __name__ == "__main__":

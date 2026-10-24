@@ -1,5 +1,5 @@
-from PIL import Image
 import pytest
+from PIL import Image
 
 from src.segmentation import InstrumentSegmenter
 

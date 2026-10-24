@@ -28,5 +28,12 @@
   "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore.",
   "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-dinomaly-sam-lora-v4.pt",
   "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672506005",
-  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f",
+  "heatmap_scale": {
+    "min": 0.0,
+    "max": 0.7539221048355103,
+    "method": "maximum of raw maps on validation images only",
+    "validation_images": 8,
+    "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc"
+  }
 }

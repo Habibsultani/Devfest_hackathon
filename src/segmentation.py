@@ -1,15 +1,15 @@
 """SAM instrument masks from the official MobileSAM implementation, no GT input."""
 
-from functools import lru_cache
 import hashlib
 import json
+from functools import lru_cache
 from pathlib import Path
 from threading import Lock
 
 import cv2
 import numpy as np
-from PIL import Image
 import torch
+from PIL import Image
 
 from src.dataset import file_sha256
 from src.preprocessing import validate_image
@@ -19,7 +19,8 @@ ROOT = Path(__file__).resolve().parents[1]
 
 class InstrumentSegmenter:
     def __init__(self, device: str = "cpu"):
-        from mobile_sam import sam_model_registry, SamPredictor
+        from mobile_sam import SamPredictor, sam_model_registry
+
         self.config = json.loads((ROOT / "models/sam_config.json").read_text())
         if self.config.get("segmentation_version") != "rgb-automatic-prompts-v3":
             raise ValueError("Unsupported SAM preprocessing version.")
@@ -44,9 +45,14 @@ class InstrumentSegmenter:
             with np.load(cache_file) as saved:
                 return saved["mask"].astype(bool)
         scale = 512 / rgb.width
-        small = np.asarray(rgb.resize((512, max(1, round(rgb.height * scale))), Image.Resampling.BILINEAR))
+        small = np.asarray(
+            rgb.resize((512, max(1, round(rgb.height * scale))), Image.Resampling.BILINEAR)
+        )
         pixels = small.astype(np.float32)
-        neutral = ((pixels[..., 2] <= 1.20 * np.maximum(pixels[..., 0], pixels[..., 1])) & (pixels.max(2) > 40)).astype(np.uint8)
+        neutral = (
+            (pixels[..., 2] <= 1.20 * np.maximum(pixels[..., 0], pixels[..., 1]))
+            & (pixels.max(2) > 40)
+        ).astype(np.uint8)
         neutral = cv2.morphologyEx(neutral, cv2.MORPH_CLOSE, np.ones((3, 3), np.uint8))
         count, labels, stats, _ = cv2.connectedComponentsWithStats(neutral)
         seed = np.zeros_like(neutral, dtype=bool)
@@ -57,7 +63,7 @@ class InstrumentSegmenter:
         if len(coordinates) < 32:
             raise ValueError("No automatic instrument prompts on the expected blue/purple cloth.")
         # Deterministic spatially spread positive prompts derived from RGB only.
-        candidates = coordinates[::max(1, len(coordinates) // 4096)]
+        candidates = coordinates[:: max(1, len(coordinates) // 4096)]
         selected_points = [candidates[len(candidates) // 2]]
         distances = np.full(len(candidates), np.inf)
         for _ in range(15):
@@ -70,16 +76,35 @@ class InstrumentSegmenter:
         if coarse_cache.is_file():
             with np.load(coarse_cache) as saved:
                 coarse = saved["mask"]
-            masks = np.asarray([cv2.resize(coarse.astype(np.uint8), (small.shape[1], small.shape[0]), interpolation=cv2.INTER_NEAREST).astype(bool)])
+            masks = np.asarray(
+                [
+                    cv2.resize(
+                        coarse.astype(np.uint8),
+                        (small.shape[1], small.shape[0]),
+                        interpolation=cv2.INTER_NEAREST,
+                    ).astype(bool)
+                ]
+            )
             confidence = [1.0]
         else:
             with self.lock, torch.inference_mode():
                 self.predictor.set_image(small)
-                masks, confidence, _ = self.predictor.predict(point_coords=points, point_labels=np.ones(len(points), dtype=np.int32), box=box, multimask_output=True)
+                masks, confidence, _ = self.predictor.predict(
+                    point_coords=points,
+                    point_labels=np.ones(len(points), dtype=np.int32),
+                    box=box,
+                    multimask_output=True,
+                )
+
         def mask_score(index):
             mask = masks[index]
             overlap = float((mask & seed).sum())
-            return 2 * overlap / max(1, mask.sum() + seed.sum()) + 0.25 * overlap / seed.sum() + 0.05 * confidence[index]
+            return (
+                2 * overlap / max(1, mask.sum() + seed.sum())
+                + 0.25 * overlap / seed.sum()
+                + 0.05 * confidence[index]
+            )
+
         selected = masks[max(range(len(masks)), key=mask_score)]
         # Remove SAM's occasional towel islands while retaining a broad border
         # around neutral metal/red foreground. Uses input colors only.
@@ -87,7 +112,9 @@ class InstrumentSegmenter:
         selected = selected & neighborhood
         if (selected & seed).sum() / seed.sum() < 0.5:
             raise ValueError("SAM segmentation excluded too much of the detected instrument.")
-        full = cv2.resize(selected.astype(np.uint8), rgb.size, interpolation=cv2.INTER_NEAREST).astype(bool)
+        full = cv2.resize(
+            selected.astype(np.uint8), rgb.size, interpolation=cv2.INTER_NEAREST
+        ).astype(bool)
         temporary = cache_file.with_suffix(".part")
         with temporary.open("wb") as stream:
             np.savez_compressed(stream, mask=full)

@@ -1,5 +1,32 @@
 # Person 2 model integration handoff
 
+## Integration update, 24 October 2026
+
+`integration/model-app` combines the app branch with the model code now in main.
+The UI reads both canonical class configs through the registry and passes the
+selected class and exact config path into inference. Dinomaly and MobileSAM
+artifacts are both verified, including authenticated private-release downloads.
+Streamlit 1.50 and the AI stack share the Python 3.12 CPU lock; pandas 2.3.3 and
+packaging 25 avoid the UI dependency conflicts. Use README setup commands.
+
+Fixed heatmap maxima were derived from the eight validation images per class
+(0.7497789859771729 for instrument12; 0.7539221048355103 for instrument19).
+They clip display colors only. No weights, review thresholds or test labels were
+changed to improve application results. Upload limits are 20 MB / 40 megapixels.
+
+Run `python -m scripts.check_real_app` with Playwright to compare direct inference,
+real browser analysis and exported CSV for both classes. Its five-image acceptance
+includes the instrument19 corrosion miss, whose score lies between the two class
+thresholds and previously exposed incorrect default-class routing.
+Public deployment, updated final slides and demo recording remain team tasks.
+
+The combined local suite passed 111 tests with one Windows symlink skip. Real
+browser acceptance passed five native-size original images and verified exported
+scores, thresholds, class/version/checksums, flags and operator decisions against
+direct inference. The reset callback explicitly clears the instrument-ID widget
+so browser state cannot carry it into the next inspection. Numerical evidence is
+in `reports/integration_smoke.json`.
+
 Person 1 changed the experiment to instrument12 and instrument19. Each has 12
 normal training images, four normal plus four defect validation images, and four
 normal plus four defect test images. Both instrument types therefore have equal
