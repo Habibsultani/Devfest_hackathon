@@ -46,3 +46,5 @@ inspection-*.csv
 htmlcov/
 .vscode/
 .idea/
+~$*
+docs/MedInspect_AI_Application*.pptx

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="400" viewBox="0 0 1280 400" role="img" aria-labelledby="title desc">
+  <title id="title">MedInspect AI — visual evidence, human decisions</title>
+  <desc id="desc">Team Kabura's surgical-instrument inspection prototype. The workflow connects an image, AI analysis, operator review and a CSV report.</desc>
+  <defs>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse"><path d="M 40 0 L 0 0 0 40" fill="none" stroke="#24464e" stroke-width="1"/></pattern>
+  </defs>
+  <rect width="1280" height="400" rx="20" fill="#142e35"/>
+  <rect x="760" width="520" height="400" rx="20" fill="url(#grid)"/>
+  <path d="M64 63h34" stroke="#69d4c0" stroke-width="4"/>
+  <text x="111" y="69" fill="#a5d6d0" font-family="Arial, Helvetica, sans-serif" font-size="14" font-weight="700" letter-spacing="2">KABURA / DEVFEST SAMSUN 2026</text>
+  <text x="60" y="160" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="70" font-weight="700" letter-spacing="-3">MedInspect <tspan fill="#69d4c0">AI</tspan></text>
+  <text x="64" y="212" fill="#ffffff" font-family="Arial, Helvetica, sans-serif" font-size="27">Visual evidence. Human decisions.</text>
+  <text x="64" y="254" fill="#b9d0d5" font-family="Arial, Helvetica, sans-serif" font-size="18">AI-assisted visual inspection for surgical instruments.</text>
+  <rect x="64" y="303" width="180" height="35" rx="7" fill="#21464b"/>
+  <circle cx="82" cy="320.5" r="4" fill="#69d4c0"/>
+  <text x="96" y="326" fill="#dff8f2" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700">WORKING PROTOTYPE</text>
+  <text x="263" y="326" fill="#b9d0d5" font-family="Arial, Helvetica, sans-serif" font-size="14">Dinomaly + MobileSAM</text>
+  <rect x="850" y="65" width="332" height="270" rx="18" fill="#18383f" stroke="#36585f"/>
+  <text x="877" y="102" fill="#a5d6d0" font-family="Arial, Helvetica, sans-serif" font-size="12" font-weight="700" letter-spacing="1.5">THE INSPECTION LOOP</text>
+  <path d="M894 144v137" stroke="#42656a" stroke-width="2"/>
+  <g font-family="Arial, Helvetica, sans-serif">
+    <circle cx="894" cy="140" r="14" fill="#2b5a5c"/><text x="890" y="145" fill="#dff8f2" font-size="12">1</text>
+    <text x="924" y="145" fill="#ffffff" font-size="17">Upload an image</text>
+    <circle cx="894" cy="190" r="14" fill="#2b5a5c"/><text x="890" y="195" fill="#dff8f2" font-size="12">2</text>
+    <text x="924" y="195" fill="#ffffff" font-size="17">Inspect the heatmap</text>
+    <circle cx="894" cy="240" r="14" fill="#69d4c0"/><text x="890" y="245" fill="#142e35" font-size="12" font-weight="700">3</text>
+    <text x="924" y="245" fill="#69d4c0" font-size="17" font-weight="700">Record a human decision</text>
+    <circle cx="894" cy="290" r="14" fill="#2b5a5c"/><text x="890" y="295" fill="#dff8f2" font-size="12">4</text>
+    <text x="924" y="295" fill="#ffffff" font-size="17">Export the evidence</text>
+  </g>
+</svg>

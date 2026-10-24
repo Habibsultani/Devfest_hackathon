@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="806.4pt" height="233.28pt" viewBox="0 0 806.4 233.28" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <title>MedInspect AI balanced development comparison</title>
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:title>MedInspect AI balanced development comparison</dc:title>
+    <dc:description>Source: reports/dinomaly_metrics.json. Instrument12: 8/8 correct. Instrument19: 6/8 correct, one false alarm and one missed defect. Development evidence, not independent final validation.</dc:description>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.7, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 233.28
+L 806.4 233.28
+L 806.4 0
+L 0 0
+z
+" style="fill: #f6f8f9"/>
+  </g>
+  <g id="patch_2">
+   <path d="M 160.4736 111.9744
+L 200.7936 111.9744
+Q 208.0512 111.9744 208.0512 109.87488
+L 208.0512 86.08032
+Q 208.0512 83.9808 200.7936 83.9808
+L 160.4736 83.9808
+Q 153.216 83.9808 153.216 86.08032
+L 153.216 109.87488
+Q 153.216 111.9744 160.4736 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_3">
+   <path d="M 221.76 111.9744
+L 262.08 111.9744
+Q 269.3376 111.9744 269.3376 109.87488
+L 269.3376 86.08032
+Q 269.3376 83.9808 262.08 83.9808
+L 221.76 83.9808
+Q 214.5024 83.9808 214.5024 86.08032
+L 214.5024 109.87488
+Q 214.5024 111.9744 221.76 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_4">
+   <path d="M 283.0464 111.9744
+L 323.3664 111.9744
+Q 330.624 111.9744 330.624 109.87488
+L 330.624 86.08032
+Q 330.624 83.9808 323.3664 83.9808
+L 283.0464 83.9808
+Q 275.7888 83.9808 275.7888 86.08032
+L 275.7888 109.87488
+Q 275.7888 111.9744 283.0464 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_5">
+   <path d="M 344.3328 111.9744
+L 384.6528 111.9744
+Q 391.9104 111.9744 391.9104 109.87488
+L 391.9104 86.08032
+Q 391.9104 83.9808 384.6528 83.9808
+L 344.3328 83.9808
+Q 337.0752 83.9808 337.0752 86.08032
+L 337.0752 109.87488
+Q 337.0752 111.9744 344.3328 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_6">
+   <path d="M 405.6192 111.9744
+L 445.9392 111.9744
+Q 453.1968 111.9744 453.1968 109.87488
+L 453.1968 86.08032
+Q 453.1968 83.9808 445.9392 83.9808
+L 405.6192 83.9808
+Q 398.3616 83.9808 398.3616 86.08032
+L 398.3616 109.87488
+Q 398.3616 111.9744 405.6192 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_7">
+   <path d="M 466.9056 111.9744
+L 507.2256 111.9744
+Q 514.4832 111.9744 514.4832 109.87488
+L 514.4832 86.08032
+Q 514.4832 83.9808 507.2256 83.9808
+L 466.9056 83.9808
+Q 459.648 83.9808 459.648 86.08032
+L 459.648 109.87488
+Q 459.648 111.9744 466.9056 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_8">
+   <path d="M 528.192 111.9744
+L 568.512 111.9744
+Q 575.7696 111.9744 575.7696 109.87488
+L 575.7696 86.08032
+Q 575.7696 83.9808 568.512 83.9808
+L 528.192 83.9808
+Q 520.9344 83.9808 520.9344 86.08032
+L 520.9344 109.87488
+Q 520.9344 111.9744 528.192 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_9">
+   <path d="M 589.4784 111.9744
+L 629.7984 111.9744
+Q 637.056 111.9744 637.056 109.87488
+L 637.056 86.08032
+Q 637.056 83.9808 629.7984 83.9808
+L 589.4784 83.9808
+Q 582.2208 83.9808 582.2208 86.08032
+L 582.2208 109.87488
+Q 582.2208 111.9744 589.4784 111.9744
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_10">
+   <path d="M 160.4736 163.296
+L 200.7936 163.296
+Q 208.0512 163.296 208.0512 161.19648
+L 208.0512 137.40192
+Q 208.0512 135.3024 200.7936 135.3024
+L 160.4736 135.3024
+Q 153.216 135.3024 153.216 137.40192
+L 153.216 161.19648
+Q 153.216 163.296 160.4736 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_11">
+   <path d="M 221.76 163.296
+L 262.08 163.296
+Q 269.3376 163.296 269.3376 161.19648
+L 269.3376 137.40192
+Q 269.3376 135.3024 262.08 135.3024
+L 221.76 135.3024
+Q 214.5024 135.3024 214.5024 137.40192
+L 214.5024 161.19648
+Q 214.5024 163.296 221.76 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_12">
+   <path d="M 283.0464 163.296
+L 323.3664 163.296
+Q 330.624 163.296 330.624 161.19648
+L 330.624 137.40192
+Q 330.624 135.3024 323.3664 135.3024
+L 283.0464 135.3024
+Q 275.7888 135.3024 275.7888 137.40192
+L 275.7888 161.19648
+Q 275.7888 163.296 283.0464 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_13">
+   <path d="M 344.3328 163.296
+L 384.6528 163.296
+Q 391.9104 163.296 391.9104 161.19648
+L 391.9104 137.40192
+Q 391.9104 135.3024 384.6528 135.3024
+L 344.3328 135.3024
+Q 337.0752 135.3024 337.0752 137.40192
+L 337.0752 161.19648
+Q 337.0752 163.296 344.3328 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_14">
+   <path d="M 405.6192 163.296
+L 445.9392 163.296
+Q 453.1968 163.296 453.1968 161.19648
+L 453.1968 137.40192
+Q 453.1968 135.3024 445.9392 135.3024
+L 405.6192 135.3024
+Q 398.3616 135.3024 398.3616 137.40192
+L 398.3616 161.19648
+Q 398.3616 163.296 405.6192 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_15">
+   <path d="M 466.9056 163.296
+L 507.2256 163.296
+Q 514.4832 163.296 514.4832 161.19648
+L 514.4832 137.40192
+Q 514.4832 135.3024 507.2256 135.3024
+L 466.9056 135.3024
+Q 459.648 135.3024 459.648 137.40192
+L 459.648 161.19648
+Q 459.648 163.296 466.9056 163.296
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_16">
+   <path d="M 528.192 163.296
+L 568.512 163.296
+Q 575.7696 163.296 575.7696 161.19648
+L 575.7696 137.40192
+Q 575.7696 135.3024 568.512 135.3024
+L 528.192 135.3024
+Q 520.9344 135.3024 520.9344 137.40192
+L 520.9344 161.19648
+Q 520.9344 163.296 528.192 163.296
+z
+" style="fill: #b77916"/>
+  </g>
+  <g id="patch_17">
+   <path d="M 589.4784 163.296
+L 629.7984 163.296
+Q 637.056 163.296 637.056 161.19648
+L 637.056 137.40192
+Q 637.056 135.3024 629.7984 135.3024
+L 589.4784 135.3024
+Q 582.2208 135.3024 582.2208 137.40192
+L 582.2208 161.19648
+Q 582.2208 163.296 589.4784 163.296
+z
+" style="fill: #b34c48"/>
+  </g>
+  <g id="patch_18">
+   <path d="M 26.6112 191.2896
+L 30.6432 191.2896
+Q 33.0624 191.2896 33.0624 190.58976
+L 33.0624 183.82464
+Q 33.0624 183.1248 30.6432 183.1248
+L 26.6112 183.1248
+Q 24.192 183.1248 24.192 183.82464
+L 24.192 190.58976
+Q 24.192 191.2896 26.6112 191.2896
+z
+" style="fill: #0f766e"/>
+  </g>
+  <g id="patch_19">
+   <path d="M 187.8912 191.2896
+L 191.9232 191.2896
+Q 194.3424 191.2896 194.3424 190.58976
+L 194.3424 183.82464
+Q 194.3424 183.1248 191.9232 183.1248
+L 187.8912 183.1248
+Q 185.472 183.1248 185.472 183.82464
+L 185.472 190.58976
+Q 185.472 191.2896 187.8912 191.2896
+z
+" style="fill: #b77916"/>
+  </g>
+  <g id="patch_20">
+   <path d="M 349.1712 191.2896
+L 353.2032 191.2896
+Q 355.6224 191.2896 355.6224 190.58976
+L 355.6224 183.82464
+Q 355.6224 183.1248 353.2032 183.1248
+L 349.1712 183.1248
+Q 346.752 183.1248 346.752 183.82464
+L 346.752 190.58976
+Q 346.752 191.2896 349.1712 191.2896
+z
+" style="fill: #b34c48"/>
+  </g>
+  <g id="text_1">
+   <text style="font-weight: 700; font-size: 14px; font-family: 'Arial'; text-anchor: start; fill: #1b3039" x="24.192" y="30.3264" transform="rotate(-0 24.192 30.3264)">A measured result, with the errors visible.</text>
+  </g>
+  <g id="text_2">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="24.192" y="51.3216" transform="rotate(-0 24.192 51.3216)">16 development images · 8 normal + 8 defect · equal counts per instrument</text>
+  </g>
+  <g id="text_3">
+   <text style="font-weight: 700; font-size: 17px; font-family: 'Arial'; text-anchor: start; fill: #0f766e" x="637.056" y="30.3264" transform="rotate(-0 637.056 30.3264)">14 / 16 correct</text>
+  </g>
+  <g id="text_4">
+   <text style="font-size: 10px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="637.056" y="51.3216" transform="rotate(-0 637.056 51.3216)">Macro F1 0.875</text>
+  </g>
+  <g id="text_5">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'Arial'; text-anchor: start; fill: #1b3039" x="24.192" y="99.144" transform="rotate(-0 24.192 99.144)">instrument12</text>
+  </g>
+  <g id="text_6">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="24.192" y="114.77376" transform="rotate(-0 24.192 114.77376)">8 / 8 correct</text>
+  </g>
+  <g id="text_7">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="669.312" y="101.94336" transform="rotate(-0 669.312 101.94336)">No observed errors</text>
+  </g>
+  <g id="text_8">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'Arial'; text-anchor: start; fill: #1b3039" x="24.192" y="150.4656" transform="rotate(-0 24.192 150.4656)">instrument19</text>
+  </g>
+  <g id="text_9">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="24.192" y="166.09536" transform="rotate(-0 24.192 166.09536)">6 / 8 correct</text>
+  </g>
+  <g id="text_10">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #ffffff" x="548.352" y="153.26496" transform="rotate(-0 548.352 153.26496)">FP</text>
+  </g>
+  <g id="text_11">
+   <text style="font-weight: 700; font-size: 10px; font-family: 'Arial'; text-anchor: middle; fill: #ffffff" x="609.6384" y="153.26496" transform="rotate(-0 609.6384 153.26496)">FN</text>
+  </g>
+  <g id="text_12">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="669.312" y="153.26496" transform="rotate(-0 669.312 153.26496)">1 false alarm · 1 miss</text>
+  </g>
+  <g id="text_13">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="38.7072" y="190.58976" transform="rotate(-0 38.7072 190.58976)">Correct prediction</text>
+  </g>
+  <g id="text_14">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="199.9872" y="190.58976" transform="rotate(-0 199.9872 190.58976)">False alarm (FP)</text>
+  </g>
+  <g id="text_15">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="361.2672" y="190.58976" transform="rotate(-0 361.2672 190.58976)">Missed defect (FN)</text>
+  </g>
+  <g id="text_16">
+   <text style="font-size: 9px; font-family: 'Arial'; text-anchor: start; fill: #536873" x="24.192" y="218.1168" transform="rotate(-0 24.192 218.1168)">Small, previously inspected cohort with related simulated variants. Not independent final validation.</text>
+  </g>
+ </g>
+</svg>

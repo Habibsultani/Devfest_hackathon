@@ -3,7 +3,9 @@
 `reports/protocol.json` records the balanced protocol and manifest hashes written
 before either selected class was fitted. Results are per instrument with an
 equal-weight macro average in `reports/balanced_metrics.json`. Earlier results
-remain under `reports/baseline/`.
+are summarized in `reports/baseline_summary.json`, which records the Git revision
+containing their original detailed outputs. Active dataset audits and per-image
+results remain under `reports/dinomaly/`.
 
 The active model is the researched Dinomaly/SAM/tiling/LoRA integration. Its
 frozen training protocol is `reports/dinomaly_protocol.json`, validation history
@@ -52,7 +54,7 @@ The measured balanced baseline selected all-negative operating points and missed
 4/4 defects for each instrument, with 0/4 false alarms for each. Image AUROC was
 0.500 and 0.875, respectively. The optional region variant detected 2/4 and 3/4
 defects with 0/4 and 3/4 false alarms. Neither result establishes a usable screen;
-the baseline remains the explicit default and the variant remains experimental.
+the active registry uses Dinomaly and the region variant remains historical.
 
 Reports include TP, FP, TN, FN, recall, precision, F1, false-positive rate and
 image AUROC. Undefined metrics are JSON null. Raw anomaly distances are not

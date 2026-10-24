@@ -2,7 +2,7 @@
 
 The application accepts an instrument image, obtains a real model result through Person One's API, displays suspicious regions, and records an independent operator decision. The model and application branches are integrated. Both instrument classes share the trained Dinomaly checkpoint and use separate validation thresholds.
 
-The interface uses shared components in `src/ui.py` and reusable tokens in `assets/styles.css`. The [design system](design_system.md) specifies typography, iconography, surfaces, controls, and responsive behavior. Fonts and icons reuse the pinned Streamlit package's local assets, without an external font service. The session overview reflects saved records and any current analysis awaiting a human decision.
+The interface uses shared components in `src/ui.py` and typography, color, spacing and responsive rules in `assets/styles.css`. Fonts and icons reuse the pinned Streamlit package's local assets, without an external font service. The session overview reflects saved records and any current analysis awaiting a human decision.
 
 ```mermaid
 flowchart TD
@@ -53,4 +53,4 @@ Records include both analysis and save timestamps in UTC, model/config/artifact 
 
 The combined app runs on Python 3.12. `requirements.txt` pins direct model and UI dependencies; `requirements-lock.txt` captures the CPU environment. GitHub Actions checks the combined stack, browser workflow and container startup. The push workflow also retrieves verified weights and tests real-model browser/CSV parity.
 
-Reviewed application and inference branches merge into `main`. A reviewed release configuration and a stable HTTPS artifact source accompany that revision. Streamlit Community Cloud runs `app.py`, retrieves/verifies the artifact, and serves the UI. The release gate requires actual unseen-image inference, a human decision, CSV verification, and model reload in a new public session. See [deployment](deployment.md) and the [inference contract](inference_contract.md).
+Reviewed application and inference branches merge into `main`. Streamlit Community Cloud runs `cloud/streamlit/app.py`, which delegates to the root application and selects the tested CPU lock. It retrieves/verifies both model artifacts and serves the UI. Public browser checks exercised real inference, human decisions, CSV parity and an empty separate session. See [deployment](deployment.md) and the [inference contract](inference_contract.md).

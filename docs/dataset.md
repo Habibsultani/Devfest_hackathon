@@ -2,7 +2,8 @@
 
 The revised experiment uses Purdue instrument12 and instrument19, selected using
 source counts and defect coverage before model inference on those classes. The
-initial instrument1/2/3 run is retained under `reports/baseline/`.
+initial instrument1/2/3 run is summarized in `reports/baseline_summary.json`;
+its full historical outputs remain available in that file's recorded Git revision.
 
 Source: [Purdue VIPER dataset](https://huggingface.co/datasets/purdueviperlab/Surgical_Instruments_Unsupervised_Defect_Detection)
 at immutable revision `e791b82e9616889e356b4cf7d40d6b56ba87b0c5`.
@@ -28,8 +29,8 @@ Attribute [Huang et al, Unsupervised Defect Detection for Surgical Instruments](
 | Test | 4 | 4 | 8 |
 
 Both instruments have equal counts. Across them there are 24 normal training
-images, 16 balanced validation images and 16 balanced test images. PatchCore
-learns its memory bank only from normals; labeled validation selects a threshold.
+images, 16 balanced validation images and 16 balanced test images. The active
+Dinomaly model trains on normal patches; labeled validation selects thresholds.
 Sampling is without replacement, with seed 42. Unused files are listed in each
 `selection_audit.json`; no augmentation or duplication fills balance quotas.
 

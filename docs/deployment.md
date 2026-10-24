@@ -1,6 +1,11 @@
 # Integrated application deployment
 
-The real model and app are combined. No public demo URL has been verified yet.
+Live app: **https://medinspect-ai-devfest.streamlit.app/**.
+The public workflow passed five original-image checks across both classes,
+human review, CSV parity, class-change invalidation and an empty separate browser
+session. This is integration acceptance, not a new accuracy evaluation. The
+known instrument19 corrosion miss remains. Hosted server-reboot acceptance has
+not been recorded.
 Use Python 3.12, Git and the combined CPU dependency lock. Run README setup,
 `python -m scripts.doctor --require-model`, the unit suite and
 `python -m scripts.check_real_app` before publishing a release.
@@ -9,10 +14,22 @@ Use Python 3.12, Git and the combined CPU dependency lock. Run README setup,
 
 `python -m scripts.setup_research_models` retrieves the pinned MobileSAM weights.
 `python -m scripts.fetch_model --all --github-auth` retrieves the shared Dinomaly
-checkpoint from the private team draft release. Both are SHA-256 verified. Set
+checkpoint from the team draft release. Both are SHA-256 verified. Set
 `GITHUB_TOKEN` with repository access in the hosting environment, or provide the
 verified local files. Git credentials are also supported for local development.
 Do not store credentials in configuration JSON, source or a Docker image.
+
+The source repository is public, but draft release assets still require access.
+Use a dedicated fine-grained token restricted to `Devfest_hackathon`, owned by a
+user with push access. Read-only access returned HTTP 403 for this release;
+**Contents: Read and write** resolved the hosted download. Published release
+downloads normally need only read access. Save changed permissions in GitHub,
+then reboot the app. If the token value changes, update the Streamlit secret.
+
+The app's error identifies the affected file and HTTP status. GitHub 401 indicates
+a rejected credential; 403/404 can indicate repository selection or draft access.
+Exhausted rate limits and separate MobileSAM host failures are reported distinctly.
+Do not bypass checksum verification when troubleshooting a download.
 
 The app reads the committed `models/model_registry.json` by default. It verifies
 both artifacts and can download missing weights on first analysis. Optional
@@ -39,12 +56,25 @@ is required for local builds.
 
 ## Hosted service
 
-For Streamlit Community Cloud select the repository, reviewed `main` revision,
-`app.py`, and Python 3.12. Install the combined CPU stack; `requirements.txt` pins
-both direct model and UI dependencies, while the lock provides the full tested
-set. A host using only direct dependencies must be checked against the lock.
-Configure the private artifact token through the service's secret/environment
-settings. Git must be available for the pinned MobileSAM dependency.
+Use these Streamlit Community Cloud settings:
+
+| Setting | Value |
+| --- | --- |
+| Repository | `Habibsultani/Devfest_hackathon` |
+| Branch | `feature/streamlit-deployment`; use `main` after reviewed changes merge |
+| Main file | `cloud/streamlit/app.py` |
+| Python | `3.12` |
+
+The cloud entrypoint delegates to the root app. Its adjacent `requirements.txt`
+selects the tested `requirements-lock.txt` and the PyTorch CPU index. Root
+`packages.txt` supplies Git and OpenCV's Linux libraries; keep the root
+`.streamlit/config.toml`.
+
+In the hosting dashboard's **Settings → Secrets**, add a root-level value:
+
+```toml
+GITHUB_TOKEN = "<repository-scoped token, entered only in the dashboard>"
+```
 
 Native-resolution tiling and MobileSAM need substantially more resources than an
 interface-only app. Measure cold-start, memory and inference time on the actual
@@ -63,5 +93,9 @@ session-only.
 
 After public acceptance, record the verified URL, deployed commit, config/artifact
 hashes, package versions and measured latency. Update the final deck and recording
-with measured results. The existing application-stage slides are not final
-integrated submission evidence.
+with measured results. Presentation and video are separate submission materials;
+obsolete application-stage decks are no longer included in the source repository.
+
+Official references: [dependency discovery](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/app-dependencies),
+[deployment settings](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/deploy),
+and [secrets](https://docs.streamlit.io/deploy/streamlit-community-cloud/deploy-your-app/secrets-management).
