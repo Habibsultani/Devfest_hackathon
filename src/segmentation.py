@@ -34,6 +34,8 @@ class InstrumentSegmenter:
 
     def segment(self, image: Image.Image) -> np.ndarray:
         rgb = validate_image(image)
+        if max(rgb.size) / min(rgb.size) > 8:
+            raise ValueError("Image aspect ratio exceeds the supported 8:1 limit.")
         pixels_digest = rgb.tobytes() + self.config["sha256"].encode()
         key = hashlib.sha256(pixels_digest + b"rgb-automatic-prompts-v3").hexdigest()
         coarse_key = hashlib.sha256(pixels_digest + b"rgb-automatic-prompts-v2").hexdigest()

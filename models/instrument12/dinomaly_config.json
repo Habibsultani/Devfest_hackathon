@@ -25,5 +25,8 @@
   "threshold_method": "per-class balanced-validation-F1",
   "selected_step": 200,
   "score_interpretation": "Raw cosine reconstruction error aggregated over SAM foreground, not a probability.",
-  "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore."
+  "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore.",
+  "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-dinomaly-sam-lora-v4.pt",
+  "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672506005",
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
 }

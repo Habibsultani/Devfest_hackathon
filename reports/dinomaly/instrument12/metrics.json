@@ -16,7 +16,7 @@
   "model_version": "medinspect-dinomaly-sam-lora-v4",
   "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
   "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
-  "config_sha256": "37032e4848db9e3522e43a040ceb6d8064b3bd17836da896893a5d421abf783b",
+  "config_sha256": "85c6d67b62b6b0dde1fd14808343100afdbaf9e7d18215ddd04c1b4616b8c68e",
   "test_groups": 6,
   "defect_type_counts": {
     "blood": 4,
@@ -25,10 +25,11 @@
   "pixel_auroc": 0.9941059524908014,
   "localization_method": "Pooled pixel AUROC; masks nearest-neighbor, maps bilinear, max side 256, padding excluded; normal masks zero.",
   "localization_evaluated_pixels": 428032,
-  "latency_median_seconds": 0.966213349980535,
-  "latency_mean_seconds": 1.088992312499613,
-  "latency_scope": "Preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading. SAM segmentation cache is warm.",
+  "latency_median_seconds": 1.0467774999851827,
+  "latency_mean_seconds": 1.052177962490532,
+  "inference_device": "cuda",
+  "latency_scope": "Preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading. For SAM backend the segmentation cache is warm.",
   "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims.",
   "evaluation_status": "Development comparison; these test images were previously inspected for PatchCore.",
-  "inference_device": "cuda"
+  "config_sha256_encoding": "UTF-8 LF JSON snapshot"
 }

@@ -45,5 +45,8 @@
   },
   "score_interpretation": "Raw PatchCore distance, not defect probability. Larger means more anomalous.",
   "scope": "Research prototype for one declared class. No safety or sterility certification.",
-  "artifact_sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e"
+  "artifact_sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e",
+  "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-instrument19-balanced-v2.pt",
+  "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672508923",
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
 }

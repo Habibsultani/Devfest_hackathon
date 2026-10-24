@@ -15,7 +15,7 @@
   "model_version": "medinspect-instrument12-balanced-v2",
   "artifact_sha256": "d3348560fc0d7c2c0476bf8c167c4a40ef6968759c35ac89f1da9d6a21d0a304",
   "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
-  "config_sha256": "a4933a8f93c26eeb58b31af11e1143e43836e0777b8688d6e0be553a35159e9c",
+  "config_sha256": "e616eaeb49aefe4fddfbca44e81b8c5f74afcd4ab0701788b4c20721c8e5faf6",
   "test_groups": 6,
   "defect_type_counts": {
     "blood": 4,
@@ -28,5 +28,6 @@
   "latency_mean_seconds": 0.11500798750057584,
   "latency_scope": "CPU preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading.",
   "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims.",
-  "balanced_accuracy": 0.5
+  "balanced_accuracy": 0.5,
+  "config_sha256_encoding": "UTF-8 LF JSON snapshot"
 }

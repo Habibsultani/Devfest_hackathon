@@ -102,7 +102,7 @@ def evaluate_model(manifest: Path, config_path: Path, output: Path) -> dict:
             axes[2].set_title("Ground-truth defect mask")
             for ax in axes:
                 ax.axis("off")
-            fig.colorbar(heat, ax=axes[1], shrink=0.6, label="Raw PatchCore distance")
+            fig.colorbar(heat, ax=axes[1], shrink=0.6, label="Raw anomaly score")
             fig.savefig(figures / f"example_overlay_{row['label']}.png", dpi=130)
             plt.close(fig)
     labels = [r["label"] for r in results]

@@ -15,7 +15,7 @@
   "model_version": "medinspect-instrument2-v1",
   "artifact_sha256": "4d81ce1c2712132a8da7f3c952297fcf0ea16f9070c47750bd2d8099af202c62",
   "manifest_sha256": "91c79780e100a4b5a6f85a69e1f53d9be8317a3ec58789b09c1bb144e8861433",
-  "config_sha256": "66cf24169e7dca680d7c6af2dba97a36f573a8584cb6ae9b5e42353e6255e166",
+  "config_sha256": "4a606c281355b3900580dc863ad5ecd2bf8536afa2970dd4654773351ba318dc",
   "test_groups": 11,
   "defect_type_counts": {
     "good": 5,
@@ -27,5 +27,6 @@
   "latency_median_seconds": 0.09418689997983165,
   "latency_mean_seconds": 0.09617687000427395,
   "latency_scope": "CPU preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading.",
-  "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims."
+  "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims.",
+  "config_sha256_encoding": "UTF-8 LF JSON snapshot"
 }

@@ -12,7 +12,7 @@ MobileSAM instrument segmentation, native-resolution image tiles and rank-8
 encoder LoRA adapters. Check `models/model_registry.json` for the currently active
 configs; do not select a backend based on a filename from an earlier message.
 The active version is `medinspect-dinomaly-sam-lora-v4`. Training completed 1,000
-steps; validation selected step 200. All 33 CPU/unit/integration checks passed,
+steps; validation selected step 200. All 34 CPU/unit/integration checks passed,
 including fresh-process reload. Our 16-image balanced development comparison
 produced 14 correct decisions, one false alarm and one missed defect (macro F1
 0.875). Instrument12 was 8/8 correct; instrument19 was 6/8. These are our measured

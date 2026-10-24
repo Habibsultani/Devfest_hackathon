@@ -1,0 +1,49 @@
+{
+  "release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f",
+  "draft": true,
+  "private_repository": true,
+  "artifacts": [
+    {
+      "config": "models/instrument12/dinomaly_config.json",
+      "artifact": "medinspect-dinomaly-sam-lora-v4.pt",
+      "bytes": 150502603,
+      "sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672506005"
+    },
+    {
+      "config": "models/instrument19/dinomaly_config.json",
+      "artifact": "medinspect-dinomaly-sam-lora-v4.pt",
+      "bytes": 150502603,
+      "sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672506005"
+    },
+    {
+      "config": "models/instrument12/model_config.json",
+      "artifact": "medinspect-instrument12-balanced-v2.pt",
+      "bytes": 12136135,
+      "sha256": "d3348560fc0d7c2c0476bf8c167c4a40ef6968759c35ac89f1da9d6a21d0a304",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672508777"
+    },
+    {
+      "config": "models/instrument19/model_config.json",
+      "artifact": "medinspect-instrument19-balanced-v2.pt",
+      "bytes": 12136135,
+      "sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672508923"
+    },
+    {
+      "config": "models/instrument12/region/model_config.json",
+      "artifact": "medinspect-instrument12-balanced-v3-region.pt",
+      "bytes": 12136821,
+      "sha256": "31483c44924c8ef757d5f7e093ba23222af3f1780a62a749084fb0e2f49f9dd1",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672509106"
+    },
+    {
+      "config": "models/instrument19/region/model_config.json",
+      "artifact": "medinspect-instrument19-balanced-v3-region.pt",
+      "bytes": 12136821,
+      "sha256": "6059422e5a5173482909207634e7a8089dd37e3cbff3c0fc5918950b029b367d",
+      "asset_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672513859"
+    }
+  ]
+}

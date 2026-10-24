@@ -1,9 +1,9 @@
 source_path,group_id,label,defect_type,anomaly_score,threshold,requires_review,latency_seconds,model_version
-instrument19/test/blood/0022_IMG_1042.png,dd52fc621b4e7228,1,blood,0.721912145614624,0.702874481678009,True,0.428421399963554,medinspect-dinomaly-sam-lora-v4
-instrument19/test/blood/0025_IMG_1044.png,dd52fc621b4e7228,1,blood,0.7091747522354126,0.702874481678009,True,0.4742124000331387,medinspect-dinomaly-sam-lora-v4
-instrument19/test/blood/0026_IMG_1044.png,dd52fc621b4e7228,1,blood,0.7087392807006836,0.702874481678009,True,0.4530584999592975,medinspect-dinomaly-sam-lora-v4
-instrument19/test/corrosion/0027_IMG_1044.png,dd52fc621b4e7228,1,corrosion,0.6883524656295776,0.702874481678009,False,0.4569132999749854,medinspect-dinomaly-sam-lora-v4
-instrument19/test/good/IMG_1041.jpg,f78bfa392c12dbf4,0,good,0.7143872380256653,0.702874481678009,True,0.4647732000448741,medinspect-dinomaly-sam-lora-v4
-instrument19/train/good/IMG_4732.png,34bc1a194f8092f7,0,good,0.622992753982544,0.702874481678009,False,0.47089719999348745,medinspect-dinomaly-sam-lora-v4
-instrument19/train/good/IMG_4733.png,accc372abce0b2f6,0,good,0.6034188270568848,0.702874481678009,False,0.4176943000056781,medinspect-dinomaly-sam-lora-v4
-instrument19/train/good/IMG_4750.png,a8a80771681a57c2,0,good,0.5777614712715149,0.702874481678009,False,0.3857484000036493,medinspect-dinomaly-sam-lora-v4
+instrument19/test/blood/0022_IMG_1042.png,dd52fc621b4e7228,1,blood,0.721912145614624,0.702874481678009,True,0.35654989996692166,medinspect-dinomaly-sam-lora-v4
+instrument19/test/blood/0025_IMG_1044.png,dd52fc621b4e7228,1,blood,0.7091747522354126,0.702874481678009,True,0.3863952999818139,medinspect-dinomaly-sam-lora-v4
+instrument19/test/blood/0026_IMG_1044.png,dd52fc621b4e7228,1,blood,0.7087392807006836,0.702874481678009,True,0.3781431000097655,medinspect-dinomaly-sam-lora-v4
+instrument19/test/corrosion/0027_IMG_1044.png,dd52fc621b4e7228,1,corrosion,0.6883524656295776,0.702874481678009,False,0.3828340999898501,medinspect-dinomaly-sam-lora-v4
+instrument19/test/good/IMG_1041.jpg,f78bfa392c12dbf4,0,good,0.7143872380256653,0.702874481678009,True,0.3782735000131652,medinspect-dinomaly-sam-lora-v4
+instrument19/train/good/IMG_4732.png,34bc1a194f8092f7,0,good,0.622992753982544,0.702874481678009,False,0.3962782000307925,medinspect-dinomaly-sam-lora-v4
+instrument19/train/good/IMG_4733.png,accc372abce0b2f6,0,good,0.6034188270568848,0.702874481678009,False,0.3450574000016786,medinspect-dinomaly-sam-lora-v4
+instrument19/train/good/IMG_4750.png,a8a80771681a57c2,0,good,0.5777614712715149,0.702874481678009,False,0.31744909996632487,medinspect-dinomaly-sam-lora-v4
