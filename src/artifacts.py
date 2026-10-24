@@ -91,7 +91,45 @@ def ensure_spec(spec: ArtifactSpec) -> Path:
         raise
     except RuntimeError as exc:
         raise ModelError(str(exc)) from exc
-    except (OSError, urllib.error.URLError, ValueError) as exc:
+    except urllib.error.HTTPError as exc:
+        github_api = urlparse(exc.url).hostname == "api.github.com"
+        rate_limited = exc.code == 429 or (
+            github_api
+            and exc.code == 403
+            and exc.headers is not None
+            and exc.headers.get("X-RateLimit-Remaining") == "0"
+        )
+        if rate_limited:
+            detail = "The download service rate limit was reached. Retry after it resets."
+        elif github_api and exc.code == 401:
+            detail = (
+                "GitHub rejected the credential. Check that Streamlit's GITHUB_TOKEN "
+                "is valid and has not expired."
+            )
+        elif github_api and exc.code in {403, 404}:
+            detail = (
+                "GitHub denied access or could not find the model asset. Check that "
+                "GITHUB_TOKEN selects this repository and can access its draft release. "
+                "Draft assets may require Contents: Read and write."
+            )
+        elif exc.code == 403:
+            detail = "The download host denied access. Check the hosting logs and retry."
+        elif exc.code == 404:
+            detail = "The configured download URL is unavailable. Check the model release."
+        else:
+            detail = "The download service returned an error. Retry or check the hosting logs."
+        # Never include request headers, response bodies or signed redirect URLs.
+        raise ModelError(f"Could not download {target.name} (HTTP {exc.code}). {detail}") from exc
+    except TimeoutError as exc:
+        raise ModelError(
+            f"The download of {target.name} timed out. No model was installed. Retry analysis."
+        ) from exc
+    except urllib.error.URLError as exc:
+        raise ModelError(
+            f"Could not connect to the download host for {target.name}. "
+            "Check the hosting network/TLS logs and retry."
+        ) from exc
+    except (OSError, ValueError) as exc:
         raise ModelError("The model artifact could not be retrieved or verified.") from exc
     finally:
         if temporary is not None:

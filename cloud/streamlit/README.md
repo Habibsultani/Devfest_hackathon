@@ -21,12 +21,21 @@ In **Advanced settings → Secrets**, set a root-level secret:
 GITHUB_TOKEN = "<repository-scoped token, entered only in the hosting dashboard>"
 ```
 
-The current checkpoint is an asset of a private draft GitHub release. Use a
-dedicated token restricted to this repository with the permissions GitHub needs
-to read its draft assets. Draft-release access may require write access; a normal
-published private release can use read access. Do not paste the token into chat,
-commit it, or reuse a broad personal credential. Keep both model configuration
-files and thresholds from the integrated main revision.
+The repository is public, but the checkpoint remains an asset of a draft GitHub
+release. Public source access does not expose draft assets. Use a dedicated
+fine-grained token owned by a repository collaborator with push access, restricted
+to `Devfest_hackathon`. For the current draft release, grant **Contents: Read and
+write** if read-only access returns HTTP 403/404. Published release downloads
+normally require only read access. Keep the token in hosting Secrets, outside chat
+and Git. Keep both configurations and thresholds from the integrated main revision.
+
+If analysis reports a download failure, check its filename and HTTP status. A
+GitHub 401 indicates an invalid/expired credential. GitHub 403/404 can indicate
+repository selection or draft-release access; an exhausted rate limit is reported
+separately. A MobileSAM download-host error is separate from GitHub API token
+access. After changing token permissions, save them in GitHub and reboot the app;
+if the token value changes, also replace the Streamlit secret. Never disable
+checksum verification to work around a failed download.
 
 The app retrieves and checksum-verifies its Dinomaly and MobileSAM artifacts on
 first analysis. Allow the cold start to complete. A successful UI launch alone
