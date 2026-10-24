@@ -1,0 +1,4 @@
+# Community Cloud discovers this file beside cloud/streamlit/app.py.
+# Use the tested CPU lock instead of resolving a new GPU-capable environment.
+--extra-index-url https://download.pytorch.org/whl/cpu
+-r ../../requirements-lock.txt
