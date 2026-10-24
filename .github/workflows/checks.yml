@@ -21,6 +21,14 @@ jobs:
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m pytest -q
+      - name: Verify Community Cloud entrypoint
+        run: |
+          python - <<'PY'
+          from streamlit.testing.v1 import AppTest
+          app = AppTest.from_file("cloud/streamlit/app.py").run(timeout=30)
+          assert not app.exception, app.exception
+          assert app.title[0].value == "Inspection workspace"
+          PY
       - run: python -m scripts.doctor
       - run: python -m scripts.package_source
       - uses: actions/upload-artifact@v4
