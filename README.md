@@ -6,7 +6,11 @@ AI-assisted visible-defect screening for surgical instruments, with human review
 
 Person Two's application is implemented on `feature/web-app`: image upload validation, the inference integration boundary, fixed-scale anomaly overlays, independent operator decisions, session inspection records, CSV export, automated tests, and deployment documentation.
 
+The interface follows a documented [design system](docs/design_system.md): one local font family, rounded Material icons, a consistent type scale and spacing grid, reusable panels, and a responsive inspection workflow. Colors, sizes, and component rules are centralized in `assets/styles.css` and `src/ui.py`.
+
 **Real model integration and public deployment are pending Person One's deliverables.** There is no trained checkpoint, inference implementation, dataset, or measured model accuracy in this branch. The app launches without them and clearly disables analysis. Test fixtures exist only under `tests/` and never serve predictions in the app. No public demo URL has been verified yet.
+
+![MedInspect inspection workspace awaiting trained model integration](assets/preview.png)
 
 ## Run locally
 
@@ -104,6 +108,9 @@ docs/demo_script.md             Actual-demo recording and submission preparation
 docs/person_two_status.md       Completed work and remaining integration gates
 docs/MedInspect_AI_Application.pptx Seven-slide application-stage presentation
 docs/presentation.md            Presentation status and optional rebuild tooling
+docs/design_system.md           Shared typography, spacing, color, and icon rules
+assets/styles.css               Reusable interface tokens and component styles
+src/ui.py                       Shared interface components and local font loading
 ```
 
 Person One owns `src/inference.py`, `src/preprocessing.py`, training/data/evaluation scripts, `docs/dataset.md`, `docs/evaluation.md`, model artifacts, and measured results. Those files have deliberately not been implemented here.

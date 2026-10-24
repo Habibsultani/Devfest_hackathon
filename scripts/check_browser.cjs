@@ -17,13 +17,21 @@ async function main() {
   }
   const browser = await chromium.launch(launchOptions);
   try {
-    const page = await browser.newPage({ viewport: { width: 1440, height: 1050 } });
+    const page = await browser.newPage({
+      viewport: { width: 1440, height: 1300 }, reducedMotion: "reduce",
+    });
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
     await page.goto("http://127.0.0.1:8501", { waitUntil: "networkidle" });
-    await page.getByRole("heading", { name: "MedInspect AI", level: 1, exact: true }).waitFor();
+    await page.getByRole("heading", { name: "Inspection workspace", level: 1, exact: true }).waitFor();
+    await page.evaluate(() => document.fonts.ready);
+    const fontsLoaded = await page.evaluate(() =>
+      document.fonts.check('16px "MedInspect Sans"') &&
+      document.fonts.check('20px "MedInspect Icons"')
+    );
+    if (!fontsLoaded) throw new Error("The shared interface fonts did not load.");
     await page.getByText("Awaiting trained model", { exact: true }).waitFor();
-    const analyze = page.getByRole("button", { name: "Analyze instrument", exact: true });
+    const analyze = page.getByRole("button", { name: /Analyze instrument$/ });
     if (!(await analyze.isDisabled())) throw new Error("Analysis must be disabled without a model.");
     await fs.mkdir("artifacts/browser", { recursive: true });
     await page.screenshot({ path: "artifacts/browser/app-awaiting-model.png", fullPage: true });
@@ -37,12 +45,22 @@ async function main() {
     await page.screenshot({ path: "artifacts/browser/app-invalid-upload.png", fullPage: true });
     await page.getByRole("tab", { name: "Session report", exact: true }).click();
     await page.getByText("No inspections saved yet.", { exact: false }).waitFor();
+    await page.locator('[data-testid="stMain"]').evaluate((main) => main.scrollTo(0, 0));
+    await page.screenshot({ path: "artifacts/browser/app-report-empty.png", fullPage: true });
+    await page.getByRole("tab", { name: "About", exact: true }).click();
+    await page.getByRole("heading", { name: "Designed for human assessment", exact: true }).waitFor();
+    await page.locator('[data-testid="stMain"]').evaluate((main) => main.scrollTo(0, 0));
+    await page.screenshot({ path: "artifacts/browser/app-about.png", fullPage: true });
     await page.setViewportSize({ width: 390, height: 844 });
     await page.getByRole("tab", { name: "Inspect instrument", exact: true }).click();
     await page.waitForFunction(() => [...document.querySelectorAll('[role="tab"]')].some(
       (tab) => tab.textContent === "Inspect instrument" && tab.getAttribute("aria-selected") === "true"
     ));
     await page.waitForTimeout(500);
+    const overflow = await page.locator('[data-testid="stMain"]').evaluate(
+      (main) => main.scrollWidth > main.clientWidth + 1
+    );
+    if (overflow) throw new Error("The mobile workspace has horizontal overflow.");
     await page.screenshot({ path: "artifacts/browser/app-mobile.png", fullPage: true });
     if (errors.length) throw new Error(errors.join("\n"));
     console.log("Browser checks passed: missing model, invalid upload, empty report, mobile render.");

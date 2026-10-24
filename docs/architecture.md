@@ -2,6 +2,8 @@
 
 The application accepts an instrument image, obtains a real model result through Person One's API, displays suspicious regions, and records an independent operator decision. The current branch implements Person Two's components. The trained model and its preprocessing remain external integration dependencies.
 
+The interface uses shared components in `src/ui.py` and reusable tokens in `assets/styles.css`. The [design system](design_system.md) specifies typography, iconography, surfaces, controls, and responsive behavior. Fonts and icons reuse the pinned Streamlit package's local assets, without an external font service. The session overview reflects saved records and any current analysis awaiting a human decision.
+
 ```mermaid
 flowchart TD
     A[Operator: JPEG/PNG, batch ID, instrument ID, confirmed class] --> B[Person Two: upload limits, decode, EXIF orientation, RGB]
