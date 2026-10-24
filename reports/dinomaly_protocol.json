@@ -1,0 +1,22 @@
+{
+  "model_version": "medinspect-dinomaly-sam-lora-v4",
+  "steps": 1000,
+  "validate_every": 200,
+  "batch_size": 4,
+  "seed": 42,
+  "manifest_sha256": {
+    "instrument12": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
+    "instrument19": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc"
+  },
+  "device": "cuda",
+  "encoder": "DINOv2-reg small/14",
+  "decoder_depth": 8,
+  "lora_rank": 8,
+  "masking": "Official MobileSAM with 16 deterministic RGB-derived positive prompts; no GT masks.",
+  "patching": "Native 256x256 non-overlapping tiles, resize to 252 for DINO stride14, black background.",
+  "scoring": "Mean of largest 0.1% of stitched instrument-region anomaly values.",
+  "calibration": "Per-instrument validation F1; ties lower false-positive rate then smaller threshold.",
+  "checkpoint_selection": "Validation macro F1, then lower macro FPR, then earlier checkpoint.",
+  "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore.",
+  "training_precision": "CUDA BF16 with FP32 positive-kernel sums; FP32 inference."
+}

@@ -1,0 +1,173 @@
+{
+  "linked_pairs": [
+    {
+      "first": "instrument3/train/good/IMG_7126.JPG",
+      "second": "instrument3/train/good/IMG_7125.JPG",
+      "phash_distance": 2,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7128.JPG",
+      "second": "instrument3/train/good/IMG_7124.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7129.JPG",
+      "second": "instrument3/train/good/IMG_7125.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7129.JPG",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7130.JPG",
+      "second": "instrument3/train/good/IMG_7125.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7130.JPG",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7130.JPG",
+      "second": "instrument3/train/good/IMG_7129.JPG",
+      "phash_distance": 2,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7131.JPG",
+      "second": "instrument3/train/good/IMG_7125.JPG",
+      "phash_distance": 2,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/train/good/IMG_7131.JPG",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0001_IMG_0997.png",
+      "second": "instrument3/test/blood/0000_IMG_0997.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0002_IMG_0997.png",
+      "second": "instrument3/test/blood/0000_IMG_0997.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0002_IMG_0997.png",
+      "second": "instrument3/test/blood/0001_IMG_0997.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0004_IMG_0998.png",
+      "second": "instrument3/test/blood/0003_IMG_0998.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0005_IMG_0998.png",
+      "second": "instrument3/test/blood/0003_IMG_0998.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0005_IMG_0998.png",
+      "second": "instrument3/test/blood/0004_IMG_0998.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0006_IMG_0999.png",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0007_IMG_0999.png",
+      "second": "instrument3/train/good/IMG_7125.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0007_IMG_0999.png",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0007_IMG_0999.png",
+      "second": "instrument3/test/blood/0006_IMG_0999.png",
+      "phash_distance": 2,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0008_IMG_0999.png",
+      "second": "instrument3/train/good/IMG_7126.JPG",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0008_IMG_0999.png",
+      "second": "instrument3/test/blood/0006_IMG_0999.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/0008_IMG_0999.png",
+      "second": "instrument3/test/blood/0007_IMG_0999.png",
+      "phash_distance": 2,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/inst3_blood2.png",
+      "second": "instrument3/test/blood/inst3_blood1.png",
+      "phash_distance": 2,
+      "same_source_id": false,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument3/test/blood/inst3_blood3.png",
+      "second": "instrument3/test/blood/inst3_blood2.png",
+      "phash_distance": 4,
+      "same_source_id": false,
+      "identical_pixels": false
+    }
+  ],
+  "cross_split_linked_pairs": 0
+}

@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "status": "trained",
+  "artifact_format": "torch-state-dict",
+  "artifact_path": "medinspect-instrument2-v1.pt",
+  "model_version": "medinspect-instrument2-v1",
+  "instrument_class": "instrument2",
+  "model": {
+    "backbone": "resnet18",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "num_neighbors": 9
+  },
+  "preprocessing": {
+    "input_size": 256,
+    "resize": "letterbox-bilinear",
+    "padding": "white",
+    "normalization": "imagenet",
+    "exif_transpose": true
+  },
+  "threshold": 16.745491027832035,
+  "threshold_method": "normal-validation-quantile-higher-nextafter",
+  "threshold_quantile": 0.95,
+  "seed": 42,
+  "coreset_sampling_ratio": 0.05,
+  "training_images": 14,
+  "validation_images": 4,
+  "training_patch_embeddings": 14336,
+  "memory_bank_shape": [
+    716,
+    384
+  ],
+  "manifest_sha256": "91c79780e100a4b5a6f85a69e1f53d9be8317a3ec58789b09c1bb144e8861433",
+  "cpu_threads": 4,
+  "dependencies": {
+    "torch": "2.8.0+cpu",
+    "torchvision": "0.23.0+cpu",
+    "anomalib": "2.2.0",
+    "timm": "1.0.20",
+    "Pillow": "11.3.0",
+    "numpy": "2.2.6"
+  },
+  "score_interpretation": "Raw PatchCore distance, not defect probability. Larger means more anomalous.",
+  "scope": "Research prototype for one declared class. No safety or sterility certification.",
+  "artifact_sha256": "4d81ce1c2712132a8da7f3c952297fcf0ea16f9070c47750bd2d8099af202c62"
+}

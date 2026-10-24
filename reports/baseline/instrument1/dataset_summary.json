@@ -1,0 +1,47 @@
+{
+  "instrument_class": "instrument1",
+  "seed": 42,
+  "phash_max_distance": 4,
+  "counts": {
+    "train": {
+      "good": 7
+    },
+    "validation": {
+      "good": 2
+    },
+    "test": {
+      "good": 4,
+      "defect": 22
+    }
+  },
+  "total_images": 35,
+  "total_masks": 22,
+  "independent_groups": 15,
+  "dimensions": {
+    "3667x1530": 1,
+    "3452x2215": 1,
+    "3638x1523": 1,
+    "4070x3166": 1,
+    "4213x2923": 1,
+    "3470x3518": 1,
+    "2865x4752": 1,
+    "2554x2468": 1,
+    "3743x3498": 1,
+    "2601x2622": 1,
+    "3767x3679": 1,
+    "4284x2053": 1,
+    "2429x990": 3,
+    "2435x1052": 3,
+    "2424x1053": 3,
+    "2431x983": 2,
+    "1280x502": 1,
+    "3298x1324": 1,
+    "3340x1423": 1,
+    "3863x1803": 9
+  },
+  "mask_binarization": "Convert to grayscale and use >127; source masks include soft edges.",
+  "manifest_sha256": "5560a3c5265a62301073cf294868e65f4e225258d69bbebfba17e349f20810fb",
+  "dataset_revision": "e791b82e9616889e356b4cf7d40d6b56ba87b0c5",
+  "policy": "Original test groups stay test. Train-source groups split 60/20/20. Validation is normal-only.",
+  "limitations": "pHash and capture IDs are heuristics, not proof of independence between physical instruments."
+}

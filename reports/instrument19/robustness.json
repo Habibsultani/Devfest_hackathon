@@ -1,0 +1,69 @@
+{
+  "artifact_sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e",
+  "threshold": 22.20443153381348,
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "conditions": {
+    "baseline": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 4,
+      "FN": 4,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "false_positive_rate": 0.0,
+      "image_auroc": 0.875,
+      "normal_images": 4,
+      "defect_images": 4,
+      "total_images": 8,
+      "changed_decisions": 0
+    },
+    "brightness_0.8": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 4,
+      "FN": 4,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "false_positive_rate": 0.0,
+      "image_auroc": 0.875,
+      "normal_images": 4,
+      "defect_images": 4,
+      "total_images": 8,
+      "changed_decisions": 0
+    },
+    "brightness_1.2": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 4,
+      "FN": 4,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "false_positive_rate": 0.0,
+      "image_auroc": 0.875,
+      "normal_images": 4,
+      "defect_images": 4,
+      "total_images": 8,
+      "changed_decisions": 0
+    },
+    "jpeg_quality_60": {
+      "TP": 0,
+      "FP": 0,
+      "TN": 4,
+      "FN": 4,
+      "recall": 0.0,
+      "precision": null,
+      "f1": 0.0,
+      "false_positive_rate": 0.0,
+      "image_auroc": 0.875,
+      "normal_images": 4,
+      "defect_images": 4,
+      "total_images": 8,
+      "changed_decisions": 0
+    }
+  },
+  "method": "Paired whole-image transformations, fixed model and threshold. No retraining or model selection from test results.",
+  "limitations": "Does not isolate background changes or test an instrument-region masking improvement."
+}

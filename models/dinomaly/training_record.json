@@ -1,0 +1,179 @@
+{
+  "protocol": {
+    "model_version": "medinspect-dinomaly-sam-lora-v4",
+    "steps": 1000,
+    "validate_every": 200,
+    "batch_size": 4,
+    "seed": 42,
+    "manifest_sha256": {
+      "instrument12": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
+      "instrument19": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc"
+    },
+    "device": "cuda",
+    "encoder": "DINOv2-reg small/14",
+    "decoder_depth": 8,
+    "lora_rank": 8,
+    "masking": "Official MobileSAM with 16 deterministic RGB-derived positive prompts; no GT masks.",
+    "patching": "Native 256x256 non-overlapping tiles, resize to 252 for DINO stride14, black background.",
+    "scoring": "Mean of largest 0.1% of stitched instrument-region anomaly values.",
+    "calibration": "Per-instrument validation F1; ties lower false-positive rate then smaller threshold.",
+    "checkpoint_selection": "Validation macro F1, then lower macro FPR, then earlier checkpoint.",
+    "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore.",
+    "training_precision": "CUDA BF16 with FP32 positive-kernel sums; FP32 inference."
+  },
+  "selected_step": 200,
+  "selected_validation": {
+    "instrument12": {
+      "threshold": 0.686599850654602,
+      "metrics": {
+        "TP": 4,
+        "FP": 0,
+        "TN": 4,
+        "FN": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0,
+        "balanced_accuracy": 1.0,
+        "image_auroc": 1.0,
+        "normal_images": 4,
+        "defect_images": 4,
+        "total_images": 8
+      },
+      "predictions": [
+        {
+          "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+          "label": 1,
+          "score": 0.7174500226974487
+        },
+        {
+          "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+          "label": 1,
+          "score": 0.7199195027351379
+        },
+        {
+          "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+          "label": 1,
+          "score": 0.7110697031021118
+        },
+        {
+          "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+          "label": 1,
+          "score": 0.686599850654602
+        },
+        {
+          "source_path": "instrument12/train/good/IMG_7202.JPG",
+          "label": 0,
+          "score": 0.597123920917511
+        },
+        {
+          "source_path": "instrument12/train/good/IMG_7203.JPG",
+          "label": 0,
+          "score": 0.623063325881958
+        },
+        {
+          "source_path": "instrument12/train/good/IMG_7209.JPG",
+          "label": 0,
+          "score": 0.6045035719871521
+        },
+        {
+          "source_path": "instrument12/train/good/IMG_7210.JPG",
+          "label": 0,
+          "score": 0.5820523500442505
+        }
+      ]
+    },
+    "instrument19": {
+      "threshold": 0.702874481678009,
+      "metrics": {
+        "TP": 4,
+        "FP": 0,
+        "TN": 4,
+        "FN": 0,
+        "recall": 1.0,
+        "precision": 1.0,
+        "f1": 1.0,
+        "false_positive_rate": 0.0,
+        "balanced_accuracy": 1.0,
+        "image_auroc": 1.0,
+        "normal_images": 4,
+        "defect_images": 4,
+        "total_images": 8
+      },
+      "predictions": [
+        {
+          "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+          "label": 1,
+          "score": 0.7129815220832825
+        },
+        {
+          "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+          "label": 1,
+          "score": 0.702874481678009
+        },
+        {
+          "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+          "label": 1,
+          "score": 0.7152133584022522
+        },
+        {
+          "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+          "label": 1,
+          "score": 0.7094583511352539
+        },
+        {
+          "source_path": "instrument19/train/good/IMG_4607.png",
+          "label": 0,
+          "score": 0.5631546974182129
+        },
+        {
+          "source_path": "instrument19/train/good/IMG_4745.png",
+          "label": 0,
+          "score": 0.5296661853790283
+        },
+        {
+          "source_path": "instrument19/train/good/IMG_4747.png",
+          "label": 0,
+          "score": 0.5091448426246643
+        },
+        {
+          "source_path": "instrument19/train/good/IMG_4749.png",
+          "label": 0,
+          "score": 0.5729946494102478
+        }
+      ]
+    }
+  },
+  "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+  "pretrained_dino_sha256": "f433177089a681826f849f194ece3bb48f4d63fb38d32fc837e3dc7a4e5641fb",
+  "train_sources": {
+    "instrument12": [
+      "instrument12/train/good/IMG_4586.png",
+      "instrument12/train/good/IMG_7192.JPG",
+      "instrument12/train/good/IMG_7195.JPG",
+      "instrument12/train/good/IMG_7196.JPG",
+      "instrument12/train/good/IMG_7200.JPG",
+      "instrument12/train/good/IMG_7201.JPG",
+      "instrument12/train/good/IMG_7204.JPG",
+      "instrument12/train/good/IMG_7205.JPG",
+      "instrument12/train/good/IMG_7208.JPG",
+      "instrument12/train/good/IMG_7213.JPG",
+      "instrument12/train/good/IMG_7214.JPG",
+      "instrument12/train/good/IMG_7215.JPG"
+    ],
+    "instrument19": [
+      "instrument19/train/good/IMG_4606.png",
+      "instrument19/train/good/IMG_4608.png",
+      "instrument19/train/good/IMG_4734.png",
+      "instrument19/train/good/IMG_4735.png",
+      "instrument19/train/good/IMG_4736.png",
+      "instrument19/train/good/IMG_4738.png",
+      "instrument19/train/good/IMG_4740.png",
+      "instrument19/train/good/IMG_4741.png",
+      "instrument19/train/good/IMG_4743.png",
+      "instrument19/train/good/IMG_4746.png",
+      "instrument19/train/good/IMG_4748.png",
+      "instrument19/train/good/IMG_4751.png"
+    ]
+  }
+}

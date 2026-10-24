@@ -1,0 +1,40 @@
+{
+  "manifest_sha256": "91c79780e100a4b5a6f85a69e1f53d9be8317a3ec58789b09c1bb144e8861433",
+  "artifact_sha256": "4d81ce1c2712132a8da7f3c952297fcf0ea16f9070c47750bd2d8099af202c62",
+  "train_sources": [
+    "instrument2/train/good/IMG_4555.png",
+    "instrument2/train/good/IMG_4557.png",
+    "instrument2/train/good/IMG_4713.png",
+    "instrument2/train/good/IMG_4715.png",
+    "instrument2/train/good/IMG_4718.png",
+    "instrument2/train/good/IMG_4719.png",
+    "instrument2/train/good/IMG_4720.png",
+    "instrument2/train/good/IMG_4721.png",
+    "instrument2/train/good/IMG_4723.png",
+    "instrument2/train/good/IMG_4724.png",
+    "instrument2/train/good/IMG_4725.png",
+    "instrument2/train/good/IMG_4726.png",
+    "instrument2/train/good/IMG_4727.png",
+    "instrument2/train/good/IMG_4730.png"
+  ],
+  "validation_results": [
+    {
+      "source_path": "instrument2/train/good/IMG_4712.png",
+      "score": 16.657255172729492
+    },
+    {
+      "source_path": "instrument2/train/good/IMG_4714.png",
+      "score": 15.555180549621582
+    },
+    {
+      "source_path": "instrument2/train/good/IMG_4722.png",
+      "score": 14.150321006774902
+    },
+    {
+      "source_path": "instrument2/train/good/IMG_4728.png",
+      "score": 16.74549102783203
+    }
+  ],
+  "threshold": 16.745491027832035,
+  "reload_score_verified": true
+}

@@ -1,0 +1,68 @@
+{
+  "instrument_class": "instrument19",
+  "seed": 42,
+  "phash_max_distance": 4,
+  "counts": {
+    "train": {
+      "good": 12
+    },
+    "validation": {
+      "defect": 4,
+      "good": 4
+    },
+    "test": {
+      "defect": 4,
+      "good": 4
+    }
+  },
+  "total_images": 28,
+  "total_masks": 8,
+  "independent_groups": 22,
+  "dimensions": {
+    "1741x1755": 1,
+    "1936x1502": 1,
+    "1933x1573": 1,
+    "1308x2564": 1,
+    "2616x1196": 1,
+    "2728x860": 1,
+    "1032x2684": 1,
+    "2320x1672": 1,
+    "2396x1572": 1,
+    "1736x2260": 1,
+    "2128x1868": 1,
+    "1724x2260": 1,
+    "1684x2284": 1,
+    "2620x1124": 1,
+    "2712x808": 1,
+    "1760x2240": 1,
+    "2304x1680": 1,
+    "1368x2516": 1,
+    "2256x1736": 1,
+    "1088x2692": 1,
+    "2544x1412": 1,
+    "2772x796": 1,
+    "1620x2400": 1,
+    "2041x1613": 7,
+    "1859x1808": 3,
+    "2059x1568": 7,
+    "1958x1717": 1
+  },
+  "mask_binarization": "Convert to grayscale and use >127; source masks include soft edges.",
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "dataset_revision": "e791b82e9616889e356b4cf7d40d6b56ba87b0c5",
+  "policy": "Balanced v2: equal normal training count across instruments; equal normal/defect validation and test counts; source groups disjoint.",
+  "limitations": "pHash and capture IDs are heuristics, not proof of independence between physical instruments.",
+  "source_total_images": 41,
+  "excluded_images": 13,
+  "evaluation_status": "Fresh classes selected by source counts before training; test labels reserved for final evaluation.",
+  "group_counts": {
+    "train": 12,
+    "validation": 5,
+    "test": 5
+  },
+  "defect_group_counts": {
+    "validation": 1,
+    "test": 1
+  },
+  "balance_limitation": "Image counts are balanced. Defect variants share few source captures, so this is not balanced independent clinical evidence."
+}

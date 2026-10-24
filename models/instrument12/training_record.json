@@ -1,0 +1,85 @@
+{
+  "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
+  "artifact_sha256": "d3348560fc0d7c2c0476bf8c167c4a40ef6968759c35ac89f1da9d6a21d0a304",
+  "train_sources": [
+    "instrument12/train/good/IMG_4586.png",
+    "instrument12/train/good/IMG_7192.JPG",
+    "instrument12/train/good/IMG_7195.JPG",
+    "instrument12/train/good/IMG_7196.JPG",
+    "instrument12/train/good/IMG_7200.JPG",
+    "instrument12/train/good/IMG_7201.JPG",
+    "instrument12/train/good/IMG_7204.JPG",
+    "instrument12/train/good/IMG_7205.JPG",
+    "instrument12/train/good/IMG_7208.JPG",
+    "instrument12/train/good/IMG_7213.JPG",
+    "instrument12/train/good/IMG_7214.JPG",
+    "instrument12/train/good/IMG_7215.JPG"
+  ],
+  "validation_results": [
+    {
+      "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+      "group_id": "872ce58a17aaef86",
+      "label": 1,
+      "score": 17.073198318481445
+    },
+    {
+      "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+      "group_id": "872ce58a17aaef86",
+      "label": 1,
+      "score": 17.084548950195312
+    },
+    {
+      "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+      "group_id": "872ce58a17aaef86",
+      "label": 1,
+      "score": 17.837326049804688
+    },
+    {
+      "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+      "group_id": "872ce58a17aaef86",
+      "label": 1,
+      "score": 17.511762619018555
+    },
+    {
+      "source_path": "instrument12/train/good/IMG_7202.JPG",
+      "group_id": "b438abfa71dff353",
+      "label": 0,
+      "score": 19.456274032592773
+    },
+    {
+      "source_path": "instrument12/train/good/IMG_7203.JPG",
+      "group_id": "613229736eb089bd",
+      "label": 0,
+      "score": 17.336767196655273
+    },
+    {
+      "source_path": "instrument12/train/good/IMG_7209.JPG",
+      "group_id": "82b7ca7f2b253350",
+      "label": 0,
+      "score": 17.6195011138916
+    },
+    {
+      "source_path": "instrument12/train/good/IMG_7210.JPG",
+      "group_id": "34a74d71bff4f4d4",
+      "label": 0,
+      "score": 23.245376586914062
+    }
+  ],
+  "threshold": 23.245376586914066,
+  "validation_metrics": {
+    "TP": 0,
+    "FP": 0,
+    "TN": 4,
+    "FN": 4,
+    "recall": 0.0,
+    "precision": null,
+    "f1": 0.0,
+    "false_positive_rate": 0.0,
+    "image_auroc": 0.1875,
+    "normal_images": 4,
+    "defect_images": 4,
+    "total_images": 8,
+    "balanced_accuracy": 0.5
+  },
+  "reload_score_verified": true
+}
