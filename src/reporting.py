@@ -100,3 +100,29 @@ def records_to_csv(records: Iterable[InspectionRecord]) -> bytes:
     for record in records:
         writer.writerow({key: _csv_cell(value) for key, value in asdict(record).items()})
     return output.getvalue().encode("utf-8-sig")
+
+
+def filter_records(
+    records: Iterable[InspectionRecord], *, query: str = "", decision: str = "All decisions"
+) -> list[InspectionRecord]:
+    """Search session records without mutating their data or limiting the CSV export."""
+    needle = query.strip().casefold()
+    return [
+        record
+        for record in records
+        if (decision == "All decisions" or record.operator_decision == decision)
+        and (
+            not needle
+            or needle
+            in " ".join(
+                (
+                    record.batch_id,
+                    record.instrument_id,
+                    record.instrument_class,
+                    record.model_version,
+                    record.source_filename,
+                    record.operator_note,
+                )
+            ).casefold()
+        )
+    ]

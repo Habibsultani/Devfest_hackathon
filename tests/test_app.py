@@ -135,3 +135,29 @@ def test_unknown_class_clears_result_and_disables_analysis(app_harness):
     assert "active_inspection" not in app.session_state
     assert by_label(app.button, "Analyze instrument").disabled
     assert len(calls) == 1
+
+
+def test_next_inspection_preserves_saved_records_and_batch(app_harness):
+    app, upload, calls = app_harness
+    by_label(app.button, "Analyze instrument").click().run()
+    by_label(app.selectbox, "Operator decision").select("Accept")
+    by_label(app.button, "Save inspection").click().run()
+    by_label(app.button, "Start new inspection").click().run()
+    assert not app.exception
+    assert len(app.session_state.records) == 1
+    assert by_label(app.text_input, "Batch ID").value == "BATCH-001"
+    assert by_label(app.text_input, "Instrument ID").value == ""
+    assert app.session_state.upload_revision == 1
+    assert "active_inspection" not in app.session_state
+    assert len(calls) == 1
+
+
+def test_report_filter_has_an_empty_state_without_losing_csv(app_harness):
+    app, upload, calls = app_harness
+    by_label(app.button, "Analyze instrument").click().run()
+    by_label(app.selectbox, "Operator decision").select("Accept")
+    by_label(app.button, "Save inspection").click().run()
+    by_label(app.text_input, "Search inspections").set_value("not-present").run()
+    assert not app.exception
+    assert len(app.session_state.records) == 1
+    assert len(app.get("download_button")) == 1

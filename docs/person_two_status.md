@@ -4,13 +4,14 @@ This branch implements application and deployment work from the technical develo
 
 | Plan item | Status | Evidence or remaining dependency |
 | --- | --- | --- |
-| Git collaboration and shared app folders | Prepared | `feature/web-app`, Python ignore rules, PR template, CI checks. Existing repository reused. Collaborator invitations and account setup remain account actions. |
+| Git collaboration and shared app folders | Implemented | Existing shared repository, separate feature branches, Python ignore rules, PR template, and CI checks. Person One will push their branch later. |
 | Streamlit upload and results UI | Implemented | `app.py`, upload validation, explicit unavailable-model state |
 | Heatmap visualization | Implemented | `src/visualization.py`, fixed model scale, overlay opacity, spatial checks |
 | Human QC review and CSV | Implemented | `src/reporting.py`, independent decisions, UTC timestamps, session export |
 | Error and unsupported-input handling | Implemented | Size/format/class/metadata checks and strict model-output validation |
 | Integration with Person One | Boundary implemented | Real integration awaits P1's module, artifact, calibrated metadata, dependencies, and unseen examples |
-| Deployment | Prepared, not published | Deployment instructions and artifact verification. Live release awaits genuine model integration and Streamlit account access. |
+| Deployment | Prepared, not published | Cross-platform launchers, readiness checker, Docker recipe, HTTP/browser smoke checks, and deployment instructions. Live release awaits genuine model integration and hosting access. |
+| Source delivery | Implemented | Reproducible ZIP packager with file hashes and explicit exclusions for secrets, inspection exports, datasets, and checkpoints. |
 | Architecture and README | Implemented | `docs/architecture.md`, `docs/inference_contract.md`, `README.md` |
 | Presentation | Application-stage deck and editable source | Model results and public demo evidence must come from the integrated project before submission. |
 | Demo video | Recording script prepared | An honest actual-app inference recording requires the real model and verified public URL. |
@@ -24,7 +25,9 @@ Do not create placeholder dataset or evaluation reports just to fill the tree. T
 
 ## Verification completed
 
-On 24 October 2026, the application passed 62 tests on Python 3.12.14, dependency consistency checks, Ruff lint, and formatting checks. A running Streamlit instance returned a healthy HTTP response. Headless Chrome checks verified the missing-model state, disabled analysis, damaged-upload rejection, empty session report, and mobile rendering. All seven presentation slides were rendered and inspected, and the PPTX passed package, geometry, font, and reimport checks. Python 3.11 checks are configured in CI but were not run locally.
+On 24 October 2026, the application passed 72 tests on Python 3.12.14, dependency consistency checks, Ruff lint, and formatting checks. Tests cover report filtering, inspection reset without lost records, packaging exclusions and reproducibility, and separate application/model readiness. A fresh Streamlit process passed its HTTP and browser smoke checks. Headless Chrome verified the missing-model state, disabled analysis, damaged-upload rejection, empty session report, and layouts at widths from 360 to 1440 pixels.
+
+The earlier application revision passed GitHub Actions on Python 3.11 and 3.12. The updated workflow also builds and checks the container and runs browser checks. Local Docker verification requires a running Docker daemon. All seven slides in the updated application deck were rendered and visually inspected. The PPTX passed package, geometry, font-policy, and reimport checks. Application checks establish interface behavior and do not establish model accuracy. See [operations](operations.md) for launch, diagnostics, packaging, and container commands.
 
 ## Work remaining after handoff
 

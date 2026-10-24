@@ -29,6 +29,29 @@ Streamlit exposes root-level secrets as environment variables. Keep real secrets
 
 At the first analysis, the app checks the artifact and downloads it if missing and a URL is configured. A cached gateway shares the verified backend. Person One's inference implementation must cache the actual model. Review cloud logs for dependency, download, deserialization, CPU, and memory failures. If the service cannot run the trained model, reduce the artifact/resource requirements with Person One or use a verified alternative host. An interface-only deployment does not meet the submission gate.
 
+## Container option
+
+The repository includes a Docker recipe that runs as an unprivileged application user and has an HTTP health check:
+
+```bash
+docker build -t medinspect-ai:local .
+docker run --rm -p 127.0.0.1:8503:8501 medinspect-ai:local
+```
+
+Open `http://localhost:8503`. The default image supports interface preview without a trained model. `.dockerignore` excludes local secrets, raw data, checkpoint blobs, and the development model configuration. The Python base image uses the `3.12-slim` minor-version tag; pin a tested immutable image digest when preparing a release.
+
+For genuine inference, include Person One's API and pinned backend requirements in the reviewed build, then supply a reviewed configuration. One option is a read-only configuration-file mount while keeping the artifact directory writable:
+
+```bash
+docker run --rm -p 127.0.0.1:8503:8501 \
+  --mount type=bind,source=/absolute/path/model_config.json,target=/app/models/model_config.json,readonly \
+  medinspect-ai:local
+```
+
+Use Linux container paths in that JSON, such as `models/model.ckpt`, and a verified artifact URL/checksum, or mount the trusted model at its configured location. Do not mount the entire models directory read-only if the application must download a missing artifact into it. The HTTP health check confirms the web process only; use the real-inference acceptance gate for model readiness.
+
+GitHub Actions builds the image and checks its HTTP endpoint. Local Docker validation requires a running Docker daemon. No registry image or public deployment is published automatically by this workflow.
+
 ## Public acceptance
 
 Use a private browser window without developer authentication:

@@ -20,12 +20,12 @@ const { finalizePresentation } = await import(pathToFileURL(
 ).href);
 
 const workspace = process.cwd();
-const staging = path.join(workspace, "artifacts/presentation");
-const output = path.resolve(process.env.MEDINSPECT_DECK_OUTPUT || "docs/MedInspect_AI_Application.pptx");
+const output = path.resolve(process.env.MEDINSPECT_DECK_OUTPUT || "docs/MedInspect_AI_Application_v2.pptx");
+const staging = await fs.mkdtemp(path.join(workspace, "artifacts/presentation-build-"));
 await fs.mkdir(staging, { recursive: true });
 await fs.mkdir(path.dirname(output), { recursive: true });
 const deck = Presentation.create({ slideSize: { width: 1280, height: 720 } });
-const palette = { ink: "#142D40", teal: "#087F8C", muted: "#506779", paper: "#F8FAFC" };
+const palette = { ink: "#1B3039", teal: "#0F766E", muted: "#536873", paper: "#F6F8F9" };
 
 function text(slide, value, x, y, w, h, size = 27, color = palette.ink, bold = false) {
   const shape = slide.shapes.add({
@@ -103,7 +103,7 @@ try {
 s = slide("Evaluation status");
 text(s, "Model results pending", 72, 182, 1100, 80, 49, palette.teal, true);
 text(s, "Application checks", 72, 316, 520, 48, 29, palette.ink, true);
-text(s, "Upload errors, API validation, heatmap alignment, independent review, and CSV integrity have automated checks.", 72, 384, 520, 200, 28);
+text(s, "Workflow tests cover uploads, API validation, overlays, review, and CSV. Launch, readiness, and source packaging tools are ready.", 72, 384, 520, 200, 28);
 text(s, "Required from held-out images", 684, 316, 520, 48, 29, palette.ink, true);
 text(s, "TP / FP / TN / FN, recall, precision, F1, false-positive rate, AUROC, localization, and measured latency.", 684, 384, 520, 200, 28);
 text(s, "UI fixtures establish application behavior. Real inference and accuracy await Person One's model.", 72, 626, 1130, 65, 24, palette.muted);

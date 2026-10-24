@@ -1,9 +1,10 @@
 import csv
 import io
+from dataclasses import replace
 
 import pytest
 
-from src.reporting import create_record, records_to_csv
+from src.reporting import create_record, filter_records, records_to_csv
 
 
 @pytest.fixture
@@ -72,3 +73,17 @@ def test_csv_round_trip_handles_unicode_commas_newlines_and_formulas(record_args
     assert rows[0]["model_version"] == "fixture-v1"
     assert rows[0]["requires_review"] == "True"
     assert float(rows[0]["anomaly_score"]) == record.anomaly_score
+
+
+def test_search_and_decision_filter_do_not_change_full_export(record_args):
+    first = create_record(**record_args)
+    second = replace(
+        first, inspection_id="second", batch_id="BATCH-002", operator_decision="Inconclusive"
+    )
+    records = [first, second]
+    assert filter_records(records, query="batch-002", decision="Inconclusive") == [second]
+    assert filter_records(records, query="batch-002", decision="Accept") == []
+    assert filter_records(records, query="operator reviewed") == records
+    exported = list(csv.DictReader(io.StringIO(records_to_csv(records).decode("utf-8-sig"))))
+    assert len(exported) == 2
+    assert records == [first, second]

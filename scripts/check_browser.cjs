@@ -12,17 +12,17 @@ async function main() {
   const launchOptions = { headless: true };
   if (process.env.MEDINSPECT_BROWSER_PATH) {
     launchOptions.executablePath = process.env.MEDINSPECT_BROWSER_PATH;
-  } else {
-    launchOptions.channel = "chrome";
+  } else if (process.env.MEDINSPECT_BROWSER_CHANNEL !== "chromium") {
+    launchOptions.channel = process.env.MEDINSPECT_BROWSER_CHANNEL || "chrome";
   }
   const browser = await chromium.launch(launchOptions);
   try {
     const page = await browser.newPage({
-      viewport: { width: 1440, height: 1300 }, reducedMotion: "reduce",
+      viewport: { width: 1440, height: 1050 }, reducedMotion: "reduce",
     });
     const errors = [];
     page.on("pageerror", (error) => errors.push(error.message));
-    await page.goto("http://127.0.0.1:8501", { waitUntil: "networkidle" });
+    await page.goto(process.env.MEDINSPECT_BASE_URL || "http://127.0.0.1:8501", { waitUntil: "networkidle" });
     await page.getByRole("heading", { name: "Inspection workspace", level: 1, exact: true }).waitFor();
     await page.evaluate(() => document.fonts.ready);
     const fontsLoaded = await page.evaluate(() =>
@@ -62,6 +62,14 @@ async function main() {
     );
     if (overflow) throw new Error("The mobile workspace has horizontal overflow.");
     await page.screenshot({ path: "artifacts/browser/app-mobile.png", fullPage: true });
+    for (const width of [360, 768, 1024]) {
+      await page.setViewportSize({ width, height: 1000 });
+      const hasOverflow = await page.locator('[data-testid="stMain"]').evaluate(
+        (main) => main.scrollWidth > main.clientWidth + 1
+      );
+      if (hasOverflow) throw new Error(`The workspace overflows at ${width}px.`);
+      await page.screenshot({ path: `artifacts/browser/app-${width}px.png`, fullPage: true });
+    }
     if (errors.length) throw new Error(errors.join("\n"));
     console.log("Browser checks passed: missing model, invalid upload, empty report, mobile render.");
   } finally {

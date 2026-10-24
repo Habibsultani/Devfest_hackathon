@@ -24,3 +24,49 @@ jobs:
       - run: python -m ruff check .
       - run: python -m ruff format --check .
       - run: python -m pytest -q
+      - run: python -m scripts.doctor
+      - run: python -m scripts.package_source
+      - uses: actions/upload-artifact@v4
+        if: matrix.python-version == '3.12'
+        with:
+          name: person-two-source
+          path: dist/
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - run: python -m pip install -r requirements.txt
+      - run: npm install --prefix "$RUNNER_TEMP/medinspect-browser" --no-save --ignore-scripts playwright@1.62.1
+      - run: "$RUNNER_TEMP/medinspect-browser/node_modules/.bin/playwright install --with-deps chromium"
+      - run: python -m scripts.smoke_app --browser
+        env:
+          MEDINSPECT_NODE_MODULES: ${{ runner.temp }}/medinspect-browser/node_modules
+          MEDINSPECT_BROWSER_CHANNEL: chromium
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: browser-checks
+          path: artifacts/
+  container:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t medinspect-ai:ci .
+      - run: docker run -d --name medinspect-ci -p 127.0.0.1:18501:8501 medinspect-ai:ci
+      - name: Check the container HTTP endpoint
+        run: |
+          for attempt in $(seq 1 30); do
+            if curl --fail --silent http://127.0.0.1:18501/_stcore/health; then exit 0; fi
+            sleep 1
+          done
+          docker logs medinspect-ci
+          exit 1
+      - if: always()
+        run: docker rm -f medinspect-ci

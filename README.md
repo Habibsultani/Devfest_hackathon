@@ -14,6 +14,14 @@ The interface follows a documented [design system](docs/design_system.md): one l
 
 ## Run locally
 
+Quick start on Windows (uses or creates the project's `.venv`):
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start.ps1
+```
+
+On macOS/Linux, run `bash scripts/start.sh`. Use `-Setup` / `--setup` to install the pinned application dependencies again, `-CheckOnly` / `--check` to verify the environment without starting a server, or `-Port 8503` / `--port 8503` if the default port is occupied.
+
 Use Python 3.11 or 3.12. The application dependencies were verified on Python 3.12.14. Windows PowerShell:
 
 ```powershell
@@ -69,6 +77,8 @@ The default configuration is `models/model_config.json`. Set `MEDINSPECT_MODEL_C
 - Clears the active result when the image, IDs, instrument class, or model configuration changes. A failed analysis cannot leave a saveable previous result.
 - Exports IDs, UTC timestamps, image digest, model/config/artifact identifiers, raw score, threshold, AI flag, latency, operator decision, and note. CSV uses UTF-8 with a BOM. Text starting with spreadsheet formula characters receives a leading apostrophe.
 - Stores images and inspection records in server memory for the current Streamlit session. There is no database or durable multi-user history. Export before leaving or restarting.
+- The progress indicator reflects actual input and review completion. After saving, **Start new inspection** clears the image and instrument ID while retaining the batch, class, and saved report.
+- Search saved records or filter by operator decision. The CSV always contains the full session, regardless of the table filters.
 
 ## Test
 
@@ -81,6 +91,18 @@ The default configuration is `models/model_config.json`. Set `MEDINSPECT_MODEL_C
 ```
 
 GitHub Actions runs the same checks on Python 3.11 and 3.12. Tests cover uploads, checksum verification, contract rejection, heatmap alignment, review validation, CSV integrity, and Streamlit session behavior. UI tests inject isolated fixtures and **do not establish PatchCore accuracy or real model compatibility**. Real unseen-image acceptance remains a joint integration gate with Person One.
+
+Additional checks that can run before the model is available:
+
+```powershell
+.\.venv\Scripts\python.exe -m scripts.doctor
+.\.venv\Scripts\python.exe -m scripts.smoke_app
+.\.venv\Scripts\python.exe -m scripts.package_source
+```
+
+The doctor separates application readiness from pending model files. `--require-model` makes missing model files fail the check; it never establishes inference accuracy. The smoke check starts and stops a temporary local server without disturbing the normal preview. CI also checks browser behavior at desktop, tablet, and mobile widths, builds the Docker image, and tests its HTTP endpoint.
+
+The source packager writes a ZIP and SHA-256 file under `dist/`, with a manifest recording the source revision and every included file's digest. It excludes local secrets, datasets, weights, caches, and inspection exports. Pass `--max-size-mb` with the actual event limit when known. No unknown submission size limit is assumed. See [operations and delivery](docs/operations.md).
 
 ## Deployment and collaboration
 
@@ -106,11 +128,17 @@ docs/inference_contract.md      Exact handoff for Person One
 docs/deployment.md              Hosting and public-demo acceptance steps
 docs/demo_script.md             Actual-demo recording and submission preparation
 docs/person_two_status.md       Completed work and remaining integration gates
-docs/MedInspect_AI_Application.pptx Seven-slide application-stage presentation
+docs/MedInspect_AI_Application_v2.pptx Updated application-stage presentation
 docs/presentation.md            Presentation status and optional rebuild tooling
 docs/design_system.md           Shared typography, spacing, color, and icon rules
 assets/styles.css               Reusable interface tokens and component styles
 src/ui.py                       Shared interface components and local font loading
+scripts/doctor.py               Application and model-file readiness checks
+scripts/start.ps1 / start.sh     One-command local launchers
+scripts/smoke_app.py             Temporary HTTP and optional browser check
+scripts/package_source.py        Source ZIP, manifest, and SHA-256 export
+Dockerfile / .dockerignore       Container deployment recipe without model blobs
+docs/operations.md              Run, check, package, and troubleshoot the application
 ```
 
 Person One owns `src/inference.py`, `src/preprocessing.py`, training/data/evaluation scripts, `docs/dataset.md`, `docs/evaluation.md`, model artifacts, and measured results. Those files have deliberately not been implemented here.

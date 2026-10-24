@@ -12,7 +12,13 @@ import streamlit as st
 
 from src.model_config import ModelConfig, ModelError, load_model_config
 from src.model_gateway import ModelGateway, load_gateway
-from src.reporting import DECISIONS, create_record, records_to_csv, validate_identifier
+from src.reporting import (
+    DECISIONS,
+    create_record,
+    filter_records,
+    records_to_csv,
+    validate_identifier,
+)
 from src.ui import (
     apply_design_system,
     empty_state,
@@ -20,6 +26,7 @@ from src.ui import (
     panel_heading,
     render_footer,
     render_header,
+    render_progress,
     render_session_overview,
     render_sidebar,
 )
@@ -47,6 +54,14 @@ def artifact_revision(config: ModelConfig) -> tuple:
         return ("not-downloaded",)
     except OSError as exc:
         raise ModelError("The configured artifact cannot be accessed.") from exc
+
+
+def start_new_inspection() -> None:
+    """Reset the working image and ID, keeping the batch, class, and saved records."""
+    st.session_state.pop("active_inspection", None)
+    st.session_state.pop("inspection_context", None)
+    st.session_state.pop("instrument_id", None)
+    st.session_state.upload_revision = st.session_state.get("upload_revision", 0) + 1
 
 
 def render_result(snapshot: dict) -> None:
@@ -149,28 +164,41 @@ def render_result(snapshot: dict) -> None:
             st.error(str(exc))
     if saved:
         st.success("Inspection saved in this session. Download it from Session report.")
+        st.button(
+            "Start new inspection",
+            icon=":material/add:",
+            on_click=start_new_inspection,
+        )
 
 
 def render_inspection(config: ModelConfig | None) -> None:
-    details_column, image_column = st.columns([1, 1.15], gap="medium")
+    surface = st.container(key="inspection_surface")
+    with surface:
+        progress = st.empty()
+        details_column, image_column = st.columns([1, 1.3], gap="medium")
     with details_column, st.container(key="instrument_panel"):
         panel_heading(
             "01", "Instrument details", "Keep every inspection linked to its instrument.", "sell"
         )
         left, right = st.columns(2)
-        batch_id = left.text_input("Batch ID", placeholder="e.g. BATCH-001", max_chars=80)
-        instrument_id = right.text_input("Instrument ID", placeholder="e.g. INST-014", max_chars=80)
+        batch_id = left.text_input(
+            "Batch ID", placeholder="e.g. BATCH-001", max_chars=80, key="batch_id"
+        )
+        instrument_id = right.text_input(
+            "Instrument ID", placeholder="e.g. INST-014", max_chars=80, key="instrument_id"
+        )
         classes = ["Select instrument class"]
         if config:
             classes.append(config.instrument_class)
         classes.append("Other / unknown")
-        instrument_class = st.selectbox("Instrument class", classes)
+        instrument_class = st.selectbox("Instrument class", classes, key="instrument_class")
         st.html(
             f'<div class="mi-field-note">{icon("info")}<span>All fields are required. '
             "Confirm the instrument class before analysis.</span></div>"
         )
         if instrument_class == "Other / unknown":
             st.warning("This model cannot inspect an unsupported or unknown instrument class.")
+        details_feedback = st.empty()
 
     with image_column, st.container(key="upload_panel"):
         panel_heading(
@@ -180,6 +208,7 @@ def render_inspection(config: ModelConfig | None) -> None:
             "Upload instrument image",
             type=["jpg", "jpeg", "png"],
             label_visibility="collapsed",
+            key=f"instrument_upload_{st.session_state.get('upload_revision', 0)}",
         )
         st.html(
             '<div class="mi-format-list">'
@@ -189,6 +218,7 @@ def render_inspection(config: ModelConfig | None) -> None:
         )
         st.caption("Use one still image. Good lighting and a consistent background help.")
         preview = st.empty()
+        upload_feedback = st.empty()
     image = None
     image_sha256 = None
     if uploaded is not None:
@@ -196,9 +226,8 @@ def render_inspection(config: ModelConfig | None) -> None:
         try:
             image = decode_upload(content, uploaded.name)
             image_sha256 = hashlib.sha256(content).hexdigest()
-            preview.image(image, caption="Image ready for inspection", width="stretch")
         except UploadError as exc:
-            st.error(str(exc))
+            upload_feedback.error(str(exc))
 
     context = (
         image_sha256,
@@ -210,6 +239,8 @@ def render_inspection(config: ModelConfig | None) -> None:
     if st.session_state.get("inspection_context") != context:
         st.session_state.pop("active_inspection", None)
         st.session_state.inspection_context = context
+    if image is not None and "active_inspection" not in st.session_state:
+        preview.image(image, caption="Image ready for inspection", width="stretch")
 
     metadata_error = None
     try:
@@ -220,9 +251,9 @@ def render_inspection(config: ModelConfig | None) -> None:
 
     supported = config is not None and instrument_class == config.instrument_class
     if image is not None and metadata_error:
-        st.info(metadata_error)
+        details_feedback.info(metadata_error)
     ready = image is not None and config is not None and supported and not metadata_error
-    with st.container(key="analysis_action"):
+    with surface, st.container(key="analysis_action"):
         hint_column, action_column = st.columns([1.9, 1], vertical_alignment="center")
         if config is None:
             hint_title, hint_text = (
@@ -294,19 +325,24 @@ def render_inspection(config: ModelConfig | None) -> None:
         render_result(st.session_state.active_inspection)
     else:
         with st.container(key="results_panel"):
-            panel_heading(
-                "03",
-                "Analysis & review",
-                "Your image insights will appear here.",
-                "center_focus_strong",
-            )
             empty_state(
-                "Ready for a closer look",
-                "Once analysis is available, review the anomaly score and visual map, "
-                "then record your own assessment.",
+                "Analysis & review",
+                "The anomaly score, visual map, and operator review will appear here "
+                "after a successful analysis.",
                 "center_focus_strong",
                 compact=True,
             )
+    active = st.session_state.get("active_inspection")
+    saved = active is not None and any(
+        record.inspection_id == active["inspection_id"] for record in st.session_state.records
+    )
+    with progress.container():
+        render_progress(
+            details_ready=not metadata_error and supported,
+            image_ready=image is not None,
+            analyzed=active is not None,
+            saved=saved,
+        )
 
 
 def render_report() -> None:
@@ -324,16 +360,26 @@ def render_report() -> None:
                 "assignment",
             )
         return
-    with st.container(key="report_metrics"):
-        total, flagged, inconclusive = st.columns(3)
-        total.metric("Saved inspections", len(records))
-        flagged.metric("AI review flags", sum(record.requires_review for record in records))
-        inconclusive.metric(
-            "Operator inconclusive",
-            sum(record.operator_decision == "Inconclusive" for record in records),
-        )
+    search_column, decision_column = st.columns([2, 1], vertical_alignment="bottom")
+    query = search_column.text_input(
+        "Search inspections",
+        placeholder="Search IDs, class, model, or notes…",
+        key="report_search",
+    )
+    decision = decision_column.selectbox(
+        "Filter by decision", ["All decisions", *DECISIONS], key="report_decision"
+    )
+    visible = filter_records(records, query=query, decision=decision)
+    st.caption(
+        f"Showing {len(visible)} of {len(records)} saved inspections. CSV includes all records."
+    )
+    if not visible:
+        with st.container(key="report_panel"):
+            empty_state(
+                "No matching inspections", "Try a different search or decision filter.", "search"
+            )
     st.dataframe(
-        [asdict(record) for record in records],
+        [asdict(record) for record in reversed(visible)],
         hide_index=True,
         width="stretch",
         column_order=[
@@ -362,6 +408,7 @@ def render_report() -> None:
         mime="text/csv",
         type="primary",
         icon=":material/download:",
+        help="Exports every saved inspection in this session, regardless of the current filters.",
     )
     st.caption(
         "Timestamps are UTC. CSV text beginning with formula characters is escaped for Excel."

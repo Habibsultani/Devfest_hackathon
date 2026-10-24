@@ -55,9 +55,9 @@ def render_sidebar(config: ModelConfig | None, config_error: str | None) -> None
             f'<div class="mi-brand-mark">{icon("center_focus_strong")}</div>'
             '<div><div class="mi-brand-name">MedInspect<span> AI</span></div>'
             '<div class="mi-brand-subtitle">QUALITY CONTROL</div></div></div>'
-            '<div class="mi-sidebar-label">YOUR WORKSPACE</div>'
-            '<a class="mi-workspace-link" href="#inspection-workspace" target="_self">'
-            f"{icon('dashboard')}<span>Inspection console</span>{icon('chevron_right')}</a>"
+            '<div class="mi-sidebar-context">'
+            f"{icon('fact_check')}<div><strong>Inspection workspace</strong>"
+            "<span>Visible-defect screening</span></div></div>"
         )
         with st.container(key="model_status"):
             st.html(f'<div class="mi-sidebar-label">{icon("hub")} MODEL CONNECTION</div>')
@@ -73,26 +73,21 @@ def render_sidebar(config: ModelConfig | None, config_error: str | None) -> None
                 st.html(
                     '<div class="mi-model-title">'
                     f"{icon('hourglass_top')}<span>Awaiting trained model</span></div>"
-                    '<p class="mi-sidebar-description">Your workspace is ready. '
-                    "Connect a trained model to enable analysis.</p>"
+                    '<p class="mi-sidebar-description">Image preparation is available. '
+                    "AI analysis needs a trained model.</p>"
                     '<div class="mi-status mi-status--pending">'
                     '<span class="mi-status-dot"></span>Integration pending</div>'
                 )
             if config_error:
                 with st.expander("Model setup details", icon=":material/settings:"):
                     st.warning(config_error)
-        st.html(
-            '<div class="mi-sidebar-label">INSPECTION STEPS</div>'
-            '<ol class="mi-sidebar-steps">'
-            "<li><span>01</span><div>Identify the instrument"
-            "<small>Add batch and instrument IDs</small></div></li>"
-            "<li><span>02</span><div>Upload an image"
-            "<small>Use a clear, consistent view</small></div></li>"
-            "<li><span>03</span><div>Review the analysis"
-            "<small>Check the model score and map</small></div></li>"
-            "<li><span>04</span><div>Record your decision"
-            "<small>Save and export your assessment</small></div></li></ol>"
-        )
+        with st.expander("How to inspect", icon=":material/help:"):
+            st.markdown(
+                "1. Add the batch, instrument ID, and supported class.\n"
+                "2. Upload a clear instrument image.\n"
+                "3. Review the model score and map.\n"
+                "4. Record your decision and export the CSV."
+            )
         with st.expander("Image capture tips", icon=":material/lightbulb:"):
             st.write(
                 "Use a sharp, well-lit image. Keep the entire instrument visible, "
@@ -107,14 +102,14 @@ def render_sidebar(config: ModelConfig | None, config_error: str | None) -> None
 
 def render_header() -> None:
     st.html(
-        '<div class="mi-topline"><div class="mi-breadcrumb">Workspace '
-        f"{icon('chevron_right')}<span>Instrument inspection</span></div>"
+        '<div class="mi-topline"><div class="mi-breadcrumb">QUALITY CONTROL '
+        f"{icon('chevron_right')}<span>Research workspace</span></div>"
         f'<span class="mi-research-tag">{icon("science")}Research prototype</span></div>'
     )
     st.title("Inspection workspace")
     st.markdown(
-        '<p class="mi-page-description">Inspect an instrument image, review suspicious regions, '
-        "and record your assessment.</p>",
+        '<p class="mi-page-description">Prepare an image, review the evidence, '
+        "and keep a record of your decision.</p>",
         unsafe_allow_html=True,
     )
 
@@ -125,28 +120,49 @@ def render_session_overview(records: list, active: dict | None) -> None:
         and not any(record.inspection_id == active["inspection_id"] for record in records)
     )
     items = (
-        ("Saved inspections", len(records), "fact_check", "In this browser session"),
+        ("Saved inspections", len(records), "fact_check"),
         (
             "AI review flags",
             sum(record.requires_review for record in records),
             "flag",
-            "Across saved records",
         ),
-        ("Awaiting your review", pending, "rate_review", "Analyzed, not yet saved"),
+        ("Awaiting review", pending, "rate_review"),
     )
     content = []
-    for label, value, symbol, hint in items:
+    for label, value, symbol in items:
         content.append(
             f'<div class="mi-overview-item"><div class="mi-overview-icon">{icon(symbol)}</div>'
-            f'<div><div class="mi-overview-label">{escape(label)}</div>'
-            f'<div class="mi-overview-value">{value}</div>'
-            f'<div class="mi-overview-hint">{escape(hint)}</div></div></div>'
+            f'<span class="mi-overview-label">{escape(label)}</span>'
+            f'<span class="mi-overview-value">{value}</span></div>'
         )
     st.html(
         '<section class="mi-overview" aria-label="Current session overview">'
         + "".join(content)
         + "</section>"
     )
+
+
+def render_progress(*, details_ready: bool, image_ready: bool, analyzed: bool, saved: bool) -> None:
+    """Reflect completed work rather than implying an unavailable model has run."""
+    steps = (
+        ("Instrument details", details_ready),
+        ("Image upload", image_ready),
+        ("Analysis", analyzed),
+        ("Operator review", saved),
+    )
+    first_pending = next((index for index, (_, done) in enumerate(steps) if not done), None)
+    items = []
+    for index, (label, done) in enumerate(steps):
+        status = "complete" if done else "current" if index == first_pending else "upcoming"
+        current = ' aria-current="step"' if status == "current" else ""
+        marker = icon("check") if done else str(index + 1).zfill(2)
+        accessible = "Completed" if done else "Current" if status == "current" else "Upcoming"
+        items.append(
+            f'<li class="mi-progress-step mi-progress--{status}"{current}>'
+            f'<span class="mi-progress-marker">{marker}</span>'
+            f'<span>{escape(label)}<span class="mi-sr-only">: {accessible}</span></span></li>'
+        )
+    st.html('<ol class="mi-progress" aria-label="Inspection progress">' + "".join(items) + "</ol>")
 
 
 def render_footer(notice: str) -> None:
