@@ -1,10 +1,10 @@
 import numpy as np
-from PIL import Image
 import pytest
 import torch
+from PIL import Image
 
-from src.tiling import extract_tiles, stitch_tile_maps, instrument_score, tile_tensor
 from src.dinomaly_model import LoRALinear, StableLinearAttention
+from src.tiling import extract_tiles, instrument_score, stitch_tile_maps, tile_tensor
 
 
 def test_native_tile_stitching_preserves_edges_and_mask():

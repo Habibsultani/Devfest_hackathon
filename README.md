@@ -1,9 +1,9 @@
 # MedInspect AI
 
-Person 1's dataset, model inference and evaluation implementation for the
-Devfest hackathon. The current experiment uses **instrument12 and instrument19**
-with equal training counts and balanced normal/defect validation and test cohorts.
-Person 2 can integrate the models through `src.inference.inspect_image`.
+Integrated Streamlit application and real model pipeline for the Devfest hackathon.
+Select **instrument12 or instrument19**, upload an image, review the score and
+aligned heatmap, record an independent operator decision, and export the session CSV.
+The model uses equal training counts and balanced normal/defect evaluation cohorts.
 
 The active model is **Dinomaly + MobileSAM + high-resolution patches + rank-8
 LoRA**, reusing the published approach and official implementation components.
@@ -12,8 +12,8 @@ defect on the small balanced development comparison. Earlier failed PatchCore
 experiments are retained rather than replaced with claimed success.
 
 This research prototype screens visible anomalies. It does not certify device
-quality, safety or sterility. Streamlit, human review, CSV export and deployment
-remain Person 2's responsibilities.
+quality, safety or sterility. Application and inference branches are integrated;
+public hosting and final submission materials remain team tasks.
 
 ## Setup
 
@@ -24,11 +24,28 @@ python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --index-url https://download.pytorch.org/whl/cpu torch==2.8.0 torchvision==0.23.0
 python -m pip install -r requirements-lock.txt --extra-index-url https://download.pytorch.org/whl/cpu
+python -m scripts.setup_research_models
+python -m scripts.fetch_model --all --github-auth
+python -m scripts.doctor --require-model
+python -m streamlit run app.py
 ```
 
 `requirements.txt` pins direct dependencies. `requirements-lock.txt` records the
 complete tested environment. Anomalib's imported video/CLIP dependencies and the
 Hub API version expected by timm are included.
+
+Install Git before setup: MobileSAM is pinned to an upstream Git revision.
+The private draft release requires `GITHUB_TOKEN` with repository access or your
+existing Git credentials. Tokens stay outside source/config files. The app can
+also retrieve missing artifacts on first analysis; both Dinomaly and MobileSAM
+are checked against their saved SHA-256 before loading. A corrupt local file is
+rejected rather than silently replaced. The class registry supplies both configs,
+their distinct thresholds and validation-derived fixed heatmap display scales.
+
+Windows/macOS/Linux launchers and Docker instructions are in
+[operations](docs/operations.md) and [deployment](docs/deployment.md).
+Uploads accept JPEG/PNG up to 20 MB and 40 million pixels, preserving native size.
+Select the instrument class manually; changing class or input clears stale results.
 
 ## Reproduce the model
 
@@ -115,6 +132,17 @@ Neither is the current default model. See the archived reports for negative resu
 Tests cover balance quotas, leakage rejection, preprocessing/map alignment,
 calibration, input errors, artifact integrity, dynamic predictions and fresh-process
 reload. Integration tests skip on a source-only checkout without data and models.
+
+For actual application acceptance, after downloading the two original dataset
+classes, run `python -m scripts.check_real_app`. Set `MEDINSPECT_NODE_MODULES` to
+the directory containing Playwright and optionally `MEDINSPECT_RUNTIME_NODE` to
+the Node executable. Use `MEDINSPECT_BROWSER_CHANNEL=chromium` for Playwright's
+installed Chromium; Chrome is the local default. This starts a fresh Streamlit
+process, compares direct inference with the gateway, uploads five real images,
+checks class switching, saves human decisions and verifies the downloaded CSV.
+The instrument19 corrosion sample intentionally retains the known model miss.
+Screenshots and CSV stay in ignored `artifacts/integration/`; numerical evidence
+is written to `reports/integration_smoke.json`. This checks integration, not new accuracy.
 
 Source: [Purdue VIPER dataset](https://huggingface.co/datasets/purdueviperlab/Surgical_Instruments_Unsupervised_Defect_Detection),
 revision `e791b82e9616889e356b4cf7d40d6b56ba87b0c5`, author's declared

@@ -8,12 +8,15 @@ from functools import partial
 from pathlib import Path
 
 import torch
-from torch import nn
-
 from anomalib.models.components import GaussianBlur2d
-from anomalib.models.image.dinomaly.torch_model import DinomalyModel, DecoderViTBlock
-from anomalib.models.image.dinomaly.components import CosineHardMiningLoss, DinomalyMLP, LinearAttention
+from anomalib.models.image.dinomaly.components import (
+    CosineHardMiningLoss,
+    DinomalyMLP,
+    LinearAttention,
+)
 from anomalib.models.image.dinomaly.components.dinov2_loader import DinoV2Loader
+from anomalib.models.image.dinomaly.torch_model import DecoderViTBlock, DinomalyModel
+from torch import nn
 
 
 class StableLinearAttention(LinearAttention):
@@ -22,9 +25,14 @@ class StableLinearAttention(LinearAttention):
     Dinomaly's author documents the epsilon fix for training on new datasets.
     FP32 accumulation also prevents half-precision overflow of the token sums.
     """
+
     def forward(self, x):
         batch, length, dimension = x.shape
-        qkv = self.qkv(x).reshape(batch, length, 3, self.num_heads, dimension // self.num_heads).permute(2, 0, 3, 1, 4)
+        qkv = (
+            self.qkv(x)
+            .reshape(batch, length, 3, self.num_heads, dimension // self.num_heads)
+            .permute(2, 0, 3, 1, 4)
+        )
         with torch.autocast(device_type=x.device.type, enabled=False):
             q, k, v = qkv[0].float(), qkv[1].float(), qkv[2].float()
             q, k = torch.nn.functional.elu(q) + 1, torch.nn.functional.elu(k) + 1
@@ -42,11 +50,14 @@ class LoRALinear(nn.Module):
         self.base.requires_grad_(False)
         self.a = nn.Parameter(torch.empty(rank, linear.in_features))
         self.b = nn.Parameter(torch.zeros(linear.out_features, rank))
-        nn.init.kaiming_uniform_(self.a, a=5 ** 0.5)
+        nn.init.kaiming_uniform_(self.a, a=5**0.5)
         self.scale = 1.0
 
     def forward(self, x):
-        return self.base(x) + torch.nn.functional.linear(torch.nn.functional.linear(x, self.a), self.b) * self.scale
+        return (
+            self.base(x)
+            + torch.nn.functional.linear(torch.nn.functional.linear(x, self.a), self.b) * self.scale
+        )
 
 
 class SurgicalDinomaly(DinomalyModel):
@@ -62,11 +73,33 @@ class SurgicalDinomaly(DinomalyModel):
         for block in self.encoder.blocks[:10]:
             block.attn.qkv = LoRALinear(block.attn.qkv)
             block.attn.proj = LoRALinear(block.attn.proj)
-        self.bottleneck = nn.ModuleList([DinomalyMLP(in_features=384, hidden_features=1536,
-            out_features=384, act_layer=nn.GELU, drop=0.2, bias=False, apply_input_dropout=True)])
-        self.decoder = nn.ModuleList([DecoderViTBlock(dim=384, num_heads=6, mlp_ratio=4.0,
-            qkv_bias=True, norm_layer=partial(nn.LayerNorm, eps=1e-8), attn_drop=0.0, attn=StableLinearAttention)
-            for _ in range(8)])
+        self.bottleneck = nn.ModuleList(
+            [
+                DinomalyMLP(
+                    in_features=384,
+                    hidden_features=1536,
+                    out_features=384,
+                    act_layer=nn.GELU,
+                    drop=0.2,
+                    bias=False,
+                    apply_input_dropout=True,
+                )
+            ]
+        )
+        self.decoder = nn.ModuleList(
+            [
+                DecoderViTBlock(
+                    dim=384,
+                    num_heads=6,
+                    mlp_ratio=4.0,
+                    qkv_bias=True,
+                    norm_layer=partial(nn.LayerNorm, eps=1e-8),
+                    attn_drop=0.0,
+                    attn=StableLinearAttention,
+                )
+                for _ in range(8)
+            ]
+        )
         self.target_layers = list(range(2, 10))
         self.fuse_layer_encoder = [[0, 1, 2, 3], [4, 5, 6, 7]]
         self.fuse_layer_decoder = [[0, 1, 2, 3], [4, 5, 6, 7]]
@@ -74,6 +107,7 @@ class SurgicalDinomaly(DinomalyModel):
         self.gaussian_blur = GaussianBlur2d(sigma=4, channels=1, kernel_size=5)
         self.loss_fn = CosineHardMiningLoss()
         from anomalib.models.image.dinomaly.lightning_model import Dinomaly
+
         Dinomaly._initialize_trainable_modules(nn.ModuleList([self.bottleneck, self.decoder]))
 
     def get_encoder_decoder_outputs(self, images):
@@ -94,6 +128,12 @@ class SurgicalDinomaly(DinomalyModel):
             reconstructed = block(reconstructed, attn_mask=None)
             decoded.append(reconstructed)
         decoded.reverse()
-        en = [self._fuse_feature([encoded[i] for i in indices]) for indices in self.fuse_layer_encoder]
-        de = [self._fuse_feature([decoded[i] for i in indices]) for indices in self.fuse_layer_decoder]
-        return self._process_features_for_spatial_output(en, side), self._process_features_for_spatial_output(de, side)
+        en = [
+            self._fuse_feature([encoded[i] for i in indices]) for indices in self.fuse_layer_encoder
+        ]
+        de = [
+            self._fuse_feature([decoded[i] for i in indices]) for indices in self.fuse_layer_decoder
+        ]
+        return self._process_features_for_spatial_output(
+            en, side
+        ), self._process_features_for_spatial_output(de, side)

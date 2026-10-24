@@ -36,3 +36,13 @@ build/
 /reports/instrument2/
 /reports/instrument3/
 /reports/figures/
+
+# Application delivery and local inspection artifacts
+node_modules/
+artifacts/
+.streamlit/secrets.toml
+inspection-*.csv
+.coverage
+htmlcov/
+.vscode/
+.idea/

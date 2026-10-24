@@ -1,8 +1,9 @@
 """Cache SAM instrument masks for all selected folds without reading defect masks."""
 
 from pathlib import Path
-from PIL import Image
+
 import torch
+from PIL import Image
 
 from src.dataset import load_manifest
 from src.segmentation import get_segmenter
@@ -17,7 +18,11 @@ def main():
         for index, row in enumerate(rows):
             with Image.open(row["image_path"]) as image:
                 mask = segmenter.segment(image)
-            print(f"{instrument} {index+1}/{len(rows)} {row['source_path']} foreground={mask.mean():.3f}", flush=True)
+            print(
+                f"{instrument} {index + 1}/{len(rows)} {row['source_path']} "
+                f"foreground={mask.mean():.3f}",
+                flush=True,
+            )
 
 
 if __name__ == "__main__":

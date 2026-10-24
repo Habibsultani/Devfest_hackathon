@@ -1,6 +1,6 @@
 import numpy as np
-from PIL import Image
 import pytest
+from PIL import Image
 
 from src.region import instrument_region, suppress_blue_background
 

@@ -1,1 +1,1 @@
-"""MedInspect AI model and dataset pipeline owned by Person 1."""
+"""MedInspect AI model, application, and inspection workflow."""

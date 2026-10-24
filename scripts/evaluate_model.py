@@ -1,23 +1,24 @@
 """Evaluate the locked checkpoint on the manifest's untouched test fold."""
 
 import argparse
-from collections import Counter
 import csv
 import json
-from pathlib import Path
 import shutil
+from collections import Counter
+from pathlib import Path
 from time import perf_counter
 
 import matplotlib
+
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image, ImageOps
-from sklearn.metrics import ConfusionMatrixDisplay, roc_auc_score, RocCurveDisplay
+from sklearn.metrics import ConfusionMatrixDisplay, RocCurveDisplay, roc_auc_score
 
 from src.dataset import file_sha256, load_manifest, write_json
 from src.evaluation import image_metrics
-from src.inference import Inspector, DEFAULT_CONFIG, get_inspector
+from src.inference import DEFAULT_CONFIG, Inspector, get_inspector
 from src.preprocessing import validate_image
 
 
@@ -83,11 +84,19 @@ def evaluate_model(manifest: Path, config_path: Path, output: Path) -> dict:
         scores = np.asarray(Image.fromarray(anomaly_map).resize(size, Image.Resampling.BILINEAR))
         pixel_labels.append(labels.ravel())
         pixel_scores.append(scores.ravel())
-        results.append({"source_path": row["source_path"], "group_id": row["group_id"],
-                        "label": row["label"], "defect_type": row["defect_type"],
-                        "anomaly_score": result["anomaly_score"], "threshold": result["threshold"],
-                        "requires_review": result["requires_review"], "latency_seconds": latency,
-                        "model_version": result["model_version"]})
+        results.append(
+            {
+                "source_path": row["source_path"],
+                "group_id": row["group_id"],
+                "label": row["label"],
+                "defect_type": row["defect_type"],
+                "anomaly_score": result["anomaly_score"],
+                "threshold": result["threshold"],
+                "requires_review": result["requires_review"],
+                "latency_seconds": latency,
+                "model_version": result["model_version"],
+            }
+        )
         # Local research previews only; ignored by Git due to dataset restrictions.
         if row["label"] not in examples:
             examples.add(row["label"])
@@ -110,27 +119,46 @@ def evaluate_model(manifest: Path, config_path: Path, output: Path) -> dict:
     metrics = image_metrics(labels, scores, inspector.threshold)
     pixels_y, pixels_s = np.concatenate(pixel_labels), np.concatenate(pixel_scores)
     latencies = [r["latency_seconds"] for r in results]
-    metrics.update({"threshold": inspector.threshold, "model_version": inspector.config["model_version"],
-                    "artifact_sha256": inspector.config["artifact_sha256"],
-                    "manifest_sha256": inspector.config["manifest_sha256"],
-                    "config_sha256": file_sha256(config_path),
-                    "test_groups": len({r["group_id"] for r in rows}),
-                    "defect_type_counts": dict(Counter(r["defect_type"] for r in rows)),
-                    "pixel_auroc": float(roc_auc_score(pixels_y, pixels_s)) if len(np.unique(pixels_y)) == 2 else None,
-                    "localization_method": "Pooled pixel AUROC; masks nearest-neighbor, maps bilinear, max side 256, padding excluded; normal masks zero.",
-                    "localization_evaluated_pixels": len(pixels_y),
-                    "latency_median_seconds": float(np.median(latencies)),
-                    "latency_mean_seconds": float(np.mean(latencies)),
-                    "inference_device": getattr(inspector, "device", "cpu"),
-                    "latency_scope": "Preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading. For SAM backend the segmentation cache is warm.",
-                    "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims."})
+    metrics.update(
+        {
+            "threshold": inspector.threshold,
+            "model_version": inspector.config["model_version"],
+            "artifact_sha256": inspector.config["artifact_sha256"],
+            "manifest_sha256": inspector.config["manifest_sha256"],
+            "config_sha256": file_sha256(config_path),
+            "test_groups": len({r["group_id"] for r in rows}),
+            "defect_type_counts": dict(Counter(r["defect_type"] for r in rows)),
+            "pixel_auroc": float(roc_auc_score(pixels_y, pixels_s))
+            if len(np.unique(pixels_y)) == 2
+            else None,
+            "localization_method": (
+                "Pooled pixel AUROC; masks nearest-neighbor, maps bilinear, max side "
+                "256, padding excluded; normal masks zero."
+            ),
+            "localization_evaluated_pixels": len(pixels_y),
+            "latency_median_seconds": float(np.median(latencies)),
+            "latency_mean_seconds": float(np.mean(latencies)),
+            "inference_device": getattr(inspector, "device", "cpu"),
+            "latency_scope": (
+                "Preprocessing + forward + original-size map alignment, after "
+                "warmup; excludes file decoding and model loading. For SAM backend "
+                "the segmentation cache is warm."
+            ),
+            "limitations": (
+                "Small single-class split; related test variants are not independent "
+                "observations. Simulated defects; no clinical claims."
+            ),
+        }
+    )
     write_json(output / "metrics.json", metrics)
     with (output / "results.csv").open("w", encoding="utf-8", newline="") as stream:
         writer = csv.DictWriter(stream, fieldnames=list(results[0]))
         writer.writeheader()
         writer.writerows(results)
     predictions = np.array(scores) >= inspector.threshold
-    ConfusionMatrixDisplay.from_predictions(labels, predictions, labels=[0, 1], display_labels=["Normal", "Defect"], colorbar=False)
+    ConfusionMatrixDisplay.from_predictions(
+        labels, predictions, labels=[0, 1], display_labels=["Normal", "Defect"], colorbar=False
+    )
     plt.title("Held-out screening results")
     plt.savefig(figures / "confusion_matrix.png", dpi=150, bbox_inches="tight")
     plt.close()
@@ -141,7 +169,10 @@ def evaluate_model(manifest: Path, config_path: Path, output: Path) -> dict:
         plt.close()
     # Commit numerical provenance, not source images or masks.
     shutil.copyfile(manifest, output / "dataset_manifest.csv")
-    for source, target in (("summary.json", "dataset_summary.json"), ("duplicate_audit.json", "duplicate_audit.json")):
+    for source, target in (
+        ("summary.json", "dataset_summary.json"),
+        ("duplicate_audit.json", "duplicate_audit.json"),
+    ):
         if (manifest.parent / source).exists():
             shutil.copyfile(manifest.parent / source, output / target)
     if (manifest.parent / "selection_audit.json").exists():
@@ -151,7 +182,9 @@ def evaluate_model(manifest: Path, config_path: Path, output: Path) -> dict:
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--manifest", type=Path, default=Path("data/processed/instrument12/manifest.csv"))
+    parser.add_argument(
+        "--manifest", type=Path, default=Path("data/processed/instrument12/manifest.csv")
+    )
     parser.add_argument("--config", type=Path, default=DEFAULT_CONFIG)
     parser.add_argument("--output", type=Path, default=Path("reports/instrument12"))
     args = parser.parse_args()

@@ -11,13 +11,36 @@ def main():
     args = parser.parse_args()
     commands = []
     if args.download:
-        commands.append(["scripts.download_dataset", "--instruments", "instrument12", "instrument19"])
+        commands.append(
+            ["scripts.download_dataset", "--instruments", "instrument12", "instrument19"]
+        )
     for instrument in ("instrument12", "instrument19"):
-        commands.append(["scripts.prepare_balanced_dataset", "--instrument", instrument,
-                         "--output", f"data/processed/{instrument}"])
-    commands.extend([["scripts.setup_research_models", "--for-training"], ["scripts.prepare_sam"],
-                     ["scripts.train_dinomaly", "--steps", "1000", "--batch-size", "4", "--validate-every", "200"],
-                     ["scripts.evaluate_dinomaly"]])
+        commands.append(
+            [
+                "scripts.prepare_balanced_dataset",
+                "--instrument",
+                instrument,
+                "--output",
+                f"data/processed/{instrument}",
+            ]
+        )
+    commands.extend(
+        [
+            ["scripts.setup_research_models", "--for-training"],
+            ["scripts.prepare_sam"],
+            [
+                "scripts.train_dinomaly",
+                "--steps",
+                "1000",
+                "--batch-size",
+                "4",
+                "--validate-every",
+                "200",
+            ],
+            ["scripts.calibrate_display"],
+            ["scripts.evaluate_dinomaly"],
+        ]
+    )
     for command in commands:
         subprocess.run([sys.executable, "-m", *command], check=True)
 

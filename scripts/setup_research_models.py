@@ -2,8 +2,8 @@
 
 import argparse
 import json
-from pathlib import Path
 import urllib.request
+from pathlib import Path
 
 from src.dataset import file_sha256
 
