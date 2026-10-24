@@ -1,0 +1,85 @@
+{
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "artifact_sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e",
+  "train_sources": [
+    "instrument19/train/good/IMG_4606.png",
+    "instrument19/train/good/IMG_4608.png",
+    "instrument19/train/good/IMG_4734.png",
+    "instrument19/train/good/IMG_4735.png",
+    "instrument19/train/good/IMG_4736.png",
+    "instrument19/train/good/IMG_4738.png",
+    "instrument19/train/good/IMG_4740.png",
+    "instrument19/train/good/IMG_4741.png",
+    "instrument19/train/good/IMG_4743.png",
+    "instrument19/train/good/IMG_4746.png",
+    "instrument19/train/good/IMG_4748.png",
+    "instrument19/train/good/IMG_4751.png"
+  ],
+  "validation_results": [
+    {
+      "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 16.950462341308594
+    },
+    {
+      "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 17.006690979003906
+    },
+    {
+      "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 16.950462341308594
+    },
+    {
+      "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 17.789596557617188
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4607.png",
+      "group_id": "9ad45a4c22f825cf",
+      "label": 0,
+      "score": 20.5084285736084
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4745.png",
+      "group_id": "3cdd0ec8ae10d773",
+      "label": 0,
+      "score": 22.204431533813477
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4747.png",
+      "group_id": "2e50a727db4aa883",
+      "label": 0,
+      "score": 17.9774169921875
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4749.png",
+      "group_id": "694303c30d31a23a",
+      "label": 0,
+      "score": 19.35682487487793
+    }
+  ],
+  "threshold": 22.20443153381348,
+  "validation_metrics": {
+    "TP": 0,
+    "FP": 0,
+    "TN": 4,
+    "FN": 4,
+    "recall": 0.0,
+    "precision": null,
+    "f1": 0.0,
+    "false_positive_rate": 0.0,
+    "image_auroc": 0.0,
+    "normal_images": 4,
+    "defect_images": 4,
+    "total_images": 8,
+    "balanced_accuracy": 0.5
+  },
+  "reload_score_verified": true
+}

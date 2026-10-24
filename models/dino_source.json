@@ -1,0 +1,5 @@
+{
+  "url": "https://dl.fbaipublicfiles.com/dinov2/dinov2_vits14/dinov2_vits14_reg4_pretrain.pth",
+  "sha256": "f433177089a681826f849f194ece3bb48f4d63fb38d32fc837e3dc7a4e5641fb",
+  "checkpoint": "pretrained/dinov2_vits14_reg4_pretrain.pth"
+}

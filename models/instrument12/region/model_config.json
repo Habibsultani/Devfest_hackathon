@@ -1,0 +1,53 @@
+{
+  "schema_version": 1,
+  "status": "trained",
+  "artifact_format": "torch-state-dict",
+  "artifact_path": "medinspect-instrument12-balanced-v3-region.pt",
+  "model_version": "medinspect-instrument12-balanced-v3-region",
+  "instrument_class": "instrument12",
+  "model": {
+    "backbone": "resnet18",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "num_neighbors": 9
+  },
+  "preprocessing": {
+    "input_size": 256,
+    "resize": "letterbox-bilinear",
+    "padding": "white",
+    "normalization": "imagenet",
+    "exif_transpose": true,
+    "region_mask": true
+  },
+  "threshold": 23.042034149169925,
+  "threshold_method": "balanced-accuracy",
+  "threshold_selection": "Maximize validation balanced accuracy; ties prefer lower false-positive rate, then smaller threshold.",
+  "threshold_quantile": null,
+  "seed": 42,
+  "coreset_sampling_ratio": 0.05,
+  "training_images": 12,
+  "validation_images": 8,
+  "training_patch_embeddings": 12288,
+  "memory_bank_shape": [
+    614,
+    384
+  ],
+  "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
+  "cpu_threads": 4,
+  "dependencies": {
+    "torch": "2.8.0+cpu",
+    "torchvision": "0.23.0+cpu",
+    "anomalib": "2.2.0",
+    "timm": "1.0.20",
+    "Pillow": "11.3.0",
+    "numpy": "2.2.6"
+  },
+  "score_interpretation": "Raw PatchCore distance, not defect probability. Larger means more anomalous.",
+  "scope": "Research prototype for one declared class. No safety or sterility certification.",
+  "artifact_sha256": "31483c44924c8ef757d5f7e093ba23222af3f1780a62a749084fb0e2f49f9dd1",
+  "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-instrument12-balanced-v3-region.pt",
+  "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672509106",
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
+}

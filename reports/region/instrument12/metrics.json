@@ -1,0 +1,33 @@
+{
+  "TP": 2,
+  "FP": 0,
+  "TN": 4,
+  "FN": 2,
+  "recall": 0.5,
+  "precision": 1.0,
+  "f1": 0.6666666666666666,
+  "false_positive_rate": 0.0,
+  "image_auroc": 0.625,
+  "normal_images": 4,
+  "defect_images": 4,
+  "total_images": 8,
+  "threshold": 23.042034149169925,
+  "model_version": "medinspect-instrument12-balanced-v3-region",
+  "artifact_sha256": "31483c44924c8ef757d5f7e093ba23222af3f1780a62a749084fb0e2f49f9dd1",
+  "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c",
+  "config_sha256": "2d21fe88fa184450dd8632945ab024d2ae1e44fa0af40e158edbca4bc143dab3",
+  "test_groups": 6,
+  "defect_type_counts": {
+    "blood": 4,
+    "good": 4
+  },
+  "pixel_auroc": 0.8185908636492442,
+  "localization_method": "Pooled pixel AUROC; masks nearest-neighbor, maps bilinear, max side 256, padding excluded; normal masks zero.",
+  "localization_evaluated_pixels": 428032,
+  "latency_median_seconds": 0.12682104998384602,
+  "latency_mean_seconds": 0.12200193750322796,
+  "latency_scope": "CPU preprocessing + forward + original-size map alignment, after warmup; excludes file decoding and model loading.",
+  "limitations": "Small single-class split; related test variants are not independent observations. Simulated defects; no clinical claims.",
+  "balanced_accuracy": 0.75,
+  "config_sha256_encoding": "UTF-8 LF JSON snapshot"
+}

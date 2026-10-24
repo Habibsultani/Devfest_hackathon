@@ -1,0 +1,632 @@
+[
+  {
+    "step": 200,
+    "loss": 0.14608234167099,
+    "validation": {
+      "instrument12": {
+        "threshold": 0.686599850654602,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+            "label": 1,
+            "score": 0.7174500226974487
+          },
+          {
+            "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+            "label": 1,
+            "score": 0.7199195027351379
+          },
+          {
+            "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.7110697031021118
+          },
+          {
+            "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.686599850654602
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7202.JPG",
+            "label": 0,
+            "score": 0.597123920917511
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7203.JPG",
+            "label": 0,
+            "score": 0.623063325881958
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7209.JPG",
+            "label": 0,
+            "score": 0.6045035719871521
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7210.JPG",
+            "label": 0,
+            "score": 0.5820523500442505
+          }
+        ]
+      },
+      "instrument19": {
+        "threshold": 0.702874481678009,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+            "label": 1,
+            "score": 0.7129815220832825
+          },
+          {
+            "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+            "label": 1,
+            "score": 0.702874481678009
+          },
+          {
+            "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.7152133584022522
+          },
+          {
+            "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.7094583511352539
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4607.png",
+            "label": 0,
+            "score": 0.5631546974182129
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4745.png",
+            "label": 0,
+            "score": 0.5296661853790283
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4747.png",
+            "label": 0,
+            "score": 0.5091448426246643
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4749.png",
+            "label": 0,
+            "score": 0.5729946494102478
+          }
+        ]
+      }
+    }
+  },
+  {
+    "step": 400,
+    "loss": 0.15445679426193237,
+    "validation": {
+      "instrument12": {
+        "threshold": 0.5199686884880066,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+            "label": 1,
+            "score": 0.5291361808776855
+          },
+          {
+            "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+            "label": 1,
+            "score": 0.5291288495063782
+          },
+          {
+            "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.5236293077468872
+          },
+          {
+            "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.5199686884880066
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7202.JPG",
+            "label": 0,
+            "score": 0.5025073885917664
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7203.JPG",
+            "label": 0,
+            "score": 0.5158267021179199
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7209.JPG",
+            "label": 0,
+            "score": 0.5031800270080566
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7210.JPG",
+            "label": 0,
+            "score": 0.4835989773273468
+          }
+        ]
+      },
+      "instrument19": {
+        "threshold": 0.48238950967788696,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+            "label": 1,
+            "score": 0.48238950967788696
+          },
+          {
+            "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+            "label": 1,
+            "score": 0.523590624332428
+          },
+          {
+            "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.5582900047302246
+          },
+          {
+            "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.5504974126815796
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4607.png",
+            "label": 0,
+            "score": 0.44973087310791016
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4745.png",
+            "label": 0,
+            "score": 0.4703638553619385
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4747.png",
+            "label": 0,
+            "score": 0.4467039108276367
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4749.png",
+            "label": 0,
+            "score": 0.438877671957016
+          }
+        ]
+      }
+    }
+  },
+  {
+    "step": 600,
+    "loss": 0.09901224076747894,
+    "validation": {
+      "instrument12": {
+        "threshold": 0.4760844111442566,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+            "label": 1,
+            "score": 0.4761035144329071
+          },
+          {
+            "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+            "label": 1,
+            "score": 0.4760844111442566
+          },
+          {
+            "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.4845731258392334
+          },
+          {
+            "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.48145005106925964
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7202.JPG",
+            "label": 0,
+            "score": 0.4486669600009918
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7203.JPG",
+            "label": 0,
+            "score": 0.4570784270763397
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7209.JPG",
+            "label": 0,
+            "score": 0.4522634744644165
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7210.JPG",
+            "label": 0,
+            "score": 0.4311404526233673
+          }
+        ]
+      },
+      "instrument19": {
+        "threshold": 0.4392383098602295,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+            "label": 1,
+            "score": 0.4392383098602295
+          },
+          {
+            "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+            "label": 1,
+            "score": 0.49098414182662964
+          },
+          {
+            "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.5599530935287476
+          },
+          {
+            "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.5512946248054504
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4607.png",
+            "label": 0,
+            "score": 0.3709568679332733
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4745.png",
+            "label": 0,
+            "score": 0.35380464792251587
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4747.png",
+            "label": 0,
+            "score": 0.33442097902297974
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4749.png",
+            "label": 0,
+            "score": 0.3627353012561798
+          }
+        ]
+      }
+    }
+  },
+  {
+    "step": 800,
+    "loss": 0.05303520709276199,
+    "validation": {
+      "instrument12": {
+        "threshold": 0.4084432125091553,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+            "label": 1,
+            "score": 0.415797621011734
+          },
+          {
+            "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+            "label": 1,
+            "score": 0.4151102900505066
+          },
+          {
+            "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.4102924168109894
+          },
+          {
+            "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.4084432125091553
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7202.JPG",
+            "label": 0,
+            "score": 0.38955241441726685
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7203.JPG",
+            "label": 0,
+            "score": 0.3988000452518463
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7209.JPG",
+            "label": 0,
+            "score": 0.3861905634403229
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7210.JPG",
+            "label": 0,
+            "score": 0.36760327219963074
+          }
+        ]
+      },
+      "instrument19": {
+        "threshold": 0.4185296893119812,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+            "label": 1,
+            "score": 0.4185296893119812
+          },
+          {
+            "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+            "label": 1,
+            "score": 0.44237709045410156
+          },
+          {
+            "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.4852670729160309
+          },
+          {
+            "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.4486924111843109
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4607.png",
+            "label": 0,
+            "score": 0.32572802901268005
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4745.png",
+            "label": 0,
+            "score": 0.2919294834136963
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4747.png",
+            "label": 0,
+            "score": 0.28597503900527954
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4749.png",
+            "label": 0,
+            "score": 0.3066153824329376
+          }
+        ]
+      }
+    }
+  },
+  {
+    "step": 1000,
+    "loss": 0.05308102071285248,
+    "validation": {
+      "instrument12": {
+        "threshold": 0.3837412893772125,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument12/test/blood/0010_IMG_1019.png",
+            "label": 1,
+            "score": 0.389116108417511
+          },
+          {
+            "source_path": "instrument12/test/blood/0011_IMG_1019.png",
+            "label": 1,
+            "score": 0.38909822702407837
+          },
+          {
+            "source_path": "instrument12/test/crack/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.3837412893772125
+          },
+          {
+            "source_path": "instrument12/test/cut/0009_IMG_1019.png",
+            "label": 1,
+            "score": 0.3862660825252533
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7202.JPG",
+            "label": 0,
+            "score": 0.3446963429450989
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7203.JPG",
+            "label": 0,
+            "score": 0.3692929148674011
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7209.JPG",
+            "label": 0,
+            "score": 0.35576266050338745
+          },
+          {
+            "source_path": "instrument12/train/good/IMG_7210.JPG",
+            "label": 0,
+            "score": 0.3356476426124573
+          }
+        ]
+      },
+      "instrument19": {
+        "threshold": 0.36184680461883545,
+        "metrics": {
+          "TP": 4,
+          "FP": 0,
+          "TN": 4,
+          "FN": 0,
+          "recall": 1.0,
+          "precision": 1.0,
+          "f1": 1.0,
+          "false_positive_rate": 0.0,
+          "balanced_accuracy": 1.0,
+          "image_auroc": 1.0,
+          "normal_images": 4,
+          "defect_images": 4,
+          "total_images": 8
+        },
+        "predictions": [
+          {
+            "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+            "label": 1,
+            "score": 0.36184680461883545
+          },
+          {
+            "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+            "label": 1,
+            "score": 0.41393738985061646
+          },
+          {
+            "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.4200897216796875
+          },
+          {
+            "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+            "label": 1,
+            "score": 0.40092945098876953
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4607.png",
+            "label": 0,
+            "score": 0.28574731945991516
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4745.png",
+            "label": 0,
+            "score": 0.25089988112449646
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4747.png",
+            "label": 0,
+            "score": 0.24357277154922485
+          },
+          {
+            "source_path": "instrument19/train/good/IMG_4749.png",
+            "label": 0,
+            "score": 0.27817627787590027
+          }
+        ]
+      }
+    }
+  }
+]

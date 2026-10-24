@@ -1,0 +1,40 @@
+{
+  "seed": 42,
+  "model": "PatchCore resnet18, layers2/3, 256, 5% coreset",
+  "selection": "Instrument classes selected using counts and defect coverage only, before model inference.",
+  "calibration": "Maximize validation balanced accuracy; ties lower FPR, then smaller threshold.",
+  "cohorts": {
+    "instrument12": {
+      "counts": {
+        "train": {
+          "good": 12
+        },
+        "validation": {
+          "defect": 4,
+          "good": 4
+        },
+        "test": {
+          "defect": 4,
+          "good": 4
+        }
+      },
+      "manifest_sha256": "f7adf5dffff6624c35e49d6a4eb5a2b13247902d707464312efbeeb84fc0f98c"
+    },
+    "instrument19": {
+      "counts": {
+        "train": {
+          "good": 12
+        },
+        "validation": {
+          "defect": 4,
+          "good": 4
+        },
+        "test": {
+          "defect": 4,
+          "good": 4
+        }
+      },
+      "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc"
+    }
+  }
+}

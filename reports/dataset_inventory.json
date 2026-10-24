@@ -1,0 +1,43 @@
+{
+  "revision": "e791b82e9616889e356b4cf7d40d6b56ba87b0c5",
+  "classes": [
+    {
+      "instrument_class": "instrument12",
+      "files": 55,
+      "bytes": 155414729,
+      "folder_counts": {
+        "instrument12/ground_truth/blood": 9,
+        "instrument12/ground_truth/corrosion": 2,
+        "instrument12/ground_truth/crack": 1,
+        "instrument12/ground_truth/cut": 1,
+        "instrument12/ground_truth/pores": 1,
+        "instrument12/test/blood": 9,
+        "instrument12/test/corrosion": 2,
+        "instrument12/test/crack": 1,
+        "instrument12/test/cut": 1,
+        "instrument12/test/good": 1,
+        "instrument12/test/pores": 1,
+        "instrument12/train/good": 26
+      }
+    },
+    {
+      "instrument_class": "instrument19",
+      "files": 58,
+      "bytes": 112384164,
+      "folder_counts": {
+        "instrument19/ground_truth/blood": 9,
+        "instrument19/ground_truth/corrosion": 2,
+        "instrument19/ground_truth/crack": 2,
+        "instrument19/ground_truth/cut": 2,
+        "instrument19/ground_truth/pores": 2,
+        "instrument19/test/blood": 9,
+        "instrument19/test/corrosion": 2,
+        "instrument19/test/crack": 2,
+        "instrument19/test/cut": 2,
+        "instrument19/test/good": 1,
+        "instrument19/test/pores": 2,
+        "instrument19/train/good": 23
+      }
+    }
+  ]
+}

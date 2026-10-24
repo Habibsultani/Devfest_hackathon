@@ -1,0 +1,32 @@
+{
+  "schema_version": 1,
+  "status": "trained",
+  "backend": "dinomaly-sam-tiles",
+  "artifact_format": "torch-state-dict",
+  "artifact_path": "../dinomaly/medinspect-dinomaly-sam-lora-v4.pt",
+  "artifact_sha256": "a8b16ce81f652ee8a20547a05314b26975544da12e44629c3e9117e52744819a",
+  "model_version": "medinspect-dinomaly-sam-lora-v4",
+  "instrument_class": "instrument19",
+  "threshold": 0.702874481678009,
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "sam_sha256": "6dbb90523a35330fedd7f1d3dfc66f995213d81b29a5ca8108dbcdd4e37d6c2f",
+  "segmentation_version": "rgb-automatic-prompts-v3",
+  "dependencies": {
+    "torch": "2.8.0+cu128",
+    "torchvision": "0.23.0+cu128",
+    "anomalib": "2.2.0",
+    "timm": "1.0.20",
+    "Pillow": "11.3.0",
+    "numpy": "2.2.6",
+    "mobile_sam": "1.0"
+  },
+  "training_images": 24,
+  "validation_images": 16,
+  "threshold_method": "per-class balanced-validation-F1",
+  "selected_step": 200,
+  "score_interpretation": "Raw cosine reconstruction error aggregated over SAM foreground, not a probability.",
+  "evaluation_status": "Development comparison; this test cohort was previously inspected for PatchCore.",
+  "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-dinomaly-sam-lora-v4.pt",
+  "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672506005",
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
+}

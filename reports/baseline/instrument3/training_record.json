@@ -1,0 +1,19 @@
+{
+  "manifest_sha256": "645b2e9c92a074b54817c1ae6044682e7ef8b32e055efe58cd05d779145caee2",
+  "artifact_sha256": "70c1ab1bb2f6bfdfe32a77fee50de55fa057af15d00833c2841eae84d20ac812",
+  "train_sources": [
+    "instrument3/train/good/IMG_4558.png",
+    "instrument3/train/good/IMG_7123.JPG",
+    "instrument3/train/good/IMG_7124.JPG",
+    "instrument3/train/good/IMG_7127.JPG",
+    "instrument3/train/good/IMG_7128.JPG"
+  ],
+  "validation_results": [
+    {
+      "source_path": "instrument3/train/good/IMG_4560.png",
+      "score": 16.635913848876953
+    }
+  ],
+  "threshold": 16.635913848876957,
+  "reload_score_verified": true
+}

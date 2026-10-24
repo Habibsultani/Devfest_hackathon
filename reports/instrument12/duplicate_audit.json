@@ -1,0 +1,215 @@
+{
+  "linked_pairs": [
+    {
+      "first": "instrument12/test/blood/0010_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0011_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0011_IMG_1019.png",
+      "second": "instrument12/test/blood/0010_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0013_IMG_1020.png",
+      "second": "instrument12/test/blood/0012_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0014_IMG_1020.png",
+      "second": "instrument12/test/blood/0012_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0014_IMG_1020.png",
+      "second": "instrument12/test/blood/0013_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0016_IMG_1018.png",
+      "second": "instrument12/test/blood/0015_IMG_1018.png",
+      "phash_distance": 2,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0017_IMG_1018.png",
+      "second": "instrument12/test/blood/0015_IMG_1018.png",
+      "phash_distance": 2,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/blood/0017_IMG_1018.png",
+      "second": "instrument12/test/blood/0016_IMG_1018.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0010_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0011_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0023_IMG_1020.png",
+      "second": "instrument12/test/blood/0012_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0023_IMG_1020.png",
+      "second": "instrument12/test/blood/0013_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/corrosion/0023_IMG_1020.png",
+      "second": "instrument12/test/blood/0014_IMG_1020.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/crack/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/crack/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0010_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/crack/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0011_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/crack/0009_IMG_1019.png",
+      "second": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/cut/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/cut/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0010_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/cut/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0011_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/cut/0009_IMG_1019.png",
+      "second": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/cut/0009_IMG_1019.png",
+      "second": "instrument12/test/crack/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0010_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/blood/0011_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/corrosion/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/crack/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    },
+    {
+      "first": "instrument12/test/pores/0009_IMG_1019.png",
+      "second": "instrument12/test/cut/0009_IMG_1019.png",
+      "phash_distance": 0,
+      "same_source_id": true,
+      "identical_pixels": false
+    }
+  ],
+  "cross_split_linked_pairs": 0
+}

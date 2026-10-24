@@ -1,0 +1,23 @@
+{
+  "seed": 42,
+  "first_feasible_allocation_attempt": 1,
+  "train_normal": 12,
+  "validation_per_label": 4,
+  "test_per_label": 4,
+  "excluded_sources": [
+    "instrument12/train/good/IMG_4585.png",
+    "instrument12/train/good/IMG_4587.png",
+    "instrument12/train/good/IMG_7193.JPG",
+    "instrument12/train/good/IMG_7194.JPG",
+    "instrument12/train/good/IMG_7197.JPG",
+    "instrument12/train/good/IMG_7199.JPG",
+    "instrument12/train/good/IMG_7207.JPG",
+    "instrument12/test/blood/0009_IMG_1019.png",
+    "instrument12/test/blood/0012_IMG_1020.png",
+    "instrument12/test/blood/0017_IMG_1018.png",
+    "instrument12/test/corrosion/0009_IMG_1019.png",
+    "instrument12/test/corrosion/0023_IMG_1020.png",
+    "instrument12/test/pores/0009_IMG_1019.png"
+  ],
+  "selection_rule": "Source groups assigned first; sample without scores. Equal per-instrument quotas. No oversampling or duplicated images."
+}

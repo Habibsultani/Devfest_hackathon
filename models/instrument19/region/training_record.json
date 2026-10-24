@@ -1,0 +1,85 @@
+{
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "artifact_sha256": "6059422e5a5173482909207634e7a8089dd37e3cbff3c0fc5918950b029b367d",
+  "train_sources": [
+    "instrument19/train/good/IMG_4606.png",
+    "instrument19/train/good/IMG_4608.png",
+    "instrument19/train/good/IMG_4734.png",
+    "instrument19/train/good/IMG_4735.png",
+    "instrument19/train/good/IMG_4736.png",
+    "instrument19/train/good/IMG_4738.png",
+    "instrument19/train/good/IMG_4740.png",
+    "instrument19/train/good/IMG_4741.png",
+    "instrument19/train/good/IMG_4743.png",
+    "instrument19/train/good/IMG_4746.png",
+    "instrument19/train/good/IMG_4748.png",
+    "instrument19/train/good/IMG_4751.png"
+  ],
+  "validation_results": [
+    {
+      "source_path": "instrument19/test/blood/0019_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 19.5313720703125
+    },
+    {
+      "source_path": "instrument19/test/blood/0020_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 19.5313777923584
+    },
+    {
+      "source_path": "instrument19/test/crack/0013_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 19.5313777923584
+    },
+    {
+      "source_path": "instrument19/test/cut/0013_IMG_1043.png",
+      "group_id": "ed40ca1e43bf3ff6",
+      "label": 1,
+      "score": 19.5313777923584
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4607.png",
+      "group_id": "9ad45a4c22f825cf",
+      "label": 0,
+      "score": 17.983789443969727
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4745.png",
+      "group_id": "3cdd0ec8ae10d773",
+      "label": 0,
+      "score": 19.804351806640625
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4747.png",
+      "group_id": "2e50a727db4aa883",
+      "label": 0,
+      "score": 22.462646484375
+    },
+    {
+      "source_path": "instrument19/train/good/IMG_4749.png",
+      "group_id": "694303c30d31a23a",
+      "label": 0,
+      "score": 20.39792823791504
+    }
+  ],
+  "threshold": 19.5313720703125,
+  "validation_metrics": {
+    "TP": 4,
+    "FP": 3,
+    "TN": 1,
+    "FN": 0,
+    "recall": 1.0,
+    "precision": 0.5714285714285714,
+    "f1": 0.7272727272727273,
+    "false_positive_rate": 0.75,
+    "image_auroc": 0.25,
+    "normal_images": 4,
+    "defect_images": 4,
+    "total_images": 8,
+    "balanced_accuracy": 0.625
+  },
+  "reload_score_verified": true
+}

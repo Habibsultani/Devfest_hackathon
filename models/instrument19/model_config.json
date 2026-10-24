@@ -1,0 +1,52 @@
+{
+  "schema_version": 1,
+  "status": "trained",
+  "artifact_format": "torch-state-dict",
+  "artifact_path": "medinspect-instrument19-balanced-v2.pt",
+  "model_version": "medinspect-instrument19-balanced-v2",
+  "instrument_class": "instrument19",
+  "model": {
+    "backbone": "resnet18",
+    "layers": [
+      "layer2",
+      "layer3"
+    ],
+    "num_neighbors": 9
+  },
+  "preprocessing": {
+    "input_size": 256,
+    "resize": "letterbox-bilinear",
+    "padding": "white",
+    "normalization": "imagenet",
+    "exif_transpose": true
+  },
+  "threshold": 22.20443153381348,
+  "threshold_method": "balanced-accuracy",
+  "threshold_selection": "Maximize validation balanced accuracy; ties prefer lower false-positive rate, then smaller threshold.",
+  "threshold_quantile": null,
+  "seed": 42,
+  "coreset_sampling_ratio": 0.05,
+  "training_images": 12,
+  "validation_images": 8,
+  "training_patch_embeddings": 12288,
+  "memory_bank_shape": [
+    614,
+    384
+  ],
+  "manifest_sha256": "1c922be7a7fdf377330185718c3812279974aeaaaa665bcd098575f05639a9dc",
+  "cpu_threads": 4,
+  "dependencies": {
+    "torch": "2.8.0+cpu",
+    "torchvision": "0.23.0+cpu",
+    "anomalib": "2.2.0",
+    "timm": "1.0.20",
+    "Pillow": "11.3.0",
+    "numpy": "2.2.6"
+  },
+  "score_interpretation": "Raw PatchCore distance, not defect probability. Larger means more anomalous.",
+  "scope": "Research prototype for one declared class. No safety or sterility certification.",
+  "artifact_sha256": "f9a2e12adcea0ef9c383a843f3a4fbc60e57ae4551100dcc6983b126e36bf23e",
+  "artifact_download_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/download/untagged-4778898d407708d0667f/medinspect-instrument19-balanced-v2.pt",
+  "artifact_api_url": "https://api.github.com/repos/Habibsultani/Devfest_hackathon/releases/assets/672508923",
+  "artifact_release_url": "https://github.com/Habibsultani/Devfest_hackathon/releases/tag/untagged-4778898d407708d0667f"
+}
