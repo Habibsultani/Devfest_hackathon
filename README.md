@@ -24,7 +24,7 @@
 <p align="center">
   <strong>Find suspicious regions. Review the evidence. Keep a traceable decision.</strong><br>
   Cerrahi aletlerde yapay zekâ destekli görsel kalite kontrol.<br>
-  Built by <strong>Kabura</strong> for <strong>DevFest Samsun 2026</strong>.
+  Built by <strong>Kaboora</strong> for <strong>DevFest Samsun 2026</strong>.
 </p>
 
 ---
